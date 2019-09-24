@@ -1,0 +1,3 @@
+[submodule "libicclient"]
+	path = libicclient
+	url = git@github.com:darapsa/libicclient.git
