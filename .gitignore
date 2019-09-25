@@ -6,3 +6,8 @@
 *.swp
 Makefile
 moc_*
+CMakeCache.txt
+CMakeFiles
+CMakeLists.txt.user
+cmake_install.cmake
+*_autogen
