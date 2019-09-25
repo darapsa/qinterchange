@@ -10,7 +10,7 @@ namespace ICClient {
 		Q_OBJECT
 
 		public:
-			Client(char const* url, char const* certificate = NULL);
+			Client(char const* url, char const* certificate = nullptr);
 			~Client();
 
 		public slots:
