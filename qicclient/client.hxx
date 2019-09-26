@@ -26,7 +26,7 @@ namespace ICClient {
 			void logOut();
 
 		signals:
-			void gotProductAll(icclient_catalog*);
+			void gotProductAll(icclient_catalog* catalog);
 			void loggedIn(QString const& username);
 			void loggedOut();
 	};

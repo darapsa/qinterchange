@@ -13,10 +13,8 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
-	void productAll(icclient_catalog** catalogptr
-			, size_t (*callback)(void* contents
-				, size_t size, size_t nmemb
-				, void* userdata))
+	void Client::productAll(icclient_catalog** catalogptr
+			, size_t (*callback)(void*, size_t, size_t, void*))
 	{
 		icclient_product_all(catalogptr, callback);
 		emit gotProductAll(*catalogptr);
