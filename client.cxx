@@ -13,6 +13,13 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
+	void Client::productAll(icclient_catalog** catalogptr
+			, size_t (*callback)(void*, size_t, size_t, void*))
+	{
+		icclient_product_all(catalogptr, callback);
+		emit gotProductAll(*catalogptr);
+	}
+
 	void Client::logIn(QString const& username, QString const& password)
 	{
 		icclient_login(username.toLatin1().constData()
