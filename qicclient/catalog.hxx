@@ -2,7 +2,6 @@
 #define QICCLIENT_CATALOG_HXX
 
 #include <QAbstractListModel>
-#include <QLocale>
 #include <icclient/product.h>
 
 struct icclient_catalog;
@@ -21,23 +20,23 @@ namespace ICClient {
 					m_comment = QString{product->comment};
 				if (product->image)
 					m_image = QString{product->image};
-				QLocale locale;
-				if (product->price)
-					m_price = locale.toCurrencyString
-						(product->price, "Rp");
+				m_price = product->price;
 			}
 			QString const& sku() const { return m_sku; }
-			QString const& description() const { return m_description; }
+			QString const& description() const
+			{
+				return m_description;
+			}
 			QString const& comment() const { return m_comment; }
 			QString const& image() const { return m_image; }
-			QString const& price() const { return m_price; }
+			double price() const { return m_price; }
 
 		private:
 			QString m_sku;
 			QString m_description;
 			QString m_comment;
 			QString m_image;
-			QString m_price;
+			double m_price;
 	};
 
 	class Catalog : public QAbstractListModel
