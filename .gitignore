@@ -1,8 +1,7 @@
-*.a
-*.pro.user
-*.o
-*.qmake.stash
-*.so*
-*.swp
+libqicclient.a
 Makefile
 moc_*
+*.o
+qicclient.pro.user
+.qmake.stash
+*.swp
