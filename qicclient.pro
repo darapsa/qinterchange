@@ -3,9 +3,11 @@ TEMPLATE = lib
 CONFIG += staticlib
 
 HEADERS += \
+	qicclient/user.hxx \
 	qicclient/catalog.hxx \
 	qicclient/client.hxx
 SOURCES += \
+	user.cxx \
 	catalog.cxx \
 	client.cxx
 INCLUDEPATH += $$PWD/libicclient
