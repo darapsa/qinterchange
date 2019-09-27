@@ -16,7 +16,7 @@ namespace ICClient {
 			Client(char const* url, char const* certificate = nullptr);
 			~Client();
 
-			void productAll(icclient_catalog** catalogptr
+			void allProducts(icclient_catalog** catalogptr
 					, size_t (*callback)(void* contents
 						, size_t size, size_t nmemb
 						, void* userdata));
@@ -26,7 +26,7 @@ namespace ICClient {
 			void logOut();
 
 		signals:
-			void gotProductAll(icclient_catalog* catalog);
+			void gotAllProducts(icclient_catalog* catalog);
 			void loggedIn(QString const& username);
 			void loggedOut();
 	};
