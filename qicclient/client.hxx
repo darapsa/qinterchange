@@ -5,6 +5,7 @@
 #include <icclient/product.h>
 
 struct icclient_catalog;
+struct icclient_order;
 
 namespace ICClient {
 
@@ -22,12 +23,39 @@ namespace ICClient {
 						, void* userdata));
 
 		public slots:
-			void logIn(QString const& username, QString const& password);
+			/*
+			void order(QString const& sku);
+			void remove(unsigned int const& indices);
+			void checkout();
+			*/
+			void logIn(QString const& username
+					, QString const& password);
+		/*
+			void account(QString const& firstName
+					, QString const& lastName
+					, QString const& address1
+					, QString const& address2
+					, QString const& city
+					, QString const& state
+					, QString const& zip
+					, QString const& email
+					, QString const& phoneDay);
+			void changePassword(QString const& passwordOld
+					, QString const& password
+					, QString const& verify);
+					*/
 			void logOut();
+			/*
+			void newItem(QString const& description
+					, QString const& comment,
+					QString const& price
+					, QString const& imagePath);
+					*/
 
 		signals:
 			void gotAllProducts(icclient_catalog* catalog);
-			void loggedIn(QString const& username);
+			void ordered(icclient_order* order);
+			void loggedIn(QString const& userName);
 			void loggedOut();
 	};
 
