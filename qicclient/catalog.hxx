@@ -61,14 +61,14 @@ namespace ICClient {
 					, int role = Qt::DisplayRole
 					) const Q_DECL_OVERRIDE;
 
+		public slots:
+			void update(icclient_catalog* catalog);
+
 		signals:
 			void updated();
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
-
-		private slots:
-			void update(icclient_catalog* catalog);
 
 		private:
 			QList<Product> products;
