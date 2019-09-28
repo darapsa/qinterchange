@@ -1,5 +1,5 @@
-#ifndef QRTCLIENT_CLIENT_HXX
-#define QRTCLIENT_CLIENT_HXX
+#ifndef QICCLIENT_CLIENT_HXX
+#define QICCLIENT_CLIENT_HXX
 
 #include <QObject>
 #include <icclient/product.h>
@@ -61,4 +61,4 @@ namespace ICClient {
 
 }
 
-#endif // QRTCLIENT_CLIENT_HXX
+#endif // QICCLIENT_CLIENT_HXX
