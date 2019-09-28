@@ -14,11 +14,11 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
-	void Client::allProducts(icclient_catalog** catalogptr
-			, size_t (*callback)(void*, size_t, size_t, void*))
+	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
-		icclient_allproducts(catalogptr, callback);
-		emit gotAllProducts(*catalogptr);
+		icclient_catalog* catalog = nullptr;
+		icclient_allproducts(&catalog, handler);
+		emit gotAllProducts(catalog);
 	}
 
 	void Client::logIn(QString const& username, QString const& password)

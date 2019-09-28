@@ -17,8 +17,7 @@ namespace ICClient {
 			Client(char const* url, char const* certificate = nullptr);
 			~Client();
 
-			void allProducts(icclient_catalog** catalogptr
-					, size_t (*callback)(void* contents
+			void allProducts(size_t (*handler)(void* contents
 						, size_t size, size_t nmemb
 						, void* userdata));
 
