@@ -3,8 +3,8 @@
 
 #include <QObject>
 #include <icclient/product.h>
+#include "catalog.hxx"
 
-struct icclient_catalog;
 struct icclient_order;
 
 namespace ICClient {
@@ -17,7 +17,8 @@ namespace ICClient {
 			Client(char const* url, char const* certificate = nullptr);
 			~Client();
 
-			void allProducts(size_t (*handler)(void* contents
+			void allProducts(Catalog* catalog
+					, size_t (*handler)(void* contents
 						, size_t size, size_t nmemb
 						, void* userdata));
 
@@ -52,7 +53,6 @@ namespace ICClient {
 					*/
 
 		signals:
-			void gotAllProducts(icclient_catalog* catalog);
 			void ordered(icclient_order* order);
 			void loggedIn(QString const& userName);
 			void loggedOut();
