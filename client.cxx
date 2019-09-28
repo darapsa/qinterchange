@@ -14,13 +14,11 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
-	void Client::allProducts(Catalog* qCatalog, size_t (*handler)(void*, size_t
-				, size_t, void*))
+	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_catalog* catalog = nullptr;
 		icclient_allproducts(&catalog, handler);
-		if (catalog) qCatalog->update(catalog);
-		icclient_product_freecatalog(catalog);
+		emit gotAllProducts(catalog);
 	}
 
 	void Client::logIn(QString const& username, QString const& password)
