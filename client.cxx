@@ -17,7 +17,7 @@ namespace ICClient {
 	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_catalog* catalog = nullptr;
-		icclient_allproducts(&catalog, handler);
+		icclient_allproducts(handler, &catalog);
 		emit gotAllProducts(catalog);
 	}
 
