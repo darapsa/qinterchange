@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <icclient/client.h>
 #include "qicclient/client.hxx"
 
@@ -13,11 +14,11 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
-	void Client::productAll(icclient_catalog** catalogptr
-			, size_t (*callback)(void*, size_t, size_t, void*))
+	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
-		icclient_product_all(catalogptr, callback);
-		emit gotProductAll(*catalogptr);
+		icclient_catalog* catalog = nullptr;
+		icclient_allproducts(handler, &catalog);
+		emit gotAllProducts(catalog);
 	}
 
 	void Client::logIn(QString const& username, QString const& password)

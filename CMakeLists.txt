@@ -7,6 +7,8 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Core)
 
 add_library(${PROJECT_NAME} STATIC
+	user.cxx
+	catalog.cxx
 	client.cxx)
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core)
