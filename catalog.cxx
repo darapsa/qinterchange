@@ -51,9 +51,11 @@ namespace ICClient {
 
 	void Catalog::update(icclient_catalog* catalog)
 	{
-		if (catalog)
+		if (catalog) {
 			for (size_t i = 0; i < catalog->length; i++)
 				addProduct(Product{catalog->products[i]});
+			icclient_catalog_free(catalog);
+		}
 		emit updated();
 	}
 
