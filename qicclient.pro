@@ -4,6 +4,7 @@ CONFIG += staticlib
 
 HEADERS += \
 	qicclient/user.hxx \
+	qicclient/product.hxx \
 	qicclient/catalog.hxx \
 	qicclient/client.hxx
 SOURCES += \

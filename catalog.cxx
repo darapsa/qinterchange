@@ -1,3 +1,6 @@
+#include <cstddef>
+#include <icclient/catalog.h>
+#include <icclient/client.h>
 #include "qicclient/catalog.hxx"
 
 namespace ICClient {
@@ -16,16 +19,16 @@ namespace ICClient {
 
 		auto product = products[row];
 		switch (role) {
-			case SkuRole:
-				return product.sku();
-			case DescriptionRole:
-				return product.description();
-			case CommentRole:
-				return product.comment();
-			case ImageRole:
-				return product.image();
-			case PriceRole:
-				return product.price();
+			case Product::SkuRole:
+				return product.sku;
+			case Product::DescriptionRole:
+				return product.description;
+			case Product::CommentRole:
+				return product.comment;
+			case Product::ImageRole:
+				return product.image;
+			case Product::PriceRole:
+				return product.price;
 			default:
 				return QVariant();
 		}
@@ -34,11 +37,11 @@ namespace ICClient {
 	QHash<int, QByteArray> Catalog::roleNames() const
 	{
 		return QHash<int, QByteArray>{
-			{SkuRole, "sku"}
-			, {DescriptionRole, "description"}
-			, {CommentRole, "comment"}
-			, {ImageRole, "image"}
-			, {PriceRole, "price"}
+			{Product::SkuRole, "sku"}
+			, {Product::DescriptionRole, "description"}
+			, {Product::CommentRole, "comment"}
+			, {Product::ImageRole, "image"}
+			, {Product::PriceRole, "price"}
 		};
 	}
 
@@ -54,7 +57,7 @@ namespace ICClient {
 		if (catalog) {
 			for (size_t i = 0; i < catalog->length; i++)
 				addProduct(Product{catalog->products[i]});
-			icclient_catalog_free(catalog);
+			icclient_freecatalog(catalog);
 			emit updated();
 		}
 	}

@@ -2,7 +2,6 @@
 #define QICCLIENT_CLIENT_HXX
 
 #include <QObject>
-#include <icclient/product.h>
 
 struct icclient_catalog;
 struct icclient_order;
