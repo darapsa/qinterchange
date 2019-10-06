@@ -34,7 +34,11 @@ namespace ICClient {
 
 		public:
 			explicit Basket(QObject* parent = nullptr)
-				: QAbstractListModel{parent} {}
+				: QAbstractListModel{parent}
+				, m_subtotal{.0}
+				, m_shipping{.0}
+				, m_totalCost{.0}
+			{}
 
 			int rowCount(QModelIndex const& parent
 					= QModelIndex()) const Q_DECL_OVERRIDE;
