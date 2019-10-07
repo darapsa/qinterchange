@@ -2,7 +2,7 @@
 #define QICCLIENT_CATALOG_HXX
 
 #include <QAbstractListModel>
-#include <qicclient/product.hxx>
+#include "product.hxx"
 
 struct icclient_catalog;
 
