@@ -2,10 +2,9 @@
 #define QICCLIENT_CLIENT_HXX
 
 #include <QObject>
-#include <icclient/product.h>
 
 struct icclient_catalog;
-struct icclient_order;
+struct icclient_ord_order;
 
 namespace ICClient {
 
@@ -53,7 +52,7 @@ namespace ICClient {
 
 		signals:
 			void gotAllProducts(icclient_catalog* catalog);
-			void ordered(icclient_order* order);
+			void ordered(icclient_ord_order* order);
 			void loggedIn(QString const& userName);
 			void loggedOut();
 	};
