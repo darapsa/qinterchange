@@ -25,6 +25,7 @@ namespace ICClient {
 	{
 		icclient_ord_order* order = nullptr;
 		icclient_order(&order, sku.toLatin1().constData(), catalog);
+		emit ordered(order);
 	}
 
 	void Client::logIn(QString const& username, QString const& password)
