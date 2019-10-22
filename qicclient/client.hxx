@@ -19,10 +19,10 @@ namespace ICClient {
 			void allProducts(size_t (*handler)(void* contents
 						, size_t size, size_t nmemb
 						, void* userdata));
+			void order(QString const& sku, icclient_catalog* catalog);
 
 		public slots:
 			/*
-			void order(QString const& sku);
 			void remove(unsigned int const& indices);
 			void checkout();
 			*/

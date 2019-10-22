@@ -21,6 +21,12 @@ namespace ICClient {
 		emit gotAllProducts(catalog);
 	}
 
+	void Client::order(QString const& sku, icclient_catalog* catalog)
+	{
+		icclient_ord_order* order = nullptr;
+		icclient_order(&order, sku.toLatin1().constData(), catalog);
+	}
+
 	void Client::logIn(QString const& username, QString const& password)
 	{
 		icclient_login(username.toLatin1().constData()
