@@ -21,10 +21,11 @@ namespace ICClient {
 		emit gotAllProducts(catalog);
 	}
 
-	void Client::order(QString const& sku, icclient_catalog* catalog)
+	void Client::order(icclient_ord_order** orderPtr, QString const& sku
+			, icclient_catalog* catalog)
 	{
-		icclient_ord_order* order = nullptr;
-		icclient_order(&order, sku.toLatin1().constData(), catalog);
+		icclient_order(orderPtr, sku.toLatin1().constData(), catalog);
+		icclient_ord_order* order = *orderPtr;
 		emit ordered(order);
 	}
 
