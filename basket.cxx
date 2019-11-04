@@ -5,7 +5,7 @@ namespace ICClient {
 	int Basket::rowCount(QModelIndex const& parent) const
 	{
 		Q_UNUSED(parent)
-			return items.count();
+		return items.count();
 	}
 
 	QVariant Basket::data(QModelIndex const& index, int role) const
