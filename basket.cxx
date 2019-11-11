@@ -52,7 +52,6 @@ namespace ICClient {
 		if (order) {
 			for (size_t i = 0; i < order->nitems; i++)
 				addItem(Item{order->items[i]});
-			icclient_ord_free(order);
 			emit updated();
 		}
 	}
