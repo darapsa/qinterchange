@@ -52,7 +52,11 @@ namespace ICClient {
 		if (order) {
 			for (size_t i = 0; i < order->nitems; i++)
 				addItem(Item{order->items[i]});
+			m_subtotal = order->subtotal;
+			m_totalCost = order->total_cost;
 			emit updated();
+			emit subtotalChanged();
+			emit totalCostChanged();
 		}
 	}
 
