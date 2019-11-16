@@ -62,7 +62,6 @@ namespace ICClient {
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 
 		signals:
-			void updated();
 			void subtotalChanged();
 			void shippingChanged();
 			void totalCostChanged();
