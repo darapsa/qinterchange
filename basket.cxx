@@ -47,13 +47,17 @@ namespace ICClient {
 				, [&product](Item const& item) {
 				return product.sku == item.product.sku;
 				});
-		if (iterator == items.end()) {
-			beginInsertRows(QModelIndex(), rowCount(), rowCount());
-			items << item;
-			endInsertRows();
-			emit rowCountChanged();
-		} else
-			iterator->quantity++;
+		if (iterator != items.end()) {
+			auto index = items.indexOf(*iterator);
+			beginRemoveRows(QModelIndex(), index, index);
+			items.removeAt(index);
+			endRemoveRows();
+		}
+
+		beginInsertRows(QModelIndex(), rowCount(), rowCount());
+		items << item;
+		endInsertRows();
+		emit rowCountChanged();
 	}
 
 	void Basket::update(icclient_ord_order* order)

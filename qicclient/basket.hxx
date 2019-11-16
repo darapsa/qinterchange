@@ -22,6 +22,11 @@ namespace ICClient {
 
 		Product product;
 		unsigned int quantity;
+
+		bool operator==(Item const& item)
+		{
+			return product.sku == item.product.sku;
+		}
 	};
 
 	class Basket : public QAbstractListModel
