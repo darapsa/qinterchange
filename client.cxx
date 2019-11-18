@@ -29,11 +29,15 @@ namespace ICClient {
 		emit ordered(order);
 	}
 
-	void Client::logIn(QString const& username, QString const& password)
+	void Client::logIn(QString const& username, QString const& password
+			, QString const& successPage, QString const& nextPage
+			, QString const& failPage)
 	{
 		icclient_login(username.toLatin1().constData()
-				, password.toLatin1().constData(), nullptr, nullptr
-				, nullptr);
+				, password.toLatin1().constData()
+				, successPage.toLatin1().constData()
+				, nextPage.toLatin1().constData()
+				, failPage.toLatin1().constData());
 		emit loggedIn(username);
 	}
 

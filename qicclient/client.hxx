@@ -21,14 +21,17 @@ namespace ICClient {
 						, void* userdata));
 			void order(icclient_ord_order** orderPtr, QString const& sku
 					, icclient_catalog* catalog);
+			void logIn(QString const& username
+					, QString const& password
+					, QString const& successPage = nullptr
+					, QString const& nextPage = nullptr
+					, QString const& failPage = nullptr);
 
 		public slots:
 			/*
 			void remove(unsigned int const& indices);
 			void checkout();
 			*/
-			void logIn(QString const& username
-					, QString const& password);
 		/*
 			void account(QString const& firstName
 					, QString const& lastName
