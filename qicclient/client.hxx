@@ -5,6 +5,7 @@
 
 struct icclient_catalog;
 struct icclient_ord_order;
+struct icclient_user;
 
 namespace ICClient {
 
@@ -21,7 +22,9 @@ namespace ICClient {
 						, void* userdata));
 			void order(icclient_ord_order** orderPtr, QString const& sku
 					, icclient_catalog* catalog);
-			void logIn(QString const& username
+			void logIn(size_t (*handler)(void*, size_t, size_t, void*)
+					, icclient_user* user
+					, QString const& username
 					, QString const& password
 					, QString const& successPage = nullptr
 					, QString const& nextPage = nullptr

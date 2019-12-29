@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <icclient/client.h>
+#include <icclient/member.h>
 #include "qicclient/client.hxx"
 
 namespace ICClient {
@@ -29,11 +30,12 @@ namespace ICClient {
 		emit ordered(order);
 	}
 
-	void Client::logIn(QString const& username, QString const& password
-			, QString const& successPage, QString const& nextPage
-			, QString const& failPage)
+	void Client::logIn(size_t (*handler)(void*, size_t, size_t, void*)
+			, icclient_user* user, QString const& username
+			, QString const& password, QString const& successPage
+			, QString const& nextPage, QString const& failPage)
 	{
-		icclient_login(username.toLatin1().constData()
+		icclient_login(handler, user, username.toLatin1().constData()
 				, password.toLatin1().constData()
 				, successPage.toLatin1().constData()
 				, nextPage.toLatin1().constData()
