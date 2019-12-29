@@ -40,7 +40,7 @@ namespace ICClient {
 				, successPage.toLatin1().constData()
 				, nextPage.toLatin1().constData()
 				, failPage.toLatin1().constData());
-		emit loggedIn(username);
+		emit loggedIn(user);
 	}
 
 	void Client::logOut()

@@ -60,7 +60,7 @@ namespace ICClient {
 		signals:
 			void gotAllProducts(icclient_catalog* catalog);
 			void ordered(icclient_ord_order* order);
-			void loggedIn(QString const& userName);
+			void loggedIn(icclient_user* user);
 			void loggedOut();
 	};
 
