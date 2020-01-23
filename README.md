@@ -1,4 +1,4 @@
-# Qt Core wrapper for  [libicclient](../client)
+# Qt Core wrapper for [libicclient](http://darapsa.org/libicclient)
 
 # Building
 
