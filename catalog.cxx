@@ -57,7 +57,6 @@ namespace ICClient {
 		if (catalog) {
 			for (size_t i = 0; i < catalog->length; i++)
 				addProduct(Product{catalog->products[i]});
-			icclient_freecatalog(catalog);
 			emit updated();
 		}
 	}

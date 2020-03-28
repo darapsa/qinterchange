@@ -5,6 +5,7 @@
 
 struct icclient_catalog;
 struct icclient_ord_order;
+struct icclient_user;
 
 namespace ICClient {
 
@@ -19,15 +20,21 @@ namespace ICClient {
 			void allProducts(size_t (*handler)(void* contents
 						, size_t size, size_t nmemb
 						, void* userdata));
+			void order(icclient_ord_order** orderPtr, QString const& sku
+					, icclient_catalog* catalog);
+			void logIn(size_t (*handler)(void*, size_t, size_t, void*)
+					, icclient_user* user
+					, QString const& username
+					, QString const& password
+					, QString const& successPage = nullptr
+					, QString const& nextPage = nullptr
+					, QString const& failPage = nullptr);
 
 		public slots:
 			/*
-			void order(QString const& sku);
 			void remove(unsigned int const& indices);
 			void checkout();
 			*/
-			void logIn(QString const& username
-					, QString const& password);
 		/*
 			void account(QString const& firstName
 					, QString const& lastName
@@ -53,7 +60,7 @@ namespace ICClient {
 		signals:
 			void gotAllProducts(icclient_catalog* catalog);
 			void ordered(icclient_ord_order* order);
-			void loggedIn(QString const& userName);
+			void loggedIn(icclient_user* user);
 			void loggedOut();
 	};
 

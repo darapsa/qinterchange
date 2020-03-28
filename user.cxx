@@ -159,55 +159,55 @@ namespace ICClient {
 	void User::update(icclient_user* user)
 	{
 		if (user->username)
-			m_userName = user->username;
+			m_userName = QString{user->username};
 		else
 			m_userName = "";
 		if (user->usernick)
-			m_userNick = user->usernick;
+			m_userNick = QString{user->usernick};
 		else
 			m_userNick = "";
 		if (user->fname)
-			m_fName = user->fname;
+			m_fName = QString{user->fname};
 		else
 			m_fName = "";
 		if (user->lname)
-			m_lName = user->lname;
+			m_lName = QString{user->lname};
 		else
 			m_lName = "";
 		if (user->address1)
-			m_address1 = user->address1;
+			m_address1 = QString{user->address1};
 		else
 			m_address1 = "";
 		if (user->address2)
-			m_address2 = user->address2;
+			m_address2 = QString{user->address2};
 		else
 			m_address2 = "";
 		if (user->address3)
-			m_address3 = user->address3;
+			m_address3 = QString{user->address3};
 		else
 			m_address3 = "";
 		if (user->city)
-			m_city = user->city;
+			m_city = QString{user->city};
 		else
 			m_city = "";
 		if (user->state)
-			m_state = user->state;
+			m_state = QString{user->state};
 		else
 			m_state = "";
 		if (user->zip)
-			m_zip = user->zip;
+			m_zip = QString{user->zip};
 		else
 			m_zip = "";
 		if (user->country)
-			m_country = user->country;
+			m_country = QString{user->country};
 		else
 			m_country = "";
 		if (user->phone_day)
-			m_phoneDay = user->phone_day;
+			m_phoneDay = QString{user->phone_day};
 		else
 			m_phoneDay = "";
 		if (user->email)
-			m_email = user->email;
+			m_email = QString{user->email};
 		else
 			m_email = "";
 

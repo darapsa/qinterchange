@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "qicclient/basket.hxx"
 
 namespace ICClient {
@@ -5,7 +6,7 @@ namespace ICClient {
 	int Basket::rowCount(QModelIndex const& parent) const
 	{
 		Q_UNUSED(parent)
-			return items.count();
+		return items.count();
 	}
 
 	QVariant Basket::data(QModelIndex const& index, int role) const
@@ -41,6 +42,18 @@ namespace ICClient {
 
 	void Basket::addItem(Item const& item)
 	{
+		auto product = item.product;
+		auto iterator = std::find_if(items.begin(), items.end()
+				, [&product](Item const& item) {
+				return product.sku == item.product.sku;
+				});
+		if (iterator != items.end()) {
+			auto index = items.indexOf(*iterator);
+			beginRemoveRows(QModelIndex(), index, index);
+			items.removeAt(index);
+			endRemoveRows();
+		}
+
 		beginInsertRows(QModelIndex(), rowCount(), rowCount());
 		items << item;
 		endInsertRows();
@@ -52,8 +65,10 @@ namespace ICClient {
 		if (order) {
 			for (size_t i = 0; i < order->nitems; i++)
 				addItem(Item{order->items[i]});
-			icclient_ord_free(order);
-			emit updated();
+			m_subtotal = order->subtotal;
+			m_totalCost = order->total_cost;
+			emit subtotalChanged();
+			emit totalCostChanged();
 		}
 	}
 
