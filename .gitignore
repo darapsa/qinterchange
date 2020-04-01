@@ -3,6 +3,8 @@ libqicclient.a
 Makefile
 moc_*
 *.o
-qicclient.pro.user
+qicclient.pro.user*
 .qmake.stash
 *.swp
+Makefile.Arm*
+Makefile.X86*
