@@ -1,10 +1,4 @@
-html
-libqicclient.a
-Makefile
-moc_*
-*.o
-qicclient.pro.user*
-.qmake.stash
 *.swp
-Makefile.Arm*
-Makefile.X86*
+CMakeLists.txt.user
+build*
+html
