@@ -1,15 +1,4 @@
-*.o
 *.swp
-*moc*
-.cmake
-CMakeCache.txt
-CMakeFiles
 CMakeLists.txt.user
-Makefile
-android-build
-android_deployment_settings.json*
-cmake_install.cmake
+build*
 html
-install_manifest.txt
-libqicclient.a
-qicclient_autogen
