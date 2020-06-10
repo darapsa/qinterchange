@@ -12,20 +12,22 @@ namespace ICClient {
 			DescriptionRole,
 			CommentRole,
 			ImageRole,
-			PriceRole
+			PriceRole,
+			AuthorRole
 		};
 
-		Product(icclient_product* product)
-			: sku{product->sku}
-			, price{product->price}
+		Product(icclient_product* product) : sku{product->sku}
 		{
 			if (product->description)
-				description
-					= QString{product->description};
+				description = QString{product->description};
 			if (product->comment)
 				comment = QString{product->comment};
 			if (product->image)
 				image = QString{product->image};
+			if (product->price)
+				price = product->price;
+			if (product->author)
+				author = QString{product->author};
 		}
 
 		QString sku;
@@ -33,6 +35,7 @@ namespace ICClient {
 		QString comment;
 		QString image;
 		double price;
+		QString author;
 	};
 
 }

@@ -29,6 +29,8 @@ namespace ICClient {
 				return product.image;
 			case Product::PriceRole:
 				return product.price;
+			case Product::AuthorRole:
+				return product.author;
 			default:
 				return QVariant();
 		}
@@ -42,6 +44,7 @@ namespace ICClient {
 			, {Product::CommentRole, "comment"}
 			, {Product::ImageRole, "image"}
 			, {Product::PriceRole, "price"}
+			, {Product::AuthorRole, "author"}
 		};
 	}
 
