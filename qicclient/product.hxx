@@ -16,7 +16,9 @@ namespace ICClient {
 			AuthorRole
 		};
 
-		Product(icclient_product* product) : sku{product->sku}
+		Product(icclient_product* product) :
+			sku{product->sku},
+			price{product->price}
 		{
 			if (product->description)
 				description = QString{product->description};
@@ -24,8 +26,6 @@ namespace ICClient {
 				comment = QString{product->comment};
 			if (product->image)
 				image = QString{product->image};
-			if (product->price)
-				price = product->price;
 			if (product->author)
 				author = QString{product->author};
 		}
