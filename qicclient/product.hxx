@@ -18,10 +18,11 @@ namespace ICClient {
 		};
 
 		Product(icclient_product* product) :
-			sku{product->sku},
 			price{product->price},
 			weight{product->weight}
 		{
+			if (product->sku)
+				sku = QString{product->sku};
 			if (product->description)
 				description = QString{product->description};
 			if (product->comment)
