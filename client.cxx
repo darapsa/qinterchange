@@ -22,6 +22,15 @@ namespace ICClient {
 		emit gotAllProducts(catalog);
 	}
 
+	void Client::flyPage(size_t (*handler)(void* contents, size_t size,
+				size_t nmemb, void* userdata),
+			QString const& sku)
+	{
+		icclient_product* product = nullptr;
+		icclient_flypage(handler, &product, sku.toLatin1().constData());
+		emit gotFlyPage(product);
+	}
+
 	void Client::order(icclient_ord_order** orderPtr, QString const& sku
 			, icclient_catalog* catalog)
 	{
