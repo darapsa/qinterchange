@@ -29,6 +29,8 @@ namespace ICClient {
 				return product.image;
 			case Product::PriceRole:
 				return product.price;
+			case Product::WeightRole:
+				return product.weight;
 			case Product::AuthorRole:
 				return product.author;
 			default:
@@ -44,6 +46,7 @@ namespace ICClient {
 			, {Product::CommentRole, "comment"}
 			, {Product::ImageRole, "image"}
 			, {Product::PriceRole, "price"}
+			, {Product::WeightRole, "weight"}
 			, {Product::AuthorRole, "author"}
 		};
 	}

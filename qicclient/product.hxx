@@ -13,12 +13,14 @@ namespace ICClient {
 			CommentRole,
 			ImageRole,
 			PriceRole,
+			WeightRole,
 			AuthorRole
 		};
 
 		Product(icclient_product* product) :
 			sku{product->sku},
-			price{product->price}
+			price{product->price},
+			weight{product->weight}
 		{
 			if (product->description)
 				description = QString{product->description};
@@ -35,6 +37,7 @@ namespace ICClient {
 		QString comment;
 		QString image;
 		double price;
+		double weight;
 		QString author;
 	};
 
