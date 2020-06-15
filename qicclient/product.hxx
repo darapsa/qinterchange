@@ -13,6 +13,7 @@ namespace ICClient {
 			CommentRole,
 			ImageRole,
 			PriceRole,
+			ProdGroupRole,
 			WeightRole,
 			AuthorRole
 		};
@@ -29,6 +30,8 @@ namespace ICClient {
 				comment = QString{product->comment};
 			if (product->image)
 				image = QString{product->image};
+			if (product->prod_group)
+				prodGroup = QString{product->prod_group};
 			if (product->author)
 				author = QString{product->author};
 		}
@@ -38,6 +41,7 @@ namespace ICClient {
 		QString comment;
 		QString image;
 		double price;
+		QString prodGroup;
 		double weight;
 		QString author;
 	};
