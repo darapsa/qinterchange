@@ -35,6 +35,8 @@ namespace ICClient {
 				return product.weight;
 			case Product::AuthorRole:
 				return product.author;
+			case Product::CrossSellRole:
+				return product.crossSell;
 			default:
 				return QVariant();
 		}
@@ -51,6 +53,7 @@ namespace ICClient {
 			, {Product::ProdGroupRole, "prodGroup"}
 			, {Product::WeightRole, "weight"}
 			, {Product::AuthorRole, "author"}
+			, {Product::CrossSellRole, "crossSell"}
 		};
 	}
 
