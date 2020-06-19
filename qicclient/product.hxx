@@ -38,10 +38,10 @@ namespace ICClient {
 				prodGroup = QString{product->prod_group};
 			if (product->author)
 				author = QString{product->author};
-			if (product->cross_sell) {
-				auto cross_sell = product->cross_sell;
-				for (size_t i = 0; i < cross_sell->length; i++)
-					crossSell << QString{cross_sell->skus[i]};
+			if (product->crosssell) {
+				auto crosssell = product->crosssell;
+				for (size_t i = 0; i < crosssell->length; i++)
+					crossSell << QString{crosssell->skus[i]};
 			}
 		}
 
