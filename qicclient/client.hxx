@@ -29,8 +29,9 @@ namespace ICClient {
 						size_t size, size_t nmemb,
 						void* userdata),
 					QString const& sku);
-			void order(icclient_ord_order** orderPtr, QString const& sku
-					, icclient_catalog* catalog);
+			void order(icclient_ord_order** orderPtr,
+					QString const& sku,
+					icclient_catalog* catalog);
 			void logIn(size_t (*handler)(void*, size_t, size_t, void*)
 					, icclient_user* user
 					, QString const& username
