@@ -34,8 +34,8 @@ namespace ICClient {
 				thumb = QString{product->thumb};
 			if (product->image)
 				image = QString{product->image};
-			if (product->prod_group)
-				prodGroup = QString{product->prod_group};
+			if (product->prodgroup)
+				prodGroup = QString{product->prodgroup};
 			if (product->author)
 				author = QString{product->author};
 			if (product->crosssell) {
