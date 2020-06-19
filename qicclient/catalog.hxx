@@ -13,8 +13,8 @@ namespace ICClient {
 		Q_OBJECT
 
 		public:
-			explicit Catalog(QObject* parent = nullptr)
-				: QAbstractListModel{parent} {}
+			explicit Catalog(QObject* parent = nullptr) :
+				QAbstractListModel{parent} {}
 
 			int rowCount(QModelIndex const& parent
 					= QModelIndex()) const Q_DECL_OVERRIDE;
