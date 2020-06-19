@@ -25,6 +25,8 @@ namespace ICClient {
 				return product.description;
 			case Product::CommentRole:
 				return product.comment;
+			case Product::ThumbRole:
+				return product.thumb;
 			case Product::ImageRole:
 				return product.image;
 			case Product::PriceRole:
@@ -48,6 +50,7 @@ namespace ICClient {
 			{Product::SkuRole, "sku"}
 			, {Product::DescriptionRole, "description"}
 			, {Product::CommentRole, "comment"}
+			, {Product::ThumbRole, "thumb"}
 			, {Product::ImageRole, "image"}
 			, {Product::PriceRole, "price"}
 			, {Product::ProdGroupRole, "prodGroup"}

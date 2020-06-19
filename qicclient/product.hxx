@@ -11,6 +11,7 @@ namespace ICClient {
 			SkuRole = Qt::UserRole + 1,
 			DescriptionRole,
 			CommentRole,
+			ThumbRole,
 			ImageRole,
 			PriceRole,
 			ProdGroupRole,
@@ -29,6 +30,8 @@ namespace ICClient {
 				description = QString{product->description};
 			if (product->comment)
 				comment = QString{product->comment};
+			if (product->thumb)
+				thumb = QString{product->thumb};
 			if (product->image)
 				image = QString{product->image};
 			if (product->prod_group)
@@ -45,6 +48,7 @@ namespace ICClient {
 		QString sku;
 		QString description;
 		QString comment;
+		QString thumb;
 		QString image;
 		double price;
 		QString prodGroup;
