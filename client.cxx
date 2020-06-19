@@ -15,11 +15,20 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
+	void Client::results(size_t (*handler)(void* contents, size_t size,
+				size_t nmemb, void* userdata),
+			QString const& prodGroup)
+	{
+		icclient_catalog* catalog = nullptr;
+		icclient_results(handler, &catalog, prodGroup.toLatin1().constData());
+		emit gotResults(catalog);
+	}
+
 	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_catalog* catalog = nullptr;
 		icclient_allproducts(handler, &catalog);
-		emit gotAllProducts(catalog);
+		emit gotResults(catalog);
 	}
 
 	void Client::flyPage(size_t (*handler)(void* contents, size_t size,
