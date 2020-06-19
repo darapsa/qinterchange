@@ -32,13 +32,13 @@ namespace ICClient {
 			void order(icclient_ord_order** orderPtr,
 					QString const& sku,
 					icclient_catalog* catalog);
-			void logIn(size_t (*handler)(void*, size_t, size_t, void*)
-					, icclient_user* user
-					, QString const& username
-					, QString const& password
-					, QString const& successPage = nullptr
-					, QString const& nextPage = nullptr
-					, QString const& failPage = nullptr);
+			void logIn(size_t (*handler)(void*, size_t, size_t, void*),
+					icclient_user* user,
+					QString const& username,
+					QString const& password,
+					QString const& successPage = nullptr,
+					QString const& nextPage = nullptr,
+					QString const& failPage = nullptr);
 
 		public slots:
 			/*
