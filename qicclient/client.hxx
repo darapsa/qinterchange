@@ -23,8 +23,8 @@ namespace ICClient {
 						void* userdata),
 					QString const& prodGroup);
 			void allProducts(size_t (*handler)(void* contents,
-						size_t size, size_t nmemb
-						, void* userdata));
+						size_t size, size_t nmemb,
+						void* userdata));
 			void flyPage(size_t (*handler)(void* contents,
 						size_t size, size_t nmemb,
 						void* userdata),
