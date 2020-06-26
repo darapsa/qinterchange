@@ -1,14 +1,16 @@
 #ifndef QICCLIENT_CLIENT_HXX
 #define QICCLIENT_CLIENT_HXX
 
+#include <memory>
 #include <QObject>
 
 struct icclient_catalog;
-struct icclient_product;
 struct icclient_ord_order;
 struct icclient_user;
 
 namespace ICClient {
+
+	class Product;
 
 	class Client : public QObject
 	{
@@ -69,7 +71,7 @@ namespace ICClient {
 
 		signals:
 			void gotResults(icclient_catalog* catalog);
-			void gotFlyPage(icclient_product* product);
+			void gotFlyPage(std::shared_ptr<Product> product);
 			void ordered(icclient_ord_order* order);
 			void loggedIn(icclient_user* user);
 			void loggedOut();

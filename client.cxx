@@ -1,6 +1,8 @@
 #include <cstddef>
+#include <QObject>
 #include <icclient/client.h>
 #include <icclient/member.h>
+#include "qicclient/product.hxx"
 #include "qicclient/client.hxx"
 
 namespace ICClient {
@@ -37,7 +39,7 @@ namespace ICClient {
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(handler, &product, sku.toLatin1().constData());
-		emit gotFlyPage(product);
+		if (product) emit gotFlyPage(std::shared_ptr<Product>{new ICClient::Product{product}});
 	}
 
 	void Client::order(icclient_ord_order** orderPtr, QString const& sku
