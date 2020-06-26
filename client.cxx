@@ -39,7 +39,7 @@ namespace ICClient {
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(handler, &product, sku.toLatin1().constData());
-		if (product) emit gotFlyPage(std::shared_ptr<Product>{new ICClient::Product{product}});
+		if (product) emit gotFlyPage(std::shared_ptr<Product>{new Product{product}});
 	}
 
 	void Client::order(icclient_ord_order** orderPtr, QString const& sku
