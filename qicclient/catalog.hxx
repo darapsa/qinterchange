@@ -13,17 +13,13 @@ namespace ICClient {
 		Q_OBJECT
 
 		public:
-			explicit Catalog(QObject* parent = nullptr) :
-				QAbstractListModel{parent} {}
-
-			int rowCount(QModelIndex const& parent
-					= QModelIndex()) const Q_DECL_OVERRIDE;
-			QVariant data(const QModelIndex& index,
-					int role = Qt::DisplayRole
-				     ) const Q_DECL_OVERRIDE;
+			Catalog(icclient_catalog* catalog, QObject* parent = nullptr);
+			Catalog(QObject* parent = nullptr) : QAbstractListModel{parent} {}
+			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
+			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
 		public slots:
-			void update(icclient_catalog* catalog);
+			void update(Catalog* catalog);
 
 		signals:
 			void updated();

@@ -20,6 +20,7 @@ namespace ICClient {
 			CrossSellRole
 		};
 
+		Product() {}
 		Product(icclient_product* product) :
 			price{product->price},
 			weight{product->weight}

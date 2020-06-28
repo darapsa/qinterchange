@@ -1,8 +1,9 @@
 #include <cstddef>
+#include <memory>
 #include <QObject>
 #include <icclient/client.h>
 #include <icclient/member.h>
-#include "qicclient/product.hxx"
+#include "qicclient/catalog.hxx"
 #include "qicclient/client.hxx"
 
 namespace ICClient {
@@ -23,14 +24,14 @@ namespace ICClient {
 	{
 		icclient_catalog* catalog = nullptr;
 		icclient_results(handler, &catalog, prodGroup.toLatin1().constData());
-		emit gotResults(catalog);
+		if (catalog) emit gotResults(new Catalog{catalog});
 	}
 
 	void Client::allProducts(size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_catalog* catalog = nullptr;
 		icclient_allproducts(handler, &catalog);
-		emit gotResults(catalog);
+		if (catalog) emit gotResults(new Catalog{catalog});
 	}
 
 	void Client::flyPage(size_t (*handler)(void* contents, size_t size,
@@ -39,7 +40,7 @@ namespace ICClient {
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(handler, &product, sku.toLatin1().constData());
-		if (product) emit gotFlyPage(std::shared_ptr<Product>{new Product{product}});
+		if (product) emit gotFlyPage(shared_ptr<Product>{new Product{product}});
 	}
 
 	void Client::order(icclient_ord_order** orderPtr, QString const& sku

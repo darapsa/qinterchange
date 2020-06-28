@@ -5,6 +5,13 @@
 
 namespace ICClient {
 
+	Catalog::Catalog(icclient_catalog* catalog, QObject* parent) :
+		QAbstractListModel{parent}
+	{
+		for (size_t i = 0; i < catalog->length; i++)
+			addProduct(Product{catalog->products[i]});
+	}
+
 	int Catalog::rowCount(QModelIndex const& parent) const
 	{
 		Q_UNUSED(parent)
@@ -67,11 +74,22 @@ namespace ICClient {
 		endInsertRows();
 	}
 
-	void Catalog::update(icclient_catalog* catalog)
+	void Catalog::update(Catalog* catalog)
 	{
-		if (catalog) {
-			for (size_t i = 0; i < catalog->length; i++)
-				addProduct(Product{catalog->products[i]});
+		for (int i = 0; i < catalog->rowCount(); i++) {
+			auto index = catalog->index(i, 0);
+			Product product;
+			product.sku = catalog->data(index, Product::SkuRole).toString();
+			product.description = catalog->data(index, Product::DescriptionRole).toString();
+			product.comment = catalog->data(index, Product::CommentRole).toString();
+			product.thumb = catalog->data(index, Product::ThumbRole).toString();
+			product.image = catalog->data(index, Product::ImageRole).toString();
+			product.price = catalog->data(index, Product::PriceRole).toDouble();
+			product.prodGroup = catalog->data(index, Product::ProdGroupRole).toString();
+			product.weight = catalog->data(index, Product::WeightRole).toDouble();
+			product.author = catalog->data(index, Product::AuthorRole).toString();
+			product.crossSell = catalog->data(index, Product::CrossSellRole).toStringList();
+			addProduct(product);
 			emit updated();
 		}
 	}
