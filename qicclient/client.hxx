@@ -3,7 +3,6 @@
 
 #include <QObject>
 
-struct icclient_ord_order;
 struct icclient_user;
 
 namespace ICClient {
@@ -11,6 +10,7 @@ namespace ICClient {
 	using std::shared_ptr;
 	class Catalog;
 	class Product;
+	class Basket;
 
 	class Client : public QObject
 	{
@@ -31,9 +31,8 @@ namespace ICClient {
 						size_t size, size_t nmemb,
 						void* userdata),
 					QString const& sku);
-			void order(icclient_ord_order** orderPtr,
-					QString const& sku,
-					icclient_catalog* catalog);
+			void order(QString const& sku, Catalog const& catalog,
+					Basket& order);
 			void logIn(size_t (*handler)(void*, size_t, size_t, void*),
 					icclient_user* user,
 					QString const& username,
@@ -72,7 +71,6 @@ namespace ICClient {
 		signals:
 			void gotResults(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
-			void ordered(icclient_ord_order* order);
 			void loggedIn(icclient_user* user);
 			void loggedOut();
 	};

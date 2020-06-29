@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <icclient/ord.h>
 #include "qicclient/basket.hxx"
 
 namespace ICClient {
@@ -58,18 +59,11 @@ namespace ICClient {
 		items << item;
 		endInsertRows();
 		emit rowCountChanged();
-	}
 
-	void Basket::update(icclient_ord_order* order)
-	{
-		if (order) {
-			for (size_t i = 0; i < order->nitems; i++)
-				addItem(Item{order->items[i]});
-			m_subtotal = order->subtotal;
-			m_totalCost = order->total_cost;
-			emit subtotalChanged();
-			emit totalCostChanged();
-		}
+		/*
+		m_subtotal = order->subtotal;
+		m_totalCost = order->total_cost;
+		*/
 	}
 
 }

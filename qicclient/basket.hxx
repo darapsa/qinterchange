@@ -54,9 +54,7 @@ namespace ICClient {
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
-
-		public slots:
-			void update(icclient_ord_order* order);
+			icclient_ord_order* c_order() { return order; }
 
 		signals:
 			void rowCountChanged();
@@ -73,6 +71,7 @@ namespace ICClient {
 			double m_subtotal;
 			double m_shipping;
 			double m_totalCost;
+			icclient_ord_order* order;
 	};
 
 }

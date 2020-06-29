@@ -6,6 +6,7 @@
 namespace ICClient {
 
 	Catalog::Catalog(icclient_catalog* catalog, QObject* parent) :
+		catalog{catalog},
 		QAbstractListModel{parent}
 	{
 		for (size_t i = 0; i < catalog->length; i++)
@@ -90,8 +91,9 @@ namespace ICClient {
 			product.author = catalog->data(index, Product::AuthorRole).toString();
 			product.crossSell = catalog->data(index, Product::CrossSellRole).toStringList();
 			addProduct(product);
-			emit updated();
 		}
+		this->catalog = const_cast<icclient_catalog*>(catalog->c_catalog());
+		emit updated();
 	}
 
 }

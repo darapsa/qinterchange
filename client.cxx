@@ -4,6 +4,7 @@
 #include <icclient/client.h>
 #include <icclient/member.h>
 #include "qicclient/catalog.hxx"
+#include "qicclient/basket.hxx"
 #include "qicclient/client.hxx"
 
 namespace ICClient {
@@ -43,12 +44,11 @@ namespace ICClient {
 		if (product) emit gotFlyPage(shared_ptr<Product>{new Product{product}});
 	}
 
-	void Client::order(icclient_ord_order** orderPtr, QString const& sku
-			, icclient_catalog* catalog)
+	void Client::order(QString const& sku, Catalog const& catalog, Basket& order)
 	{
-		icclient_order(orderPtr, sku.toLatin1().constData(), catalog);
-		icclient_ord_order* order = *orderPtr;
-		emit ordered(order);
+		auto c_order = order.c_order();
+		icclient_order(sku.toLatin1().constData(), catalog.c_catalog(),
+				&c_order);
 	}
 
 	void Client::logIn(size_t (*handler)(void*, size_t, size_t, void*)
