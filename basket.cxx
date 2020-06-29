@@ -59,11 +59,17 @@ namespace ICClient {
 		items << item;
 		endInsertRows();
 		emit rowCountChanged();
+	}
 
-		/*
+	void Basket::update(icclient_ord_order* order)
+	{
+		if (order)
+			for (size_t i = 0; i < order->nitems; i++)
+				addItem(Item{order->items[i]});
 		m_subtotal = order->subtotal;
+		emit subtotalChanged();
 		m_totalCost = order->total_cost;
-		*/
+		emit totalCostChanged();
 	}
 
 }

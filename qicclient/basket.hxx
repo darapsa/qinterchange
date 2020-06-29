@@ -55,6 +55,7 @@ namespace ICClient {
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
 			icclient_ord_order* c_order() { return order; }
+			void update(icclient_ord_order* order);
 
 		signals:
 			void rowCountChanged();
