@@ -40,7 +40,7 @@ namespace ICClient {
 			QString const& sku)
 	{
 		icclient_product* product = nullptr;
-		icclient_flypage(handler, &product, sku.toLatin1().constData());
+		icclient_flypage(sku.toLatin1().constData(), handler, &product);
 		if (product) emit gotFlyPage(shared_ptr<Product>{new Product{product}});
 	}
 
