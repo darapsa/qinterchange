@@ -17,22 +17,45 @@ namespace ICClient {
 		Q_OBJECT
 
 		public:
+			/*!
+			 * \brief Constructor.
+			 * \param url Server root URL.
+			 * \param certificate Path to the CA certificate file.
+			 */
 			Client(char const* url, char const* certificate = nullptr);
 			~Client();
 
-			void results(size_t (*handler)(void* contents,
-						size_t size, size_t nmemb,
-						void* userdata),
-					QString const& prodGroup);
-			void allProducts(size_t (*handler)(void* contents,
-						size_t size, size_t nmemb,
-						void* userdata));
-			void flyPage(size_t (*handler)(void* contents,
-						size_t size, size_t nmemb,
-						void* userdata),
-					QString const& sku);
+			/*!
+			 * \brief For fetching products that belong a specific group.
+			 * \param prodGroup The name of the product group.
+			 * \param handler A pointer to a cURL write function callback.
+			 */
+			void results(QString const& prodGroup,
+					size_t (*handler)(void*, size_t, size_t, void*));
+
+			/*!
+			 * \brief For fetching data about all active products.
+			 * \param handler A pointer to a cURL write function callback.
+			 */
+			void allProducts(size_t (*handler)(void*, size_t, size_t, void*));
+
+			/*!
+			 * \brief For fetching data about a specific product.
+			 * \param sku The SKU of the item to order.
+			 * \param handler A pointer to a cURL write function callback.
+			 */
+			void flyPage(QString const& sku,
+					size_t (*handler)(void*, size_t, size_t, void*));
+
+			/*!
+			 * \brief For putting an item to a cart.
+			 * \param sku The SKU of the item to order.
+			 * \param catalog The catalog from which the item is.
+			 * \param order The order.
+			 */
 			void order(QString const& sku, Catalog const& catalog,
 					Basket& order);
+
 			void logIn(size_t (*handler)(void*, size_t, size_t, void*),
 					icclient_user* user,
 					QString const& username,

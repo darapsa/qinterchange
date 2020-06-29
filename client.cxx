@@ -19,9 +19,8 @@ namespace ICClient {
 		icclient_cleanup();
 	}
 
-	void Client::results(size_t (*handler)(void* contents, size_t size,
-				size_t nmemb, void* userdata),
-			QString const& prodGroup)
+	void Client::results(QString const& prodGroup,
+			size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_catalog* catalog = nullptr;
 		icclient_results(prodGroup.toLatin1().constData(), handler, &catalog);
@@ -35,9 +34,8 @@ namespace ICClient {
 		if (catalog) emit gotResults(new Catalog{catalog});
 	}
 
-	void Client::flyPage(size_t (*handler)(void* contents, size_t size,
-				size_t nmemb, void* userdata),
-			QString const& sku)
+	void Client::flyPage(QString const& sku,
+			size_t (*handler)(void*, size_t, size_t, void*))
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(sku.toLatin1().constData(), handler, &product);
