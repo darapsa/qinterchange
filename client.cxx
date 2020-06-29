@@ -24,7 +24,7 @@ namespace ICClient {
 			QString const& prodGroup)
 	{
 		icclient_catalog* catalog = nullptr;
-		icclient_results(handler, &catalog, prodGroup.toLatin1().constData());
+		icclient_results(prodGroup.toLatin1().constData(), handler, &catalog);
 		if (catalog) emit gotResults(new Catalog{catalog});
 	}
 
