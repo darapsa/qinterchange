@@ -17,7 +17,7 @@ namespace ICClient {
 			Catalog(QObject* parent = nullptr) : QAbstractListModel{parent} {}
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-			icclient_catalog const* c_catalog() const { return catalog; }
+			icclient_catalog const* constData() const { return m_data; }
 
 		public slots:
 			void update(Catalog* catalog);
@@ -31,7 +31,7 @@ namespace ICClient {
 		private:
 			void addProduct(Product const& product);
 			QList<Product> products;
-			icclient_catalog* catalog;
+			icclient_catalog* m_data;
 	};
 
 }
