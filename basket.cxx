@@ -63,13 +63,15 @@ namespace ICClient {
 
 	void Basket::setData(icclient_ord_order* order)
 	{
-		if (order)
+		if (order) {
+			this->m_data = order;
 			for (size_t i = 0; i < order->nitems; i++)
 				addItem(Item{order->items[i]});
-		m_subtotal = order->subtotal;
-		emit subtotalChanged();
-		m_totalCost = order->total_cost;
-		emit totalCostChanged();
+			m_subtotal = order->subtotal;
+			emit subtotalChanged();
+			m_totalCost = order->total_cost;
+			emit totalCostChanged();
+		}
 	}
 
 }
