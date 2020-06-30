@@ -61,7 +61,7 @@ namespace ICClient {
 		emit rowCountChanged();
 	}
 
-	void Basket::update(icclient_ord_order* order)
+	void Basket::setData(icclient_ord_order* order)
 	{
 		if (order)
 			for (size_t i = 0; i < order->nitems; i++)
