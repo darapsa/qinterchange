@@ -40,6 +40,7 @@ namespace ICClient {
 		public:
 			explicit Basket(QObject* parent = nullptr) :
 				QAbstractListModel{parent},
+				m_data{nullptr},
 				m_subtotal{.0},
 				m_shipping{.0},
 				m_totalCost{.0}
