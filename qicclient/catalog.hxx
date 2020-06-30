@@ -6,7 +6,7 @@
 
 struct icclient_catalog;
 
-namespace ICClient {
+namespace QICClient {
 
 	class Catalog : public QAbstractListModel
 	{

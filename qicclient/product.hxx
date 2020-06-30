@@ -3,7 +3,7 @@
 
 #include <icclient/product.h>
 
-namespace ICClient {
+namespace QICClient {
 
 	struct Product
 	{

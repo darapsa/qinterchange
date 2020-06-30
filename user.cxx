@@ -2,7 +2,7 @@
 #include <icclient/client.h>
 #include "qicclient/user.hxx"
 
-namespace ICClient {
+namespace QICClient {
 
 	void User::setUserName(QString const& UserName)
 	{

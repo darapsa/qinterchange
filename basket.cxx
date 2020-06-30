@@ -2,7 +2,7 @@
 #include <icclient/ord.h>
 #include "qicclient/basket.hxx"
 
-namespace ICClient {
+namespace QICClient {
 
 	int Basket::rowCount(QModelIndex const& parent) const
 	{

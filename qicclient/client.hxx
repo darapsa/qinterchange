@@ -5,7 +5,7 @@
 
 struct icclient_user;
 
-namespace ICClient {
+namespace QICClient {
 
 	using std::shared_ptr;
 	class Catalog;

@@ -6,7 +6,7 @@
 
 struct icclient_user;
 
-namespace ICClient {
+namespace QICClient {
 
 	class User : public QObject
 	{

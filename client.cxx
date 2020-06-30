@@ -7,7 +7,7 @@
 #include "qicclient/basket.hxx"
 #include "qicclient/client.hxx"
 
-namespace ICClient {
+namespace QICClient {
 
 	Client::Client(char const* url, char const* certificate)
 	{

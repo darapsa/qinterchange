@@ -3,7 +3,7 @@
 #include <icclient/client.h>
 #include "qicclient/catalog.hxx"
 
-namespace ICClient {
+namespace QICClient {
 
 	Catalog::Catalog(icclient_catalog* catalog, QObject* parent) :
 		m_data{catalog},

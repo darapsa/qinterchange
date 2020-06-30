@@ -7,7 +7,7 @@
 
 struct icclient_ord_order;
 
-namespace ICClient {
+namespace QICClient {
 
 	struct Item
 	{
