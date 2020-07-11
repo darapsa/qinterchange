@@ -156,58 +156,58 @@ namespace QICClient {
 		}
 	}
 
-	void User::update(icclient_user* user)
+	void User::update(icclient_member* member)
 	{
-		if (user->username)
-			m_userName = QString{user->username};
+		if (member->username)
+			m_userName = QString{member->username};
 		else
 			m_userName = "";
-		if (user->usernick)
-			m_userNick = QString{user->usernick};
+		if (member->usernick)
+			m_userNick = QString{member->usernick};
 		else
 			m_userNick = "";
-		if (user->fname)
-			m_fName = QString{user->fname};
+		if (member->fname)
+			m_fName = QString{member->fname};
 		else
 			m_fName = "";
-		if (user->lname)
-			m_lName = QString{user->lname};
+		if (member->lname)
+			m_lName = QString{member->lname};
 		else
 			m_lName = "";
-		if (user->address1)
-			m_address1 = QString{user->address1};
+		if (member->address1)
+			m_address1 = QString{member->address1};
 		else
 			m_address1 = "";
-		if (user->address2)
-			m_address2 = QString{user->address2};
+		if (member->address2)
+			m_address2 = QString{member->address2};
 		else
 			m_address2 = "";
-		if (user->address3)
-			m_address3 = QString{user->address3};
+		if (member->address3)
+			m_address3 = QString{member->address3};
 		else
 			m_address3 = "";
-		if (user->city)
-			m_city = QString{user->city};
+		if (member->city)
+			m_city = QString{member->city};
 		else
 			m_city = "";
-		if (user->state)
-			m_state = QString{user->state};
+		if (member->state)
+			m_state = QString{member->state};
 		else
 			m_state = "";
-		if (user->zip)
-			m_zip = QString{user->zip};
+		if (member->zip)
+			m_zip = QString{member->zip};
 		else
 			m_zip = "";
-		if (user->country)
-			m_country = QString{user->country};
+		if (member->country)
+			m_country = QString{member->country};
 		else
 			m_country = "";
-		if (user->phone_day)
-			m_phoneDay = QString{user->phone_day};
+		if (member->phone_day)
+			m_phoneDay = QString{member->phone_day};
 		else
 			m_phoneDay = "";
-		if (user->email)
-			m_email = QString{user->email};
+		if (member->email)
+			m_email = QString{member->email};
 		else
 			m_email = "";
 

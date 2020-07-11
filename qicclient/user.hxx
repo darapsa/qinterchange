@@ -4,7 +4,7 @@
 #include <QObject>
 #include <icclient/member.h>
 
-struct icclient_user;
+struct icclient_member;
 
 namespace QICClient {
 
@@ -97,7 +97,7 @@ namespace QICClient {
 			void setEmail(QString const& email);
 
 		public slots:
-			void update(icclient_user* user);
+			void update(icclient_member* member);
 
 		signals:
 			void userNameChanged();

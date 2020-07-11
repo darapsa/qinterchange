@@ -49,17 +49,17 @@ namespace QICClient {
 		order.setData(c_order);
 	}
 
-	void Client::logIn(size_t (*handler)(void*, size_t, size_t, void*)
-			, icclient_user* user, QString const& username
-			, QString const& password, QString const& successPage
-			, QString const& nextPage, QString const& failPage)
+	void Client::logIn(size_t (*handler)(void*, size_t, size_t, void*),
+			icclient_member* member, QString const& username,
+			QString const& password, QString const& successPage,
+			QString const& nextPage, QString const& failPage)
 	{
-		icclient_login(handler, user, username.toLatin1().constData()
-				, password.toLatin1().constData()
-				, successPage.toLatin1().constData()
-				, nextPage.toLatin1().constData()
-				, failPage.toLatin1().constData());
-		emit loggedIn(user);
+		icclient_login(handler, member, username.toLatin1().constData(),
+				password.toLatin1().constData(),
+				successPage.toLatin1().constData(),
+				nextPage.toLatin1().constData(),
+				failPage.toLatin1().constData());
+		emit loggedIn(member);
 	}
 
 	void Client::logOut()

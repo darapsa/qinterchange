@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-struct icclient_user;
+struct icclient_member;
 
 namespace QICClient {
 
@@ -57,7 +57,7 @@ namespace QICClient {
 					Basket& order);
 
 			void logIn(size_t (*handler)(void*, size_t, size_t, void*),
-					icclient_user* user,
+					icclient_member* member,
 					QString const& username,
 					QString const& password,
 					QString const& successPage = nullptr,
@@ -94,7 +94,7 @@ namespace QICClient {
 		signals:
 			void gotResults(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
-			void loggedIn(icclient_user* user);
+			void loggedIn(icclient_member* member);
 			void loggedOut();
 	};
 
