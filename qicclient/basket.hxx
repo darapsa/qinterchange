@@ -5,8 +5,6 @@
 #include <icclient/ord.h>
 #include "product.hxx"
 
-struct icclient_ord_order;
-
 namespace QICClient {
 
 	struct Item
@@ -52,8 +50,8 @@ namespace QICClient {
 					int role = Qt::DisplayRole
 				     ) const Q_DECL_OVERRIDE;
 
-			icclient_ord_order* data() { return m_data; }
-			void setData(icclient_ord_order* order);
+			struct icclient_ord_order* data() { return m_data; }
+			void setData(struct icclient_ord_order* order);
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
@@ -70,7 +68,7 @@ namespace QICClient {
 		private:
 			void addItem(Item const& item);
 			QList<Item> items;
-			icclient_ord_order* m_data;
+			struct icclient_ord_order* m_data;
 			double m_subtotal;
 			double m_shipping;
 			double m_totalCost;

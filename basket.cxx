@@ -61,7 +61,7 @@ namespace QICClient {
 		emit rowCountChanged();
 	}
 
-	void Basket::setData(icclient_ord_order* order)
+	void Basket::setData(struct icclient_ord_order* order)
 	{
 		if (order) {
 			this->m_data = order;

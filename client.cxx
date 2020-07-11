@@ -45,7 +45,8 @@ namespace QICClient {
 	void Client::order(QString const& sku, Catalog const& catalog, Basket& order)
 	{
 		auto c_order = order.data();
-		icclient_order(sku.toLatin1().constData(), catalog.constData(), &c_order);
+		icclient_ord_order(sku.toLatin1().constData(), catalog.constData(),
+				&c_order);
 		order.setData(c_order);
 	}
 
