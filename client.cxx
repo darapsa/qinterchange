@@ -54,7 +54,7 @@ namespace QICClient {
 			QString const& password, QString const& successPage,
 			QString const& nextPage, QString const& failPage)
 	{
-		icclient_login(handler, member, username.toLatin1().constData(),
+		icclient_member_login(handler, member, username.toLatin1().constData(),
 				password.toLatin1().constData(),
 				successPage.toLatin1().constData(),
 				nextPage.toLatin1().constData(),
@@ -64,7 +64,7 @@ namespace QICClient {
 
 	void Client::logOut()
 	{
-		icclient_logout();
+		icclient_member_logout();
 		emit loggedOut();
 	}
 
