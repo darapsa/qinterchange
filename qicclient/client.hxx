@@ -56,14 +56,6 @@ namespace QICClient {
 			void order(QString const& sku, Catalog const& catalog,
 					Basket& order);
 
-			void logIn(size_t (*handler)(void*, size_t, size_t, void*),
-					icclient_member* member,
-					QString const& username,
-					QString const& password,
-					QString const& successPage = nullptr,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr);
-
 		public slots:
 			/*
 			void remove(unsigned int const& indices);
@@ -83,7 +75,6 @@ namespace QICClient {
 					, QString const& password
 					, QString const& verify);
 					*/
-			void logOut();
 			/*
 			void newItem(QString const& description
 					, QString const& comment,
@@ -94,8 +85,6 @@ namespace QICClient {
 		signals:
 			void gotResults(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
-			void loggedIn(icclient_member* member);
-			void loggedOut();
 	};
 
 }

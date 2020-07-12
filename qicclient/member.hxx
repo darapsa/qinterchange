@@ -1,5 +1,5 @@
-#ifndef QICCLIENT_USER_HXX
-#define QICCLIENT_USER_HXX
+#ifndef QICCLIENT_MEMBER_HXX
+#define QICCLIENT_MEMBER_HXX
 
 #include <QObject>
 #include <icclient/member.h>
@@ -8,7 +8,7 @@ struct icclient_member;
 
 namespace QICClient {
 
-	class User : public QObject
+	class Member : public QObject
 	{
 		Q_OBJECT
 		Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
@@ -32,29 +32,38 @@ namespace QICClient {
 		Q_PROPERTY(QString email READ email WRITE setEmail NOTIFY emailChanged)
 
 		public:
-			explicit User(QObject* parent = nullptr)
-				: QObject{parent}
-				, m_userName{""}
-				, m_userNick{""}
-				, m_password{""}
-				, m_expiration{""}
-				, m_acl{""}
-				, m_modTime{""}
-				, m_sNickName{""}
-				, m_company{""}
-				, m_fName{""}
-				, m_lName{""}
-				, m_address1{""}
-				, m_address2{""}
-				, m_address3{""}
-				, m_city{""}
-				, m_state{""}
-				, m_zip{""}
-				, m_country{""}
-				, m_phoneDay{""}
-				, m_email{""}
+			explicit Member(QObject* parent = nullptr) :
+				QObject{parent},
+				m_userName{""},
+				m_userNick{""},
+				m_password{""},
+				m_expiration{""},
+				m_acl{""},
+				m_modTime{""},
+				m_sNickName{""},
+				m_company{""},
+				m_fName{""},
+				m_lName{""},
+				m_address1{""},
+				m_address2{""},
+				m_address3{""},
+				m_city{""},
+				m_state{""},
+				m_zip{""},
+				m_country{""},
+				m_phoneDay{""},
+				m_email{""},
+				m_data{nullptr}
 			{}
-			~User() {}
+			~Member() {}
+
+			void logIn(QString const& username, QString const& password,
+					QString const& successPage = nullptr,
+					QString const& nextPage = nullptr,
+					QString const& failPage = nullptr,
+					size_t (*handler)(void*, size_t, size_t,
+						void*) = nullptr);
+			void logOut();
 
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }
@@ -95,9 +104,7 @@ namespace QICClient {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
-
-		public slots:
-			void update(icclient_member* member);
+			void setData(icclient_member* member);
 
 		signals:
 			void userNameChanged();
@@ -140,8 +147,9 @@ namespace QICClient {
 			QString m_country;
 			QString m_phoneDay;
 			QString m_email;
+			icclient_member* m_data;
 	};
 
 }
 
-#endif // QICCLIENT_USER_HXX
+#endif // QICCLIENT_MEMBER_HXX
