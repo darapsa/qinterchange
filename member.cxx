@@ -9,12 +9,145 @@ namespace QICClient {
 			QString const& failPage,
 			size_t (*handler)(void*, size_t, size_t, void*))
 	{
-		setData(icclient_member_login(username.toLatin1().constData(),
-					password.toLatin1().constData(),
-					successPage.toLatin1().constData(),
-					nextPage.toLatin1().constData(),
-					failPage.toLatin1().constData(),
-					handler));
+		m_data = icclient_member_login(username.toLatin1().constData(),
+				password.toLatin1().constData(),
+				successPage.toLatin1().constData(),
+				nextPage.toLatin1().constData(),
+				failPage.toLatin1().constData(),
+				handler);
+		if (m_data->username && m_userName != m_data->username) {
+			m_userName = QString{m_data->username};
+			emit userNameChanged();
+		} else if (m_userName != "") {
+			m_userName = "";
+			emit userNameChanged();
+		}
+		if (m_data->usernick && m_userNick != m_data->usernick) {
+			m_userNick = QString{m_data->usernick};
+			emit userNickChanged();
+		} else if (m_userNick != "") {
+			m_userNick = "";
+			emit userNickChanged();
+		}
+		if (m_data->password && m_password != m_data->password) {
+			m_password = QString{m_data->password};
+			emit passwordChanged();
+		} else if (m_password != "") {
+			m_password = "";
+			emit passwordChanged();
+		}
+		if (m_data->expiration && m_expiration != m_data->expiration) {
+			m_expiration = QString{m_data->expiration};
+			emit expirationChanged();
+		} else if (m_expiration != "") {
+			m_expiration = "";
+			emit expirationChanged();
+		}
+		if (m_data->acl && m_acl != m_data->acl) {
+			m_acl = QString{m_data->acl};
+			emit aclChanged();
+		} else if (m_acl != "") {
+			m_acl = "";
+			emit aclChanged();
+		}
+		if (m_data->mod_time && m_modTime != m_data->mod_time) {
+			m_modTime = QString{m_data->mod_time};
+			emit modTimeChanged();
+		} else if (m_modTime != "") {
+			m_modTime = "";
+			emit modTimeChanged();
+		}
+		if (m_data->s_nickname && m_sNickName != m_data->s_nickname) {
+			m_sNickName = QString{m_data->s_nickname};
+			emit sNickNameChanged();
+		} else if (m_sNickName != "") {
+			m_sNickName = "";
+			emit sNickNameChanged();
+		}
+		if (m_data->company && m_company != m_data->company) {
+			m_company = QString{m_data->company};
+			emit companyChanged();
+		} else if (m_company != "") {
+			m_company = "";
+			emit companyChanged();
+		}
+		if (m_data->fname && m_fName != m_data->fname) {
+			m_fName = QString{m_data->fname};
+			emit fNameChanged();
+		} else if (m_fName != "") {
+			m_fName = "";
+			emit fNameChanged();
+		}
+		if (m_data->lname && m_lName != m_data->lname) {
+			m_lName = QString{m_data->lname};
+			emit lNameChanged();
+		} else if (m_lName != "") {
+			m_lName = "";
+			emit lNameChanged();
+		}
+		if (m_data->address1 && m_address1 != m_data->address1) {
+			m_address1 = QString{m_data->address1};
+			emit address1Changed();
+		} else if (m_address1 != "") {
+			m_address1 = "";
+			emit address1Changed();
+		}
+		if (m_data->address2 && m_address2 != m_data->address2) {
+			m_address2 = QString{m_data->address2};
+			emit address2Changed();
+		} else if (m_address2 != "") {
+			m_address2 = "";
+			emit address2Changed();
+		}
+		if (m_data->address3 && m_address3 != m_data->address3) {
+			m_address3 = QString{m_data->address3};
+			emit address3Changed();
+		} else if (m_address3 != "") {
+			m_address3 = "";
+			emit address3Changed();
+		}
+		if (m_data->city && m_city != m_data->city) {
+			m_city = QString{m_data->city};
+			emit cityChanged();
+		} else if (m_city != "") {
+			m_city = "";
+			emit cityChanged();
+		}
+		if (m_data->state && m_state != m_data->state) {
+			m_state = QString{m_data->state};
+			emit stateChanged();
+		} else if (m_state != "") {
+			m_state = "";
+			emit stateChanged();
+		}
+		if (m_data->zip && m_zip != m_data->zip) {
+			m_zip = QString{m_data->zip};
+			emit zipChanged();
+		} else if (m_zip != "") {
+			m_zip = "";
+			emit zipChanged();
+		}
+		if (m_data->country && m_country != m_data->country) {
+			m_country = QString{m_data->country};
+			emit countryChanged();
+		} else if (m_country != "") {
+			m_country = "";
+			emit countryChanged();
+		}
+		if (m_data->phone_day && m_phoneDay != m_data->phone_day) {
+			m_phoneDay = QString{m_data->phone_day};
+			emit phoneDayChanged();
+		} else if (m_phoneDay != "") {
+			m_phoneDay = "";
+			emit phoneDayChanged();
+		}
+		if (m_data->email && m_email != m_data->email) {
+			m_email = QString{m_data->email};
+			emit emailChanged();
+		} else if (m_email != "") {
+			m_email = "";
+			emit emailChanged();
+		}
 	}
 
 	void Member::setUserName(QString const& userName)
@@ -165,143 +298,6 @@ namespace QICClient {
 	{
 		if (m_email != email) {
 			m_email = email;
-			emit emailChanged();
-		}
-	}
-
-	void Member::setData(icclient_member* member)
-	{
-		if (member->username && m_userName != member->username) {
-			m_userName = QString{member->username};
-			emit userNameChanged();
-		} else if (m_userName != "") {
-			m_userName = "";
-			emit userNameChanged();
-		}
-		if (member->usernick && m_userNick != member->usernick) {
-			m_userNick = QString{member->usernick};
-			emit userNickChanged();
-		} else if (m_userNick != "") {
-			m_userNick = "";
-			emit userNickChanged();
-		}
-		if (member->password && m_password != member->password) {
-			m_password = QString{member->password};
-			emit passwordChanged();
-		} else if (m_password != "") {
-			m_password = "";
-			emit passwordChanged();
-		}
-		if (member->expiration && m_expiration != member->expiration) {
-			m_expiration = QString{member->expiration};
-			emit expirationChanged();
-		} else if (m_expiration != "") {
-			m_expiration = "";
-			emit expirationChanged();
-		}
-		if (member->acl && m_acl != member->acl) {
-			m_acl = QString{member->acl};
-			emit aclChanged();
-		} else if (m_acl != "") {
-			m_acl = "";
-			emit aclChanged();
-		}
-		if (member->mod_time && m_modTime != member->mod_time) {
-			m_modTime = QString{member->mod_time};
-			emit modTimeChanged();
-		} else if (m_modTime != "") {
-			m_modTime = "";
-			emit modTimeChanged();
-		}
-		if (member->s_nickname && m_sNickName != member->s_nickname) {
-			m_sNickName = QString{member->s_nickname};
-			emit sNickNameChanged();
-		} else if (m_sNickName != "") {
-			m_sNickName = "";
-			emit sNickNameChanged();
-		}
-		if (member->company && m_company != member->company) {
-			m_company = QString{member->company};
-			emit companyChanged();
-		} else if (m_company != "") {
-			m_company = "";
-			emit companyChanged();
-		}
-		if (member->fname && m_fName != member->fname) {
-			m_fName = QString{member->fname};
-			emit fNameChanged();
-		} else if (m_fName != "") {
-			m_fName = "";
-			emit fNameChanged();
-		}
-		if (member->lname && m_lName != member->lname) {
-			m_lName = QString{member->lname};
-			emit lNameChanged();
-		} else if (m_lName != "") {
-			m_lName = "";
-			emit lNameChanged();
-		}
-		if (member->address1 && m_address1 != member->address1) {
-			m_address1 = QString{member->address1};
-			emit address1Changed();
-		} else if (m_address1 != "") {
-			m_address1 = "";
-			emit address1Changed();
-		}
-		if (member->address2 && m_address2 != member->address2) {
-			m_address2 = QString{member->address2};
-			emit address2Changed();
-		} else if (m_address2 != "") {
-			m_address2 = "";
-			emit address2Changed();
-		}
-		if (member->address3 && m_address3 != member->address3) {
-			m_address3 = QString{member->address3};
-			emit address3Changed();
-		} else if (m_address3 != "") {
-			m_address3 = "";
-			emit address3Changed();
-		}
-		if (member->city && m_city != member->city) {
-			m_city = QString{member->city};
-			emit cityChanged();
-		} else if (m_city != "") {
-			m_city = "";
-			emit cityChanged();
-		}
-		if (member->state && m_state != member->state) {
-			m_state = QString{member->state};
-			emit stateChanged();
-		} else if (m_state != "") {
-			m_state = "";
-			emit stateChanged();
-		}
-		if (member->zip && m_zip != member->zip) {
-			m_zip = QString{member->zip};
-			emit zipChanged();
-		} else if (m_zip != "") {
-			m_zip = "";
-			emit zipChanged();
-		}
-		if (member->country && m_country != member->country) {
-			m_country = QString{member->country};
-			emit countryChanged();
-		} else if (m_country != "") {
-			m_country = "";
-			emit countryChanged();
-		}
-		if (member->phone_day && m_phoneDay != member->phone_day) {
-			m_phoneDay = QString{member->phone_day};
-			emit phoneDayChanged();
-		} else if (m_phoneDay != "") {
-			m_phoneDay = "";
-			emit phoneDayChanged();
-		}
-		if (member->email && m_email != member->email) {
-			m_email = QString{member->email};
-			emit emailChanged();
-		} else if (m_email != "") {
-			m_email = "";
 			emit emailChanged();
 		}
 	}

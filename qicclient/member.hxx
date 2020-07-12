@@ -104,7 +104,6 @@ namespace QICClient {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
-			void setData(icclient_member* member);
 
 		signals:
 			void userNameChanged();
