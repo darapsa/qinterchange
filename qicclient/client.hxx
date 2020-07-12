@@ -3,8 +3,6 @@
 
 #include <QObject>
 
-struct icclient_member;
-
 namespace QICClient {
 
 	using std::shared_ptr;
@@ -60,27 +58,9 @@ namespace QICClient {
 			/*
 			void remove(unsigned int const& indices);
 			void checkout();
+			void newItem(QString const& description, QString const& comment,
+					QString const& price, QString const& imagePath);
 			*/
-		/*
-			void account(QString const& firstName
-					, QString const& lastName
-					, QString const& address1
-					, QString const& address2
-					, QString const& city
-					, QString const& state
-					, QString const& zip
-					, QString const& email
-					, QString const& phoneDay);
-			void changePassword(QString const& passwordOld
-					, QString const& password
-					, QString const& verify);
-					*/
-			/*
-			void newItem(QString const& description
-					, QString const& comment,
-					QString const& price
-					, QString const& imagePath);
-					*/
 
 		signals:
 			void gotResults(Catalog* catalog);

@@ -63,6 +63,18 @@ namespace QICClient {
 					QString const& failPage = nullptr,
 					size_t (*handler)(void*, size_t, size_t,
 						void*) = nullptr);
+			void account(QString const& firstName,
+					QString const& lastName,
+					QString const& address1,
+					QString const& address2,
+					QString const& city,
+					QString const& state,
+					QString const& zip,
+					QString const& email,
+					QString const& phoneDay) {}
+			void changePassword(QString const& passwordOld,
+					QString const& password,
+					QString const& verify) {}
 			void logOut();
 
 			QString const& userName() const { return m_userName; }
