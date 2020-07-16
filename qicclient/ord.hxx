@@ -1,5 +1,5 @@
-#ifndef QICCLIENT_BASKET_HXX
-#define QICCLIENT_BASKET_HXX
+#ifndef QICCLIENT_ORD_HXX
+#define QICCLIENT_ORD_HXX
 
 #include <QAbstractListModel>
 #include <icclient/ord.h>
@@ -27,7 +27,7 @@ namespace QICClient {
 		}
 	};
 
-	class Basket : public QAbstractListModel
+	class Ord : public QAbstractListModel
 	{
 		Q_OBJECT
 		Q_PROPERTY(int rowCount READ rowCount NOTIFY rowCountChanged)
@@ -36,7 +36,7 @@ namespace QICClient {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
-			explicit Basket(QObject* parent = nullptr) :
+			explicit Ord(QObject* parent = nullptr) :
 				QAbstractListModel{parent},
 				m_data{nullptr},
 				m_subtotal{.0},
@@ -76,4 +76,4 @@ namespace QICClient {
 
 }
 
-#endif // QICCLIENT_BASKET_HXX
+#endif // QICCLIENT_ORD_HXX

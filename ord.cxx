@@ -1,16 +1,16 @@
 #include <algorithm>
 #include <icclient/ord.h>
-#include "qicclient/basket.hxx"
+#include "qicclient/ord.hxx"
 
 namespace QICClient {
 
-	int Basket::rowCount(QModelIndex const& parent) const
+	int Ord::rowCount(QModelIndex const& parent) const
 	{
 		Q_UNUSED(parent)
 		return items.count();
 	}
 
-	QVariant Basket::data(QModelIndex const& index, int role) const
+	QVariant Ord::data(QModelIndex const& index, int role) const
 	{
 		auto row = index.row();
 
@@ -31,7 +31,7 @@ namespace QICClient {
 		}
 	}
 
-	QHash<int, QByteArray> Basket::roleNames() const
+	QHash<int, QByteArray> Ord::roleNames() const
 	{
 		return QHash<int, QByteArray>{
 			{Product::SkuRole, "sku"}
@@ -41,7 +41,7 @@ namespace QICClient {
 		};
 	}
 
-	void Basket::addItem(Item const& item)
+	void Ord::addItem(Item const& item)
 	{
 		auto product = item.product;
 		auto iterator = std::find_if(items.begin(), items.end()
@@ -61,7 +61,7 @@ namespace QICClient {
 		emit rowCountChanged();
 	}
 
-	void Basket::setData(struct icclient_ord_order* order)
+	void Ord::setData(struct icclient_ord_order* order)
 	{
 		if (order) {
 			this->m_data = order;

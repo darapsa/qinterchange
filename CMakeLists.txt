@@ -9,11 +9,11 @@ find_package(Qt5Core)
 add_library(${PROJECT_NAME} SHARED
 	${PROJECT_NAME}/member.hxx
 	${PROJECT_NAME}/catalog.hxx
-	${PROJECT_NAME}/basket.hxx
+	${PROJECT_NAME}/ord.hxx
 	${PROJECT_NAME}/client.hxx
 	member.cxx
 	catalog.cxx
-	basket.cxx
+	ord.cxx
 	client.cxx
 	)
 
@@ -29,7 +29,7 @@ install(FILES
 	${PROJECT_NAME}/member.hxx
 	${PROJECT_NAME}/product.hxx
 	${PROJECT_NAME}/catalog.hxx
-	${PROJECT_NAME}/basket.hxx
+	${PROJECT_NAME}/ord.hxx
 	${PROJECT_NAME}/client.hxx
 	DESTINATION include/${PROJECT_NAME}
 	)

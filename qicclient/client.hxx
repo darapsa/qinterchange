@@ -8,7 +8,7 @@ namespace QICClient {
 	using std::shared_ptr;
 	class Catalog;
 	class Product;
-	class Basket;
+	class Ord;
 
 	class Client : public QObject
 	{
@@ -51,8 +51,7 @@ namespace QICClient {
 			 * \param catalog The catalog from which the item is.
 			 * \param order The order.
 			 */
-			void order(QString const& sku, Catalog const& catalog,
-					Basket& order);
+			void order(QString const& sku, Catalog const& catalog, Ord& order);
 
 		public slots:
 			/*
