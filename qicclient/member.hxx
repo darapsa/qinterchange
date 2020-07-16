@@ -75,7 +75,6 @@ namespace QICClient {
 			void changePassword(QString const& passwordOld,
 					QString const& password,
 					QString const& verify) {}
-			void logOut();
 
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }
@@ -116,6 +115,9 @@ namespace QICClient {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
+
+		public slots:
+			void logOut();
 
 		signals:
 			void userNameChanged();
@@ -159,6 +161,7 @@ namespace QICClient {
 			QString m_phoneDay;
 			QString m_email;
 			icclient_member* m_data;
+			void setData(icclient_member* data);
 	};
 
 }
