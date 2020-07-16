@@ -17,6 +17,20 @@ namespace QICClient {
 					handler));
 	}
 
+	void Member::account(QString const& firstName, QString const& lastName,
+			QString const& address1, QString const& address2,
+			QString const& city, QString const& state, QString const& zip,
+			QString const& email, QString const& phoneDay)
+	{
+		icclient_member_account(firstName.toLatin1().constData(),
+				lastName.toLatin1().constData(),
+				address1.toLatin1().constData(),
+				address2.toLatin1().constData(),
+				city.toLatin1().constData(), state.toLatin1().constData(),
+				zip.toLatin1().constData(), email.toLatin1().constData(),
+				phoneDay.toLatin1().constData());
+	}
+
 	void Member::logOut()
 	{
 		icclient_member_logout(m_data);
