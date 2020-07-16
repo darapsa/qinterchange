@@ -4,39 +4,6 @@
 
 namespace QICClient {
 
-	void Member::logIn(QString const& username, QString const& password,
-			QString const& successPage, QString const& nextPage,
-			QString const& failPage,
-			size_t (*handler)(void*, size_t, size_t, void*))
-	{
-		setData(icclient_member_login(username.toLatin1().constData(),
-					password.toLatin1().constData(),
-					successPage.toLatin1().constData(),
-					nextPage.toLatin1().constData(),
-					failPage.toLatin1().constData(),
-					handler));
-	}
-
-	void Member::account(QString const& firstName, QString const& lastName,
-			QString const& address1, QString const& address2,
-			QString const& city, QString const& state, QString const& zip,
-			QString const& email, QString const& phoneDay)
-	{
-		icclient_member_account(firstName.toLatin1().constData(),
-				lastName.toLatin1().constData(),
-				address1.toLatin1().constData(),
-				address2.toLatin1().constData(),
-				city.toLatin1().constData(), state.toLatin1().constData(),
-				zip.toLatin1().constData(), email.toLatin1().constData(),
-				phoneDay.toLatin1().constData());
-	}
-
-	void Member::logOut()
-	{
-		icclient_member_logout(m_data);
-		setData(nullptr);
-	}
-
 	void Member::setUserName(QString const& userName)
 	{
 		if (m_userName != userName) {
@@ -268,6 +235,47 @@ namespace QICClient {
 			m_email = QString{m_data->email};
 			emit emailChanged();
 		} else setEmail("");
+	}
+
+	void Member::logIn(QString const& username, QString const& password,
+			QString const& successPage, QString const& nextPage,
+			QString const& failPage,
+			size_t (*handler)(void*, size_t, size_t, void*))
+	{
+		setData(icclient_member_login(username.toLatin1().constData(),
+					password.toLatin1().constData(),
+					successPage.toLatin1().constData(),
+					nextPage.toLatin1().constData(),
+					failPage.toLatin1().constData(),
+					handler));
+	}
+
+	void Member::account(QString const& firstName, QString const& lastName,
+			QString const& address1, QString const& address2,
+			QString const& city, QString const& state, QString const& zip,
+			QString const& email, QString const& phoneDay)
+	{
+		icclient_member_account(firstName.toLatin1().constData(),
+				lastName.toLatin1().constData(),
+				address1.toLatin1().constData(),
+				address2.toLatin1().constData(),
+				city.toLatin1().constData(), state.toLatin1().constData(),
+				zip.toLatin1().constData(), email.toLatin1().constData(),
+				phoneDay.toLatin1().constData());
+	}
+
+	void Member::changePassword(QString const& passwordOld, QString const& password,
+			QString const& verify)
+	{
+		icclient_member_changepassword(passwordOld.toLatin1().constData(),
+				password.toLatin1().constData(),
+				verify.toLatin1().constData());
+	}
+
+	void Member::logOut()
+	{
+		icclient_member_logout(m_data);
+		setData(nullptr);
 	}
 
 }

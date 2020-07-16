@@ -57,16 +57,6 @@ namespace QICClient {
 			{}
 			~Member() {}
 
-			void logIn(QString const& username, QString const& password,
-					QString const& successPage = nullptr,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr,
-					size_t (*handler)(void*, size_t, size_t,
-						void*) = nullptr);
-			void changePassword(QString const& passwordOld,
-					QString const& password,
-					QString const& verify) {}
-
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }
 			QString const& password() const { return m_password; }
@@ -107,12 +97,21 @@ namespace QICClient {
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
 
+			void logIn(QString const& username, QString const& password,
+					QString const& successPage = nullptr,
+					QString const& nextPage = nullptr,
+					QString const& failPage = nullptr,
+					size_t (*handler)(void*, size_t, size_t,
+						void*) = nullptr);
+
 		public slots:
 			void account(QString const& firstName, QString const& lastName,
 					QString const& address1, QString const& address2,
 					QString const& city, QString const& state,
 					QString const& zip, QString const& email,
 					QString const& phoneDay);
+			void changePassword(QString const& passwordOld,
+					QString const& password, QString const& verify);
 			void logOut();
 
 		signals:
