@@ -1,5 +1,5 @@
 #include <cstddef>
-#include <icclient/client.h>
+#include <icclient/member.h>
 #include "qicclient/member.hxx"
 
 namespace QICClient {
@@ -158,83 +158,102 @@ namespace QICClient {
 
 	void Member::setData(icclient_member* data)
 	{
-		if (m_data != data) m_data = data;
-		if (m_data && m_data->username && m_userName != m_data->username) {
-			m_userName = QString{m_data->username};
+		if (data && data->username && m_userName != data->username) {
+			m_userName = QString{data->username};
 			emit userNameChanged();
 		} else setUserName("");
-		if (m_data && m_data->usernick && m_userNick != m_data->usernick) {
-			m_userNick = QString{m_data->usernick};
+
+		if (data && data->usernick && m_userNick != data->usernick) {
+			m_userNick = QString{data->usernick};
 			emit userNickChanged();
 		} else setUserNick("");
-		if (m_data && m_data->password && m_password != m_data->password) {
-			m_password = QString{m_data->password};
+
+		if (data && data->password && m_password != data->password) {
+			m_password = QString{data->password};
 			emit passwordChanged();
 		} else setPassword("");
-		if (m_data && m_data->expiration && m_expiration != m_data->expiration) {
-			m_expiration = QString{m_data->expiration};
+
+		if (data && data->expiration && m_expiration != data->expiration) {
+			m_expiration = QString{data->expiration};
 			emit expirationChanged();
 		} else setExpiration("");
-		if (m_data && m_data->acl && m_acl != m_data->acl) {
-			m_acl = QString{m_data->acl};
+
+		if (data && data->acl && m_acl != data->acl) {
+			m_acl = QString{data->acl};
 			emit aclChanged();
 		} else setAcl("");
-		if (m_data && m_data->mod_time && m_modTime != m_data->mod_time) {
-			m_modTime = QString{m_data->mod_time};
+
+		if (data && data->mod_time && m_modTime != data->mod_time) {
+			m_modTime = QString{data->mod_time};
 			emit modTimeChanged();
 		} else setModTime("");
-		if (m_data && m_data->s_nickname && m_sNickName != m_data->s_nickname) {
-			m_sNickName = QString{m_data->s_nickname};
+
+		if (data && data->s_nickname && m_sNickName != data->s_nickname) {
+			m_sNickName = QString{data->s_nickname};
 			emit sNickNameChanged();
 		} else setSNickName("");
-		if (m_data && m_data->company && m_company != m_data->company) {
-			m_company = QString{m_data->company};
+
+		if (data && data->company && m_company != data->company) {
+			m_company = QString{data->company};
 			emit companyChanged();
 		} else setCompany("");
-		if (m_data && m_data->fname && m_fName != m_data->fname) {
-			m_fName = QString{m_data->fname};
+
+		if (data && data->fname && m_fName != data->fname) {
+			m_fName = QString{data->fname};
 			emit fNameChanged();
 		} else setFName("");
-		if (m_data && m_data->lname && m_lName != m_data->lname) {
-			m_lName = QString{m_data->lname};
+
+		if (data && data->lname && m_lName != data->lname) {
+			m_lName = QString{data->lname};
 			emit lNameChanged();
 		} else setLName("");
-		if (m_data && m_data->address1 && m_address1 != m_data->address1) {
-			m_address1 = QString{m_data->address1};
+
+		if (data && data->address1 && m_address1 != data->address1) {
+			m_address1 = QString{data->address1};
 			emit address1Changed();
 		} else setAddress1("");
-		if (m_data && m_data->address2 && m_address2 != m_data->address2) {
-			m_address2 = QString{m_data->address2};
+
+		if (data && data->address2 && m_address2 != data->address2) {
+			m_address2 = QString{data->address2};
 			emit address2Changed();
 		} else setAddress2("");
-		if (m_data && m_data->address3 && m_address3 != m_data->address3) {
-			m_address3 = QString{m_data->address3};
+
+		if (data && data->address3 && m_address3 != data->address3) {
+			m_address3 = QString{data->address3};
 			emit address3Changed();
 		} else setAddress3("");
-		if (m_data && m_data->city && m_city != m_data->city) {
-			m_city = QString{m_data->city};
+
+		if (data && data->city && m_city != data->city) {
+			m_city = QString{data->city};
 			emit cityChanged();
 		} else setCity("");
-		if (m_data && m_data->state && m_state != m_data->state) {
-			m_state = QString{m_data->state};
+
+		if (data && data->state && m_state != data->state) {
+			m_state = QString{data->state};
 			emit stateChanged();
 		} else setState("");
-		if (m_data && m_data->zip && m_zip != m_data->zip) {
-			m_zip = QString{m_data->zip};
+
+		if (data && data->zip && m_zip != data->zip) {
+			m_zip = QString{data->zip};
 			emit zipChanged();
 		} else setZip("");
-		if (m_data && m_data->country && m_country != m_data->country) {
-			m_country = QString{m_data->country};
+
+		if (data && data->country && m_country != data->country) {
+			m_country = QString{data->country};
 			emit countryChanged();
 		} else setCountry("");
-		if (m_data && m_data->phone_day && m_phoneDay != m_data->phone_day) {
-			m_phoneDay = QString{m_data->phone_day};
+
+		if (data && data->phone_day && m_phoneDay != data->phone_day) {
+			m_phoneDay = QString{data->phone_day};
 			emit phoneDayChanged();
 		} else setPhoneDay("");
-		if (m_data && m_data->email && m_email != m_data->email) {
-			m_email = QString{m_data->email};
+
+		if (data && data->email && m_email != data->email) {
+			m_email = QString{data->email};
 			emit emailChanged();
 		} else setEmail("");
+
+		if (m_data != data) m_data = data;
 	}
 
 	void Member::logIn(QString const& username, QString const& password,
