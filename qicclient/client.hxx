@@ -53,14 +53,6 @@ namespace QICClient {
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
 
-		public slots:
-			/*
-			void remove(unsigned int const& indices);
-			void checkout();
-			void newItem(QString const& description, QString const& comment,
-					QString const& price, QString const& imagePath);
-			*/
-
 		signals:
 			void gotResults(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);

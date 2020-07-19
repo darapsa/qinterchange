@@ -56,6 +56,12 @@ namespace QICClient {
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
 
+			/*
+		public slots:
+			void remove(unsigned int const& indices);
+			void checkout();
+			*/
+
 		signals:
 			void rowCountChanged();
 			void subtotalChanged();
