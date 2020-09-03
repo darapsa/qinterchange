@@ -56,6 +56,13 @@ namespace QICClient {
 				m_data{nullptr}
 			{}
 			~Member() {}
+			static std::shared_ptr<Member> logIn(QString const& username,
+					QString const& password,
+					QString const& successPage = nullptr,
+					QString const& nextPage = nullptr,
+					QString const& failPage = nullptr,
+					size_t (*handler)(void*, size_t, size_t,
+						void*) = nullptr);
 
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }
@@ -96,13 +103,6 @@ namespace QICClient {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
-
-			void logIn(QString const& username, QString const& password,
-					QString const& successPage = nullptr,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr,
-					size_t (*handler)(void*, size_t, size_t,
-						void*) = nullptr);
 
 		public slots:
 			void account(QString const& firstName, QString const& lastName,
@@ -156,7 +156,7 @@ namespace QICClient {
 			QString m_phoneDay;
 			QString m_email;
 			icclient_member* m_data;
-			void setData(icclient_member* data);
+			inline void setData(icclient_member* data);
 	};
 
 }

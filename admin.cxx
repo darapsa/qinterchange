@@ -1,8 +1,24 @@
 #include <cstddef>
+#include <memory>
 #include <icclient/admin.h>
 #include "qicclient/admin.hxx"
 
 namespace QICClient {
+
+	std::shared_ptr<Admin> Admin::logIn(QString const& username,
+			QString const& password, QString const& successPage,
+			QString const& nextPage, QString const& failPage,
+			size_t (*handler)(void*, size_t, size_t, void*))
+	{
+		auto admin = new Admin{};
+		admin->setData(icclient_admin_login(username.toLatin1().constData(),
+					password.toLatin1().constData(),
+					successPage.toLatin1().constData(),
+					nextPage.toLatin1().constData(),
+					failPage.toLatin1().constData(),
+					handler));
+		return std::shared_ptr<Admin>{admin};
+	}
 
 	void Admin::setUserName(QString const& userName)
 	{
@@ -11,7 +27,6 @@ namespace QICClient {
 			emit userNameChanged();
 		}
 	}
-
 	void Admin::setPassword(QString const& password)
 	{
 		if (m_password != password) {
@@ -19,7 +34,6 @@ namespace QICClient {
 			emit passwordChanged();
 		}
 	}
-
 	void Admin::setName(QString const& name)
 	{
 		if (m_name != name) {
@@ -27,7 +41,6 @@ namespace QICClient {
 			emit nameChanged();
 		}
 	}
-
 	void Admin::setSuper(bool super)
 	{
 		if (m_super != super) {
@@ -57,19 +70,6 @@ namespace QICClient {
 		else setSuper("");
 
 		if (m_data != data) m_data = data;
-	}
-
-	void Admin::logIn(QString const& username, QString const& password,
-			QString const& successPage, QString const& nextPage,
-			QString const& failPage,
-			size_t (*handler)(void*, size_t, size_t, void*))
-	{
-		setData(icclient_admin_login(username.toLatin1().constData(),
-					password.toLatin1().constData(),
-					successPage.toLatin1().constData(),
-					nextPage.toLatin1().constData(),
-					failPage.toLatin1().constData(),
-					handler));
 	}
 
 	void Admin::newItem(QString const& description, QString const& comment,

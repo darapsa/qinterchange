@@ -1,8 +1,24 @@
 #include <cstddef>
+#include <memory>
 #include <icclient/member.h>
 #include "qicclient/member.hxx"
 
 namespace QICClient {
+
+	std::shared_ptr<Member> Member::logIn(QString const& username,
+			QString const& password, QString const& successPage,
+			QString const& nextPage, QString const& failPage,
+			size_t (*handler)(void*, size_t, size_t, void*))
+	{
+		auto member = new Member{};
+		member->setData(icclient_member_login(username.toLatin1().constData(),
+					password.toLatin1().constData(),
+					successPage.toLatin1().constData(),
+					nextPage.toLatin1().constData(),
+					failPage.toLatin1().constData(),
+					handler));
+		return std::shared_ptr<Member>{member};
+	}
 
 	void Member::setUserName(QString const& userName)
 	{
@@ -254,19 +270,6 @@ namespace QICClient {
 		} else setEmail("");
 
 		if (m_data != data) m_data = data;
-	}
-
-	void Member::logIn(QString const& username, QString const& password,
-			QString const& successPage, QString const& nextPage,
-			QString const& failPage,
-			size_t (*handler)(void*, size_t, size_t, void*))
-	{
-		setData(icclient_member_login(username.toLatin1().constData(),
-					password.toLatin1().constData(),
-					successPage.toLatin1().constData(),
-					nextPage.toLatin1().constData(),
-					failPage.toLatin1().constData(),
-					handler));
 	}
 
 	void Member::account(QString const& firstName, QString const& lastName,

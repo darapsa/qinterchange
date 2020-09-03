@@ -22,9 +22,17 @@ namespace QICClient {
 				m_userName{""},
 				m_password{""},
 				m_name{""},
-				m_super{false}
+				m_super{false},
+				m_data{nullptr}
 			{}
 			~Admin() {}
+			static std::shared_ptr<Admin> logIn(QString const& username,
+					QString const& password,
+					QString const& successPage = nullptr,
+					QString const& nextPage = nullptr,
+					QString const& failPage = nullptr,
+					size_t (*handler)(void*, size_t, size_t,
+						void*) = nullptr);
 
 			QString const& userName() const { return m_userName; }
 			QString const& password() const { return m_password; }
@@ -35,13 +43,6 @@ namespace QICClient {
 			void setPassword(QString const& password);
 			void setName(QString const& name);
 			void setSuper(bool super);
-
-			void logIn(QString const& username, QString const& password,
-					QString const& successPage = nullptr,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr,
-					size_t (*handler)(void*, size_t, size_t,
-						void*) = nullptr);
 
 		public slots:
 			void newItem(QString const& description, QString const& comment,
@@ -60,7 +61,7 @@ namespace QICClient {
 			QString m_name;
 			bool m_super;
 			icclient_admin* m_data;
-			void setData(icclient_admin* data);
+			inline void setData(icclient_admin* data);
 	};
 
 }
