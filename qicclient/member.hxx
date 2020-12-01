@@ -83,6 +83,7 @@ namespace QICClient {
 			QString const& country() const { return m_country; }
 			QString const& phoneDay() const { return m_phoneDay; }
 			QString const& email() const { return m_email; }
+			icclient_member* data() { return m_data; }
 
 			void setUserName(QString const& userName);
 			void setUserNick(QString const& userNick);

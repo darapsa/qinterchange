@@ -3,6 +3,7 @@
 
 #include <QAbstractListModel>
 #include <icclient/ord.h>
+#include "member.hxx"
 #include "product.hxx"
 
 namespace QICClient {
@@ -56,11 +57,9 @@ namespace QICClient {
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
 
-			/*
 		public slots:
-			void remove(unsigned int const& indices);
-			void checkout();
-			*/
+//			void remove(unsigned int const& indices);
+			void checkout(Member& member);
 
 		signals:
 			void rowCountChanged();

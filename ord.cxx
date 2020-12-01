@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <icclient/ord.h>
+#include <memory>
 #include "qicclient/ord.hxx"
 
 namespace QICClient {
@@ -74,4 +74,8 @@ namespace QICClient {
 		}
 	}
 
+	void Ord::checkout(Member& member)
+	{
+		icclient_ord_checkout(m_data, member.data());
+	}
 }
