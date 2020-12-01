@@ -7,7 +7,6 @@ namespace QICClient {
 
 	using std::shared_ptr;
 	class Catalog;
-	class Product;
 	class Ord;
 
 	class Client : public QObject
