@@ -32,13 +32,13 @@ $ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.1.6352462/
 or
 
 ```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.1/android -DANDROID_NATIVE_API_LEVEL=21 -DANDROID_ABI=armeabi-v7a -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.1/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
+$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.1/android -DANDROID_NATIVE_API_LEVEL=16 -DANDROID_ABI=armeabi-v7a -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.1/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
 ```
 
 or
 
 ```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.1/android -DANDROID_NATIVE_API_LEVEL=21 -DANDROID_ABI=x86 -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.1/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
+$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.1/android -DANDROID_NATIVE_API_LEVEL=16 -DANDROID_ABI=x86 -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.1/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
 ```
 
 or
