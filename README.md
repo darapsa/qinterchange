@@ -6,52 +6,24 @@
 
 ```sh
 $ git clone git://darapsa.org/qicclient.git
+$ cd qicclient
+$ mkdir build && cd build
 ```
 
-## Configuring for various target hosts (with optional debugging)
+## Configuring for various target hosts (with optional debugging), compiling, linking, and installing
 
 ```sh
-$ mkdir build-qicclient-Desktop-Debug
-$ cd build-qicclient-Desktop-Debug
-$ cmake -DCMAKE_BUILD_TYPE=Debug ../qicclient
-```
-
-or
-
-```sh
-$ mkdir build-qicclient-Android_for_armeabi_v7a_arm64_v8a_x86_x86_64_Clang_Qt_5_15_2_android-Debug
-$ cd build-qicclient-Android_for_armeabi_v7a_arm64_v8a_x86_x86_64_Clang_Qt_5_15_2_android-Debug
-```
-
-and then
-
-```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.2/android -DANDROID_NATIVE_API_LEVEL=21 -DANDROID_ABI=arm64-v8a -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.2/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
+$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.2/android -DANDROID_NATIVE_API_LEVEL=21 -DANDROID_ABI=arm64-v8a -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.2/android -DCMAKE_BUILD_TYPE=Debug ..
+$ make
+$ make install
 ```
 
 or
 
 ```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.2/android -DANDROID_NATIVE_API_LEVEL=16 -DANDROID_ABI=armeabi-v7a -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.2/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
-```
-
-or
-
-```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.2/android -DANDROID_NATIVE_API_LEVEL=16 -DANDROID_ABI=x86 -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.2/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
-```
-
-or
-
-```sh
-$ cmake -DCMAKE_TOOLCHAIN_FILE=/opt/android-sdk-update-manager/ndk/21.3.6528147/build/cmake/android.toolchain.cmake -DCMAKE_FIND_ROOT_PATH=/opt/Qt/5.15.2/android -DANDROID_NATIVE_API_LEVEL=21 -DANDROID_ABI=x86_64 -DCMAKE_INSTALL_PREFIX=/opt/Qt/5.15.2/android -DCMAKE_BUILD_TYPE=Debug ../qicclient
+$ emcmake cmake -DCMAKE_TOOLCHAIN_FILE=/opt/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DQt5Core_DIR=/opt/Qt/5.15.2/wasm_32/lib/cmake/Qt5Core -DCMAKE_INSTALL_PREFIX=/opt/emsdk/upstream/emscripten/system -DCMAKE_BUILD_TYPE=Debug ..
+$ emmake make
+$ emmake make install
 ```
 
 or so on.
-
-## Compiling, linking, and installing
-
-```sh
-$ make # -jN (with N an integer number of parallel tasks you allow your computer to run for compiling this)
-$ sudo make install
-```
