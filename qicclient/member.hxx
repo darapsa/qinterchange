@@ -2,6 +2,7 @@
 #define QICCLIENT_MEMBER_HXX
 
 #include <QObject>
+#include <icclient/typedefs.h>
 #include <icclient/member.h>
 
 struct icclient_member;
@@ -61,8 +62,7 @@ namespace QICClient {
 					QString const& successPage = nullptr,
 					QString const& nextPage = nullptr,
 					QString const& failPage = nullptr,
-					size_t (*handler)(void*, size_t, size_t,
-						void*) = nullptr);
+					icclient_handler handler = nullptr);
 
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }

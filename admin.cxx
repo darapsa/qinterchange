@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <memory>
+#include <icclient/typedefs.h>
 #include <icclient/admin.h>
 #include "qicclient/admin.hxx"
 
@@ -8,7 +9,7 @@ namespace QICClient {
 	std::shared_ptr<Admin> Admin::logIn(QString const& username,
 			QString const& password, QString const& successPage,
 			QString const& nextPage, QString const& failPage,
-			size_t (*handler)(void*, size_t, size_t, void*))
+			icclient_handler handler)
 	{
 		auto admin = new Admin{};
 		admin->setData(icclient_admin_login(username.toLatin1().constData(),

@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <icclient/catalog.h>
+#include <icclient/typedefs.h>
 #include <icclient/client.h>
 #include "qicclient/catalog.hxx"
 

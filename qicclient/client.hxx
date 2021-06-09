@@ -2,12 +2,15 @@
 #define QICCLIENT_CLIENT_HXX
 
 #include <QObject>
+#include <icclient/typedefs.h>
 
 namespace QICClient {
 
 	using std::shared_ptr;
 	class Catalog;
+#ifndef __EMSCRIPTEN__
 	class Ord;
+#endif
 
 	class Client : public QObject
 	{
@@ -27,23 +30,22 @@ namespace QICClient {
 			 * \param prodGroup The name of the product group.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void results(QString const& prodGroup,
-					size_t (*handler)(void*, size_t, size_t, void*));
+			void results(QString const& prodGroup, icclient_handler handler);
 
 			/*!
 			 * \brief For fetching data about all active products.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void allProducts(size_t (*handler)(void*, size_t, size_t, void*));
+			void allProducts(icclient_handler handler);
 
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void flyPage(QString const& sku,
-					size_t (*handler)(void*, size_t, size_t, void*));
+			void flyPage(QString const& sku, icclient_handler handler);
 
+#ifndef __EMSCRIPTEN__
 			/*!
 			 * \brief For putting an item to a cart.
 			 * \param sku The SKU of the item to order.
@@ -51,6 +53,7 @@ namespace QICClient {
 			 * \param order The order.
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
+#endif
 
 		signals:
 			void gotResults(Catalog* catalog);
@@ -59,4 +62,4 @@ namespace QICClient {
 
 }
 
-#endif // QICCLIENT_CLIENT_HXX
+#endif
