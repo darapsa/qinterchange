@@ -38,6 +38,8 @@ namespace QICClient {
 			 */
 			void allProducts(icclient_handler handler);
 
+			void emitCatalog(icclient_catalog *catalog);
+
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.

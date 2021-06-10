@@ -2,6 +2,7 @@
 #include <memory>
 #include <QObject>
 #include <icclient/typedefs.h>
+#include <icclient/catalog.h>
 #include <icclient/client.h>
 #include "qicclient/catalog.hxx"
 #ifndef __EMSCRIPTEN__
@@ -9,10 +10,19 @@
 #endif
 #include "qicclient/client.hxx"
 
+static QICClient::Client *client;
+
+static void callback(icclient_catalog* catalog)
+{
+	client->emitCatalog(catalog);
+	icclient_catalog_free(catalog);
+}
+
 namespace QICClient {
 
 	Client::Client(char const* url, char const* certificate)
 	{
+		client = this;
 		icclient_init(url, certificate);
 	}
 
@@ -24,15 +34,18 @@ namespace QICClient {
 	void Client::results(QString const& prodGroup, icclient_handler handler)
 	{
 		icclient_catalog* catalog = nullptr;
-		icclient_results(prodGroup.toLatin1().constData(), handler, &catalog);
-		if (catalog) emit gotResults(new Catalog{catalog});
+		icclient_results(prodGroup.toLatin1().constData(), callback, &catalog, handler);
 	}
 
 	void Client::allProducts(icclient_handler handler)
 	{
 		icclient_catalog* catalog = nullptr;
-		icclient_allproducts(handler, &catalog);
-		if (catalog) emit gotResults(new Catalog{catalog});
+		icclient_allproducts(callback, &catalog, handler);
+	}
+
+	void Client::emitCatalog(icclient_catalog* catalog)
+	{
+		emit gotResults(new Catalog{catalog});
 	}
 
 	void Client::flyPage(QString const& sku,icclient_handler handler)
