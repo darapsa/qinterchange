@@ -30,13 +30,13 @@ namespace QICClient {
 			 * \param prodGroup The name of the product group.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void results(QString const& prodGroup, icclient_handler handler);
+			void results(QString const& prodGroup, icclient_handler handler = nullptr);
 
 			/*!
 			 * \brief For fetching data about all active products.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void allProducts(icclient_handler handler);
+			void allProducts(icclient_handler handler = nullptr);
 
 			void emitCatalog(icclient_catalog *catalog);
 
