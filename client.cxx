@@ -33,14 +33,12 @@ namespace QICClient {
 
 	void Client::results(QString const& prodGroup, icclient_handler handler)
 	{
-		icclient_catalog* catalog = nullptr;
-		icclient_results(prodGroup.toLatin1().constData(), callback, &catalog, handler);
+		icclient_results(prodGroup.toLatin1().constData(), callback, handler);
 	}
 
 	void Client::allProducts(icclient_handler handler)
 	{
-		icclient_catalog* catalog = nullptr;
-		icclient_allproducts(callback, &catalog, handler);
+		icclient_allproducts(callback, handler);
 	}
 
 	void Client::emitCatalog(icclient_catalog* catalog)
