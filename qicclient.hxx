@@ -2,7 +2,7 @@
 #define QICCLIENT_HXX
 
 #include <QObject>
-#include <qicclient/catalog.hxx>
+#include "qicclient/catalog.hxx"
 #include <icclient.h>
 
 namespace QICClient {
