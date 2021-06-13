@@ -32,7 +32,7 @@ namespace QICClient {
 					QString const& successPage = nullptr,
 					QString const& nextPage = nullptr,
 					QString const& failPage = nullptr,
-					icclient_handler handler = nullptr);
+					void (*handler)(icclient_fetch_t *) = nullptr);
 
 			QString const& userName() const { return m_userName; }
 			QString const& password() const { return m_password; }

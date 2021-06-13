@@ -1,5 +1,5 @@
-#ifndef QICCLIENT_CLIENT_HXX
-#define QICCLIENT_CLIENT_HXX
+#ifndef QICCLIENT_HXX
+#define QICCLIENT_HXX
 
 #include <QObject>
 #include <qicclient/catalog.hxx>
@@ -8,7 +8,6 @@
 namespace QICClient {
 
 	using std::shared_ptr;
-	class Catalog;
 	class Ord;
 
 	class Client : public QObject
@@ -23,29 +22,13 @@ namespace QICClient {
 			 */
 			Client(char const* url, char const* certificate = nullptr);
 			~Client();
-
-			/*!
-			 * \brief For fetching products that belong a specific group.
-			 * \param prodGroup The name of the product group.
-			 * \param handler A pointer to a cURL write function callback.
-			 */
-			void results(QString const& prodGroup, icclient_handler handler = nullptr);
-
-			/*!
-			 * \brief For fetching data about all active products.
-			 * \param handler A pointer to a cURL write function callback.
-			 */
-			void allProducts(icclient_handler handler = nullptr);
-
-			void emitCatalog(icclient_catalog *catalog);
-
+			void emitResults(icclient_fetch_t* fetch);
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void flyPage(QString const& sku, icclient_handler handler);
-
+			void flyPage(QString const& sku, void (*handler)(icclient_fetch_t*));
 			/*!
 			 * \brief For putting an item to a cart.
 			 * \param sku The SKU of the item to order.
@@ -54,8 +37,19 @@ namespace QICClient {
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
 
+		public slots:
+			/*!
+			 * \brief For fetching products that belong a specific group.
+			 * \param prodGroup The name of the product group.
+			 */
+			void results(QString const& prodGroup);
+			/*!
+			 * \brief For fetching data about all active products.
+			 */
+			void allProducts();
+
 		signals:
-			void gotResults(Catalog* catalog);
+			void gotResults(icclient_fetch_t* fetch);
 			void gotFlyPage(shared_ptr<Product> product);
 	};
 

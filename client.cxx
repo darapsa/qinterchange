@@ -1,15 +1,14 @@
+#include <cstddef>
 #include <memory>
 #include <QObject>
-#include <icclient/typedefs.h>
 #include "qicclient.hxx"
 #include "qicclient/ord.hxx"
 
-static QICClient::Client *client;
+static QICClient::Client* client;
 
-static void callback(icclient_catalog* catalog)
+static void handle_results(icclient_fetch_t* fetch)
 {
-	client->emitCatalog(catalog);
-	icclient_free_catalog(catalog);
+	client->emitResults(fetch);
 }
 
 namespace QICClient {
@@ -25,22 +24,26 @@ namespace QICClient {
 		icclient_cleanup();
 	}
 
-	void Client::results(QString const& prodGroup, icclient_handler handler)
+	void Client::results(QString const& prodGroup)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), callback, handler);
+		icclient_results(prodGroup.toLatin1().constData(), [](icclient_catalog* catalog) {
+				icclient_free_catalog(catalog);
+				}, handle_results);
 	}
 
-	void Client::allProducts(icclient_handler handler)
+	void Client::allProducts()
 	{
-		icclient_allproducts(callback, handler);
+		icclient_allproducts([](icclient_catalog* catalog) {
+				icclient_free_catalog(catalog);
+				}, handle_results);
 	}
 
-	void Client::emitCatalog(icclient_catalog* catalog)
+	void Client::emitResults(icclient_fetch_t* fetch)
 	{
-		emit gotResults(new Catalog{catalog});
+		emit gotResults(fetch);
 	}
 
-	void Client::flyPage(QString const& sku,icclient_handler handler)
+	void Client::flyPage(QString const& sku,void (*handler)(icclient_fetch_t*))
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(sku.toLatin1().constData(), handler, &product);
