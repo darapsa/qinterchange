@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <memory>
 #include <QObject>
 #include <icclient/typedefs.h>

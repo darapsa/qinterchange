@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <memory>
 #include <icclient/typedefs.h>
 #include <icclient/admin.h>
