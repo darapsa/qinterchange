@@ -2,15 +2,13 @@
 #define QICCLIENT_CLIENT_HXX
 
 #include <QObject>
-#include <icclient/typedefs.h>
+#include <icclient.h>
 
 namespace QICClient {
 
 	using std::shared_ptr;
 	class Catalog;
-#ifndef __EMSCRIPTEN__
 	class Ord;
-#endif
 
 	class Client : public QObject
 	{
@@ -47,7 +45,6 @@ namespace QICClient {
 			 */
 			void flyPage(QString const& sku, icclient_handler handler);
 
-#ifndef __EMSCRIPTEN__
 			/*!
 			 * \brief For putting an item to a cart.
 			 * \param sku The SKU of the item to order.
@@ -55,7 +52,6 @@ namespace QICClient {
 			 * \param order The order.
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
-#endif
 
 		signals:
 			void gotResults(Catalog* catalog);

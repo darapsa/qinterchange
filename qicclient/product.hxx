@@ -1,7 +1,7 @@
 #ifndef QICCLIENT_PRODUCT_HXX
 #define QICCLIENT_PRODUCT_HXX
 
-#include <icclient/product.h>
+#include <icclient.h>
 
 namespace QICClient {
 

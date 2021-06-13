@@ -1,7 +1,5 @@
 #include <cstddef>
-#include <icclient/catalog.h>
-#include <icclient/typedefs.h>
-#include <icclient/client.h>
+#include <icclient.h>
 #include "qicclient/catalog.hxx"
 
 namespace QICClient {

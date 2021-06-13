@@ -2,12 +2,8 @@
 #include <memory>
 #include <QObject>
 #include <icclient/typedefs.h>
-#include <icclient/catalog.h>
-#include <icclient/client.h>
 #include "qicclient/catalog.hxx"
-#ifndef __EMSCRIPTEN__
 #include "qicclient/ord.hxx"
-#endif
 #include "qicclient/client.hxx"
 
 static QICClient::Client *client;
@@ -15,7 +11,7 @@ static QICClient::Client *client;
 static void callback(icclient_catalog* catalog)
 {
 	client->emitCatalog(catalog);
-	icclient_catalog_free(catalog);
+	icclient_free_catalog(catalog);
 }
 
 namespace QICClient {
@@ -53,7 +49,6 @@ namespace QICClient {
 		if (product) emit gotFlyPage(shared_ptr<Product>{new Product{product}});
 	}
 
-#ifndef __EMSCRIPTEN__
 	void Client::order(QString const& sku, Catalog const& catalog, Ord& order)
 	{
 		auto c_order = order.data();
@@ -61,6 +56,5 @@ namespace QICClient {
 				&c_order);
 		order.setData(c_order);
 	}
-#endif
 
 }
