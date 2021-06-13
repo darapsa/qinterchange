@@ -1,9 +1,8 @@
 #include <memory>
 #include <QObject>
 #include <icclient/typedefs.h>
-#include "qicclient/catalog.hxx"
+#include "qicclient.hxx"
 #include "qicclient/ord.hxx"
-#include "qicclient/client.hxx"
 
 static QICClient::Client *client;
 
