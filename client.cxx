@@ -11,6 +11,12 @@ static void handleResults(icclient_fetch_t* fetch)
 	client->emitResults(fetch);
 }
 
+static void callback(icclient_catalog* catalog)
+{
+	client->emitCatalog(catalog);
+	icclient_free_catalog(catalog);
+}
+
 namespace QICClient {
 
 	Client::Client(char const* sampleURL, char const* image_Dir, char const* certificate)
@@ -31,6 +37,11 @@ namespace QICClient {
 				}, handleResults);
 	}
 
+	void Client::results(QString const& prodGroup, void (*handler)(icclient_fetch_t*))
+	{
+		icclient_results(prodGroup.toLatin1().constData(), callback, handler);
+	}
+
 	void Client::allProducts()
 	{
 		icclient_allproducts([](icclient_catalog* catalog) {
@@ -38,9 +49,19 @@ namespace QICClient {
 				}, handleResults);
 	}
 
+	void Client::allproducts(void (*handler)(icclient_fetch_t* fetch))
+	{
+		icclient_allproducts(callback, handler);
+	}
+
 	void Client::emitResults(icclient_fetch_t* fetch)
 	{
 		emit gotResults(fetch);
+	}
+
+	void Client::emitCatalog(icclient_catalog* catalog)
+	{
+		emit gotCatalog(new Catalog{catalog});
 	}
 
 	void Client::flyPage(QString const& sku,void (*handler)(icclient_fetch_t*))

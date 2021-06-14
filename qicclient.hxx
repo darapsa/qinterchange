@@ -23,7 +23,19 @@ namespace QICClient {
 			 */
 			Client(char const* sampleURL, char const* image_Dir, char const* certificate = nullptr);
 			~Client();
+			/*!
+			 * \brief For fetching products that belong a specific group.
+			 * \param prodGroup The name of the product group.
+			 * \param handler A C style pointer to function for custom handling.
+			 */
+			void results(QString const& prodGroup, void (*handler)(icclient_fetch_t*));
+			/*!
+			 * \brief For fetching data about all active products.
+			 * \param handler A C style pointer to function for custom handling.
+			 */
+			void allproducts(void (*handler)(icclient_fetch_t*) = nullptr);
 			void emitResults(icclient_fetch_t* fetch);
+			void emitCatalog(icclient_catalog* catalog);
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.
@@ -51,6 +63,7 @@ namespace QICClient {
 
 		signals:
 			void gotResults(icclient_fetch_t* fetch);
+			void gotCatalog(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
 	};
 
