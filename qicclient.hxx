@@ -17,10 +17,11 @@ namespace QICClient {
 		public:
 			/*!
 			 * \brief Constructor.
-			 * \param url Server root URL.
+			 * \param sampleURL The value of the SAMPLEURL setting in products/variable.txt.
+			 * \param image_Dir The value of the IMAGE_DIR setting in products/variable.txt.
 			 * \param certificate Path to the CA certificate file.
 			 */
-			Client(char const* url, char const* certificate = nullptr);
+			Client(char const* sampleURL, char const* image_Dir, char const* certificate = nullptr);
 			~Client();
 			void emitResults(icclient_fetch_t* fetch);
 			/*!

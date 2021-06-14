@@ -6,17 +6,17 @@
 
 static QICClient::Client* client;
 
-static void handle_results(icclient_fetch_t* fetch)
+static void handleResults(icclient_fetch_t* fetch)
 {
 	client->emitResults(fetch);
 }
 
 namespace QICClient {
 
-	Client::Client(char const* url, char const* certificate)
+	Client::Client(char const* sampleURL, char const* image_Dir, char const* certificate)
 	{
 		client = this;
-		icclient_init(url, certificate);
+		icclient_init(sampleURL, image_Dir, certificate);
 	}
 
 	Client::~Client()
@@ -28,14 +28,14 @@ namespace QICClient {
 	{
 		icclient_results(prodGroup.toLatin1().constData(), [](icclient_catalog* catalog) {
 				icclient_free_catalog(catalog);
-				}, handle_results);
+				}, handleResults);
 	}
 
 	void Client::allProducts()
 	{
 		icclient_allproducts([](icclient_catalog* catalog) {
 				icclient_free_catalog(catalog);
-				}, handle_results);
+				}, handleResults);
 	}
 
 	void Client::emitResults(icclient_fetch_t* fetch)
