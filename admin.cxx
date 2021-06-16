@@ -75,15 +75,13 @@ namespace QICClient {
 	void Admin::newItem(QString const& description, QString const& comment,
 			QString const& price, QString const& imagePath)
 	{
-		icclient_admin_newitem(description.toLatin1().constData(),
-				comment.toLatin1().constData(),
-				price.toLatin1().constData(),
-				imagePath.toLatin1().constData());
+		icclient_admin_new_item(description.toLatin1().constData(), comment.toLatin1().constData(),
+				price.toLatin1().constData(), imagePath.toLatin1().constData(), nullptr);
 	}
 
 	void Admin::logOut()
 	{
-		icclient_admin_logout(m_data);
+		icclient_admin_logout(m_data, nullptr);
 		setData(nullptr);
 	}
 

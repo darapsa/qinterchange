@@ -45,8 +45,8 @@ namespace QICClient {
 			void setSuper(bool super);
 
 		public slots:
-			void newItem(QString const& description, QString const& comment,
-					QString const& price, QString const& imagePath);
+			void newItem(QString const& description, QString const& comment, QString const& price,
+					QString const& imagePath);
 			void logOut();
 
 		signals:
