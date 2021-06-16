@@ -45,6 +45,8 @@ namespace QICClient {
 			void setSuper(bool super);
 
 		public slots:
+			void newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
+					enum icclient_admin_group group);
 			void newItem(QString const& description, QString const& comment, QString const& price,
 					QString const& imagePath);
 			void logOut();

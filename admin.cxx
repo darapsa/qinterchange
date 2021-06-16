@@ -72,6 +72,13 @@ namespace QICClient {
 		if (m_data != data) m_data = data;
 	}
 
+	void Admin::newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
+			enum icclient_admin_group group)
+	{
+		icclient_admin_new_admin(userName.toLatin1().constData(), password.toLatin1().constData(),
+				name.toLatin1().constData(), super, group, nullptr);
+	}
+
 	void Admin::newItem(QString const& description, QString const& comment,
 			QString const& price, QString const& imagePath)
 	{
