@@ -6,9 +6,9 @@
 
 static QICClient::Client* client;
 
-static void handleResults(icclient_response* fetch)
+static void handleResults(icclient_response* response)
 {
-	client->emitResults(fetch);
+	client->emitResults(response);
 }
 
 static void callback(icclient_catalog* catalog)
@@ -45,14 +45,14 @@ namespace QICClient {
 		icclient_allproducts(handleResults, nullptr);
 	}
 
-	void Client::allproducts(void (*handler)(icclient_response* fetch))
+	void Client::allproducts(void (*handler)(icclient_response* response))
 	{
 		icclient_allproducts(handler, callback);
 	}
 
-	void Client::emitResults(icclient_response* fetch)
+	void Client::emitResults(icclient_response* response)
 	{
-		emit gotResults(fetch);
+		emit gotResults(response);
 	}
 
 	void Client::emitCatalog(icclient_catalog* catalog)

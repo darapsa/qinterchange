@@ -34,7 +34,7 @@ namespace QICClient {
 			 * \param handler A C style pointer to function for custom handling.
 			 */
 			void allproducts(void (*handler)(icclient_response*) = nullptr);
-			void emitResults(icclient_response* fetch);
+			void emitResults(icclient_response* response);
 			void emitCatalog(icclient_catalog* catalog);
 			/*!
 			 * \brief For fetching data about a specific product.
@@ -62,7 +62,7 @@ namespace QICClient {
 			void allProducts();
 
 		signals:
-			void gotResults(icclient_response* fetch);
+			void gotResults(icclient_response* response);
 			void gotCatalog(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
 	};
