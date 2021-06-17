@@ -36,12 +36,12 @@ namespace QICClient {
 				icclient_free_catalog(catalog);
 				}, handleResults);
 	}
-
+/*
 	void Client::results(QString const& prodGroup, void (*handler)(icclient_fetch_t*))
 	{
 		icclient_results(prodGroup.toLatin1().constData(), callback, handler);
 	}
-
+*/
 	void Client::allProducts()
 	{
 		icclient_allproducts([](icclient_catalog* catalog) {

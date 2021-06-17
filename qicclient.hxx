@@ -28,7 +28,7 @@ namespace QICClient {
 			 * \param prodGroup The name of the product group.
 			 * \param handler A C style pointer to function for custom handling.
 			 */
-			void results(QString const& prodGroup, void (*handler)(icclient_fetch_t*));
+			//void results(QString const& prodGroup, void (*handler)(icclient_fetch_t*));
 			/*!
 			 * \brief For fetching data about all active products.
 			 * \param handler A C style pointer to function for custom handling.
