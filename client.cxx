@@ -6,7 +6,7 @@
 
 static QICClient::Client* client;
 
-static void handleResults(icclient_fetch_t* fetch)
+static void handleResults(icclient_response* fetch)
 {
 	client->emitResults(fetch);
 }
@@ -35,7 +35,7 @@ namespace QICClient {
 		icclient_results(prodGroup.toLatin1().constData(), handleResults, nullptr);
 	}
 /*
-	void Client::results(QString const& prodGroup, void (*handler)(icclient_fetch_t*))
+	void Client::results(QString const& prodGroup, void (*handler)(icclient_response*))
 	{
 		icclient_results(prodGroup.toLatin1().constData(), handler, callback);
 	}
@@ -45,12 +45,12 @@ namespace QICClient {
 		icclient_allproducts(handleResults, nullptr);
 	}
 
-	void Client::allproducts(void (*handler)(icclient_fetch_t* fetch))
+	void Client::allproducts(void (*handler)(icclient_response* fetch))
 	{
 		icclient_allproducts(handler, callback);
 	}
 
-	void Client::emitResults(icclient_fetch_t* fetch)
+	void Client::emitResults(icclient_response* fetch)
 	{
 		emit gotResults(fetch);
 	}
@@ -60,7 +60,7 @@ namespace QICClient {
 		emit gotCatalog(new Catalog{catalog});
 	}
 
-	void Client::flyPage(QString const& sku,void (*handler)(icclient_fetch_t*))
+	void Client::flyPage(QString const& sku,void (*handler)(icclient_response*))
 	{
 		icclient_product* product = nullptr;
 		icclient_flypage(sku.toLatin1().constData(), handler, &product);

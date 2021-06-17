@@ -28,20 +28,20 @@ namespace QICClient {
 			 * \param prodGroup The name of the product group.
 			 * \param handler A C style pointer to function for custom handling.
 			 */
-			//void results(QString const& prodGroup, void (*handler)(icclient_fetch_t*));
+			//void results(QString const& prodGroup, void (*handler)(icclient_response*));
 			/*!
 			 * \brief For fetching data about all active products.
 			 * \param handler A C style pointer to function for custom handling.
 			 */
-			void allproducts(void (*handler)(icclient_fetch_t*) = nullptr);
-			void emitResults(icclient_fetch_t* fetch);
+			void allproducts(void (*handler)(icclient_response*) = nullptr);
+			void emitResults(icclient_response* fetch);
 			void emitCatalog(icclient_catalog* catalog);
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.
 			 * \param handler A pointer to a cURL write function callback.
 			 */
-			void flyPage(QString const& sku, void (*handler)(icclient_fetch_t*));
+			void flyPage(QString const& sku, void (*handler)(icclient_response*));
 			/*!
 			 * \brief For putting an item to a cart.
 			 * \param sku The SKU of the item to order.
@@ -62,7 +62,7 @@ namespace QICClient {
 			void allProducts();
 
 		signals:
-			void gotResults(icclient_fetch_t* fetch);
+			void gotResults(icclient_response* fetch);
 			void gotCatalog(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
 	};
