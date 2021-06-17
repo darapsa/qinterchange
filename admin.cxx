@@ -5,11 +5,9 @@
 
 namespace QICClient {
 
-	std::shared_ptr<Admin> Admin::logIn(QString const& username, QString const& password, void (*handler)(icclient_fetch_t *))
+	void Admin::logIn(QString const& username, QString const& password)
 	{
-		auto admin = new Admin{};
-		admin->setData(icclient_admin_login(username.toLatin1().constData(), password.toLatin1().constData(), handler));
-		return std::shared_ptr<Admin>{admin};
+		icclient_admin_login(username.toLatin1().constData(), password.toLatin1().constData(), nullptr, nullptr);
 	}
 
 	void Admin::setUserName(QString const& userName)

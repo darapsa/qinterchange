@@ -5,11 +5,9 @@
 
 namespace QICClient {
 
-	std::shared_ptr<Member> Member::logIn(QString const& username, QString const& password, void (*handler)(icclient_fetch_t *))
+	void Member::logIn(QString const& username, QString const& password)
 	{
-		auto member = new Member{};
-		member->setData(icclient_member_login(username.toLatin1().constData(), password.toLatin1().constData(), handler));
-		return std::shared_ptr<Member>{member};
+		icclient_member_login(username.toLatin1().constData(), password.toLatin1().constData(), nullptr, nullptr);
 	}
 
 	void Member::setUserName(QString const& userName)

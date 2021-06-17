@@ -57,8 +57,6 @@ namespace QICClient {
 				m_data{nullptr}
 			{}
 			~Member() {}
-			static std::shared_ptr<Member> logIn(QString const& username, QString const& password,
-					void (*handler)(icclient_fetch_t *) = nullptr);
 
 			QString const& userName() const { return m_userName; }
 			QString const& userNick() const { return m_userNick; }
@@ -102,6 +100,7 @@ namespace QICClient {
 			void setEmail(QString const& email);
 
 		public slots:
+			void logIn(QString const& username, QString const& password);
 			void account(QString const& firstName, QString const& lastName,
 					QString const& address1, QString const& address2,
 					QString const& city, QString const& state,

@@ -32,9 +32,7 @@ namespace QICClient {
 
 	void Client::results(QString const& prodGroup)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), handleResults, [](icclient_catalog* catalog) {
-				icclient_free_catalog(catalog);
-				});
+		icclient_results(prodGroup.toLatin1().constData(), handleResults, nullptr);
 	}
 /*
 	void Client::results(QString const& prodGroup, void (*handler)(icclient_fetch_t*))
@@ -44,9 +42,7 @@ namespace QICClient {
 */
 	void Client::allProducts()
 	{
-		icclient_allproducts(handleResults, [](icclient_catalog* catalog) {
-				icclient_free_catalog(catalog);
-				});
+		icclient_allproducts(handleResults, nullptr);
 	}
 
 	void Client::allproducts(void (*handler)(icclient_fetch_t* fetch))

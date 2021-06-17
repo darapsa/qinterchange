@@ -27,9 +27,6 @@ namespace QICClient {
 				m_data{nullptr}
 			{}
 			~Admin() {}
-			static std::shared_ptr<Admin> logIn(QString const& username, QString const& password,
-					void (*handler)(icclient_fetch_t *) = nullptr);
-
 			QString const& userName() const { return m_userName; }
 			QString const& password() const { return m_password; }
 			QString const& name() const { return m_name; }
@@ -41,6 +38,7 @@ namespace QICClient {
 			void setSuper(bool super);
 
 		public slots:
+			void logIn(QString const& username, QString const& password);
 			void newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
 					enum icclient_admin_group group);
 			void newItem(QString const& description, QString const& comment, QString const& price,
@@ -64,4 +62,4 @@ namespace QICClient {
 
 }
 
-#endif // QICCLIENT_ADMIN_HXX
+#endif
