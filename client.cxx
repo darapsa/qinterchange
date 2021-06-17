@@ -32,26 +32,26 @@ namespace QICClient {
 
 	void Client::results(QString const& prodGroup)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), [](icclient_catalog* catalog) {
+		icclient_results(prodGroup.toLatin1().constData(), handleResults, [](icclient_catalog* catalog) {
 				icclient_free_catalog(catalog);
-				}, handleResults);
+				});
 	}
 /*
 	void Client::results(QString const& prodGroup, void (*handler)(icclient_fetch_t*))
 	{
-		icclient_results(prodGroup.toLatin1().constData(), callback, handler);
+		icclient_results(prodGroup.toLatin1().constData(), handler, callback);
 	}
 */
 	void Client::allProducts()
 	{
-		icclient_allproducts([](icclient_catalog* catalog) {
+		icclient_allproducts(handleResults, [](icclient_catalog* catalog) {
 				icclient_free_catalog(catalog);
-				}, handleResults);
+				});
 	}
 
 	void Client::allproducts(void (*handler)(icclient_fetch_t* fetch))
 	{
-		icclient_allproducts(callback, handler);
+		icclient_allproducts(handler, callback);
 	}
 
 	void Client::emitResults(icclient_fetch_t* fetch)
