@@ -27,11 +27,7 @@ namespace QICClient {
 				m_data{nullptr}
 			{}
 			~Admin() {}
-			static std::shared_ptr<Admin> logIn(QString const& username,
-					QString const& password,
-					QString const& successPage = nullptr,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr,
+			static std::shared_ptr<Admin> logIn(QString const& username, QString const& password,
 					void (*handler)(icclient_fetch_t *) = nullptr);
 
 			QString const& userName() const { return m_userName; }
