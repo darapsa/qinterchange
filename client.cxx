@@ -1,24 +1,9 @@
-#include <cstddef>
-#include <memory>
-#include <QObject>
 #include "qicclient.hxx"
 #include "qicclient/ord.hxx"
 
 namespace QICClient {
 
 	static Client* client;
-
-	static void resultsHandler(icclient_response* response)
-	{
-		client->emitResults(QString{response->data});
-		icclient_free_response(response);
-	}
-
-	static void catalogCallback(icclient_catalog* catalog)
-	{
-		client->emitCatalog(new Catalog{catalog});
-		icclient_free_catalog(catalog);
-	}
 
 	Client::Client(char const* sampleURL, char const* image_Dir, char const* certificate)
 	{
@@ -31,48 +16,62 @@ namespace QICClient {
 		icclient_cleanup();
 	}
 
-	void Client::results(QString const& prodGroup)
+	static void catalogHandler(icclient_response* response)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), resultsHandler, nullptr);
+		client->emitCatalog(QString{response->data});
+		icclient_free_response(response);
+	}
+
+	static void catalogCallback(struct icclient_catalog* catalog)
+	{
+		icclient_free_catalog(catalog);
+	}
+
+	void Client::catalog(QString const& prodGroup)
+	{
+		icclient_catalog(prodGroup.toLatin1().constData(), catalogHandler, nullptr);
 	}
 
 	void Client::allProducts()
 	{
-		icclient_allproducts(resultsHandler, nullptr);
+		icclient_allproducts(catalogHandler, nullptr);
 	}
 
-	void Client::strapResults(QString const& prodGroup)
+	static void productHandler(icclient_response* response)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), nullptr, catalogCallback);
+		client->emitProduct(QString{response->data});
+		icclient_free_response(response);
 	}
 
-	void Client::strapAllProducts()
+	void Client::product(QString const& sku)
+	{
+		icclient_product(sku.toLatin1().constData(), productHandler, nullptr);
+	}
+
+	void Client::defaultCatalog(QString const& prodGroup)
+	{
+		icclient_catalog(prodGroup.toLatin1().constData(), nullptr, catalogCallback);
+	}
+
+	void Client::defaultAllProducts()
 	{
 		icclient_allproducts(nullptr, catalogCallback);
 	}
 
-	void Client::emitResults(QString const& results)
-	{
-		emit gotResults(results);
-	}
-
-	void Client::emitCatalog(Catalog* catalog)
+	void Client::emitCatalog(QString const& catalog)
 	{
 		emit gotCatalog(catalog);
 	}
 
-	void Client::flyPage(QString const& sku,void (*handler)(icclient_response*))
+	void Client::emitProduct(QString const& product)
 	{
-		icclient_product* product = nullptr;
-		icclient_flypage(sku.toLatin1().constData(), handler, &product);
-		if (product) emit gotFlyPage(shared_ptr<Product>{new Product{product}});
+		emit gotProduct(product);
 	}
 
 	void Client::order(QString const& sku, Catalog const& catalog, Ord& order)
 	{
 		auto c_order = order.data();
-		icclient_ord_order(sku.toLatin1().constData(), catalog.constData(),
-				&c_order);
+		icclient_ord_order(sku.toLatin1().constData(), catalog.constData(), &c_order);
 		order.setData(c_order);
 	}
 

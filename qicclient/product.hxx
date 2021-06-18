@@ -20,7 +20,7 @@ namespace QICClient {
 			CrossSellRole
 		};
 
-		Product(icclient_product* product) :
+		Product(struct icclient_product* product) :
 			price{product->price},
 			weight{product->weight}
 		{

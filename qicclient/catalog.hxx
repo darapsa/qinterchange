@@ -13,11 +13,11 @@ namespace QICClient {
 		Q_OBJECT
 
 		public:
-			Catalog(icclient_catalog* catalog, QObject* parent = nullptr);
+			Catalog(struct icclient_catalog* catalog, QObject* parent = nullptr);
 			~Catalog();
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-			icclient_catalog const* constData() const { return m_data; }
+			struct icclient_catalog const* constData() const { return m_data; }
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
@@ -25,7 +25,7 @@ namespace QICClient {
 		private:
 			void addProduct(Product const& product);
 			QList<Product> products;
-			icclient_catalog* m_data;
+			struct icclient_catalog* m_data;
 	};
 
 }

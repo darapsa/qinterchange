@@ -1,10 +1,9 @@
 #include <cstddef>
-#include <icclient.h>
 #include "qicclient/catalog.hxx"
 
 namespace QICClient {
 
-	Catalog::Catalog(icclient_catalog* catalog, QObject* parent) :
+	Catalog::Catalog(struct icclient_catalog* catalog, QObject* parent) :
 		QAbstractListModel{parent},
 		m_data{catalog}
 	{
