@@ -61,7 +61,7 @@ namespace QICClient {
 			void strapAllProducts();
 
 		signals:
-			void gotResponse(icclient_response* response);
+			void gotResults(QString const& results);
 			void gotCatalog(Catalog* catalog);
 			void gotFlyPage(shared_ptr<Product> product);
 	};

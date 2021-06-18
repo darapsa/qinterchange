@@ -14,7 +14,6 @@ static void responseHandler(icclient_response* response)
 static void catalogCallback(icclient_catalog* catalog)
 {
 	client->emitCatalog(catalog);
-	icclient_free_catalog(catalog);
 }
 
 namespace QICClient {
@@ -52,12 +51,14 @@ namespace QICClient {
 
 	void Client::emitResponse(icclient_response* response)
 	{
-		emit gotResponse(response);
+		emit gotResults(QString{response->data});
+		icclient_free_response(response);
 	}
 
 	void Client::emitCatalog(icclient_catalog* catalog)
 	{
 		emit gotCatalog(new Catalog{catalog});
+		icclient_free_catalog(catalog);
 	}
 
 	void Client::flyPage(QString const& sku,void (*handler)(icclient_response*))
