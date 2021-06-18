@@ -4,19 +4,21 @@
 #include "qicclient.hxx"
 #include "qicclient/ord.hxx"
 
-static QICClient::Client* client;
-
-static void responseHandler(icclient_response* response)
-{
-	client->emitResponse(response);
-}
-
-static void catalogCallback(icclient_catalog* catalog)
-{
-	client->emitCatalog(catalog);
-}
-
 namespace QICClient {
+
+	static Client* client;
+
+	static void resultsHandler(icclient_response* response)
+	{
+		client->emitResults(QString{response->data});
+		icclient_free_response(response);
+	}
+
+	static void catalogCallback(icclient_catalog* catalog)
+	{
+		client->emitCatalog(new Catalog{catalog});
+		icclient_free_catalog(catalog);
+	}
 
 	Client::Client(char const* sampleURL, char const* image_Dir, char const* certificate)
 	{
@@ -31,12 +33,12 @@ namespace QICClient {
 
 	void Client::results(QString const& prodGroup)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), responseHandler, nullptr);
+		icclient_results(prodGroup.toLatin1().constData(), resultsHandler, nullptr);
 	}
 
 	void Client::allProducts()
 	{
-		icclient_allproducts(responseHandler, nullptr);
+		icclient_allproducts(resultsHandler, nullptr);
 	}
 
 	void Client::strapResults(QString const& prodGroup)
@@ -49,16 +51,14 @@ namespace QICClient {
 		icclient_allproducts(nullptr, catalogCallback);
 	}
 
-	void Client::emitResponse(icclient_response* response)
+	void Client::emitResults(QString const& results)
 	{
-		emit gotResults(QString{response->data});
-		icclient_free_response(response);
+		emit gotResults(results);
 	}
 
-	void Client::emitCatalog(icclient_catalog* catalog)
+	void Client::emitCatalog(Catalog* catalog)
 	{
-		emit gotCatalog(new Catalog{catalog});
-		icclient_free_catalog(catalog);
+		emit gotCatalog(catalog);
 	}
 
 	void Client::flyPage(QString const& sku,void (*handler)(icclient_response*))

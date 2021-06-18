@@ -22,9 +22,10 @@ namespace QICClient {
 			 * \param certificate Path to the CA certificate file.
 			 */
 			Client(char const* sampleURL, char const* image_Dir, char const* certificate = nullptr);
+			/*!
+			 * \brief Destructor.
+			 */
 			~Client();
-			void emitResponse(icclient_response* response);
-			void emitCatalog(icclient_catalog* catalog);
 			/*!
 			 * \brief For fetching data about a specific product.
 			 * \param sku The SKU of the item to order.
@@ -38,6 +39,8 @@ namespace QICClient {
 			 * \param order The order.
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
+			void emitResults(QString const& response);
+			void emitCatalog(Catalog* catalog);
 
 		public slots:
 			/*!
