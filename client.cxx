@@ -6,12 +6,12 @@
 
 static QICClient::Client* client;
 
-static void handleResults(icclient_response* response)
+static void responseHandler(icclient_response* response)
 {
-	client->emitResults(response);
+	client->emitResponse(response);
 }
 
-static void callback(icclient_catalog* catalog)
+static void catalogCallback(icclient_catalog* catalog)
 {
 	client->emitCatalog(catalog);
 	icclient_free_catalog(catalog);
@@ -32,27 +32,27 @@ namespace QICClient {
 
 	void Client::results(QString const& prodGroup)
 	{
-		icclient_results(prodGroup.toLatin1().constData(), handleResults, nullptr);
+		icclient_results(prodGroup.toLatin1().constData(), responseHandler, nullptr);
 	}
-/*
-	void Client::results(QString const& prodGroup, void (*handler)(icclient_response*))
-	{
-		icclient_results(prodGroup.toLatin1().constData(), handler, callback);
-	}
-*/
+
 	void Client::allProducts()
 	{
-		icclient_allproducts(handleResults, nullptr);
+		icclient_allproducts(responseHandler, nullptr);
 	}
 
-	void Client::allproducts(void (*handler)(icclient_response* response))
+	void Client::strapResults(QString const& prodGroup)
 	{
-		icclient_allproducts(handler, callback);
+		icclient_results(prodGroup.toLatin1().constData(), nullptr, catalogCallback);
 	}
 
-	void Client::emitResults(icclient_response* response)
+	void Client::strapAllProducts()
 	{
-		emit gotResults(response);
+		icclient_allproducts(nullptr, catalogCallback);
+	}
+
+	void Client::emitResponse(icclient_response* response)
+	{
+		emit gotResponse(response);
 	}
 
 	void Client::emitCatalog(icclient_catalog* catalog)
