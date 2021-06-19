@@ -13,6 +13,7 @@ namespace QICClient {
 		Q_OBJECT
 
 		public:
+			Catalog(QObject* parent = nullptr) : QObject{parent} {}
 			Catalog(struct icclient_catalog* catalog, QObject* parent = nullptr);
 			~Catalog();
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
