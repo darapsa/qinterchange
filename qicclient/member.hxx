@@ -2,7 +2,6 @@
 #define QICCLIENT_MEMBER_HXX
 
 #include <QObject>
-#include <icclient/typedefs.h>
 #include <icclient/member.h>
 
 struct icclient_member;
@@ -157,4 +156,4 @@ namespace QICClient {
 
 }
 
-#endif // QICCLIENT_MEMBER_HXX
+#endif
