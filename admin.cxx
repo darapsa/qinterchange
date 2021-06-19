@@ -1,3 +1,4 @@
+#include <icclient/typedefs.h>
 #include <icclient/admin.h>
 #include "qicclient/admin.hxx"
 

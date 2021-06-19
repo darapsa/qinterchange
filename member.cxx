@@ -1,3 +1,4 @@
+#include <icclient/typedefs.h>
 #include <icclient/member.h>
 #include "qicclient/member.hxx"
 

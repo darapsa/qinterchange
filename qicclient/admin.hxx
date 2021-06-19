@@ -2,6 +2,7 @@
 #define QICCLIENT_ADMIN_HXX
 
 #include <QObject>
+#include <icclient/typedefs.h>
 #include <icclient/admin.h>
 
 struct icclient_admin;
