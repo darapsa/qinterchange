@@ -31,8 +31,6 @@ namespace QICClient {
 			 * \param order The order.
 			 */
 			void order(QString const& sku, Catalog const& catalog, Ord& order);
-			void emitCatalog(QString const& response);
-			void emitProduct(QString const& response);
 
 		public slots:
 			/*!
@@ -62,6 +60,10 @@ namespace QICClient {
 		signals:
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
+
+		protected:
+			void emitCatalog(QString const& response);
+			void emitProduct(QString const& response);
 	};
 
 }

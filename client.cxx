@@ -16,46 +16,37 @@ namespace QICClient {
 		icclient_cleanup();
 	}
 
-	static void catalogHandler(icclient_response* response)
-	{
-		client->emitCatalog(QString{response->data});
-		icclient_free_response(response);
-	}
-
-	static void catalogCallback(struct icclient_catalog* catalog)
-	{
-		icclient_free_catalog(catalog);
-	}
-
 	void Client::catalog(QString const& prodGroup)
 	{
-		icclient_catalog(prodGroup.toLatin1().constData(), catalogHandler, nullptr);
+		icclient_catalog(prodGroup.toLatin1().constData(), [](icclient_response* response) {
+			client->emitCatalog(QString{response->data});
+			icclient_free_response(response);
+		}, nullptr);
 	}
 
 	void Client::allProducts()
 	{
-		icclient_allproducts(catalogHandler, nullptr);
-	}
-
-	static void productHandler(icclient_response* response)
-	{
-		client->emitProduct(QString{response->data});
-		icclient_free_response(response);
+		catalog("All-Products");
 	}
 
 	void Client::product(QString const& sku)
 	{
-		icclient_product(sku.toLatin1().constData(), productHandler, nullptr);
+		icclient_product(sku.toLatin1().constData(), [](icclient_response* response) {
+			client->emitProduct(QString{response->data});
+			icclient_free_response(response);
+			}, nullptr);
 	}
 
 	void Client::defaultCatalog(QString const& prodGroup)
 	{
-		icclient_catalog(prodGroup.toLatin1().constData(), nullptr, catalogCallback);
+		icclient_catalog(prodGroup.toLatin1().constData(), nullptr, [](struct icclient_catalog* catalog) {
+			icclient_free_catalog(catalog);
+		});
 	}
 
 	void Client::defaultAllProducts()
 	{
-		icclient_allproducts(nullptr, catalogCallback);
+		defaultCatalog("All-Products");
 	}
 
 	void Client::emitCatalog(QString const& catalog)
