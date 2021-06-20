@@ -21,7 +21,7 @@ $ make install
 or
 
 ```sh
-$ emcmake cmake -DCMAKE_TOOLCHAIN_FILE=/opt/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake -DQt5Core_DIR=/opt/Qt/5.15.2/wasm_32/lib/cmake/Qt5Core -DCMAKE_INSTALL_PREFIX=/opt/emsdk/upstream/emscripten/system -DCMAKE_BUILD_TYPE=Debug ..
+$ emcmake cmake -DCMAKE_TOOLCHAIN_FILE=/usr/local/lib/emscripten/cmake/Modules/Platform/Emscripten.cmake -DQt5Core_DIR=/opt/Qt/5.15.2/wasm_32/lib/cmake/Qt5Core -DCMAKE_INSTALL_PREFIX=/usr/local/lib/emscripten/system -DCMAKE_BUILD_TYPE=Debug ..
 $ emmake make
 $ emmake make install
 ```
