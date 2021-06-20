@@ -34,7 +34,7 @@ namespace QICClient {
 		icclient_product(sku.toLatin1().constData(), [](icclient_response* response) {
 			client->emitProduct(QString{response->data});
 			icclient_free_response(response);
-			}, nullptr);
+		}, nullptr);
 	}
 
 	void Client::defaultCatalog(QString const& prodGroup)
