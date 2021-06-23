@@ -20,6 +20,8 @@ namespace QICClient {
 				return item.product.sku;
 			case Product::DescriptionRole:
 				return item.product.description;
+			case Product::ImageRole:
+				return item.product.image;
 			case Product::PriceRole:
 				return item.product.price;
 			case Item::QuantityRole:
@@ -34,6 +36,7 @@ namespace QICClient {
 		return QHash<int, QByteArray>{
 			{ Product::SkuRole, "sku" },
 			{ Product::DescriptionRole, "description" },
+			{ Product::ImageRole, "image" },
 			{ Product::PriceRole, "price" },
 			{ Item::QuantityRole, "quantity" }
 		};
