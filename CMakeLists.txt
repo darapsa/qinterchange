@@ -27,6 +27,7 @@ target_link_libraries(${PROJECT_NAME}
 	Qt5::Core
 	icclient
 	)
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+include(GNUInstallDirs)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${PROJECT_NAME}.hxx DESTINATION include)
 install(FILES ${HDRS} DESTINATION include/${PROJECT_NAME})
