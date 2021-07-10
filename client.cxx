@@ -37,6 +37,14 @@ namespace QICClient {
 		}, nullptr);
 	}
 
+	void Client::path(QString const& path)
+	{
+		icclient_path(path.toLatin1().constData(), [](icclient_response* response) {
+			client->emitPath(QString{response->data});
+			icclient_free_response(response);
+		});
+	}
+
 	void Client::defaultCatalog(QString const& prodGroup)
 	{
 		icclient_catalog(prodGroup.toLatin1().constData(), nullptr, [](struct icclient_catalog* catalog) {
@@ -57,6 +65,11 @@ namespace QICClient {
 	void Client::emitProduct(QString const& product)
 	{
 		emit gotProduct(product);
+	}
+
+	void Client::emitPath(QString const& path)
+	{
+		emit gotPath(path);
 	}
 
 	void Client::order(QString const& sku, Catalog const& catalog, Ord& order)
