@@ -37,10 +37,10 @@ namespace QICClient {
 		}, nullptr);
 	}
 
-	void Client::path(QString const& path)
+	void Client::page(QString const& path)
 	{
-		icclient_path(path.toLatin1().constData(), [](icclient_response* response) {
-			client->emitPath(QString{response->data});
+		icclient_page(path.toLatin1().constData(), [](icclient_response* response) {
+			client->emitPage(QString{response->data});
 			icclient_free_response(response);
 		});
 	}
@@ -57,19 +57,19 @@ namespace QICClient {
 		defaultCatalog("All-Products");
 	}
 
-	void Client::emitCatalog(QString const& catalog)
+	void Client::emitCatalog(QString const& response)
 	{
-		emit gotCatalog(catalog);
+		emit gotCatalog(response);
 	}
 
-	void Client::emitProduct(QString const& product)
+	void Client::emitProduct(QString const& response)
 	{
-		emit gotProduct(product);
+		emit gotProduct(response);
 	}
 
-	void Client::emitPath(QString const& path)
+	void Client::emitPage(QString const& response)
 	{
-		emit gotPath(path);
+		emit gotPage(response);
 	}
 
 	void Client::order(QString const& sku, Catalog const& catalog, Ord& order)

@@ -51,7 +51,7 @@ namespace QICClient {
 			 * \brief For fetching data from a specific path.
 			 * \param path The path.
 			 */
-			void path(QString const& path);
+			void page(QString const& path);
 			/*!
 			 * \brief For fetching products that belong a specific group.
 			 * \param prodGroup The name of the product group.
@@ -65,12 +65,12 @@ namespace QICClient {
 		signals:
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
-			void gotPath(QString const& response);
+			void gotPage(QString const& response);
 
 		protected:
 			void emitCatalog(QString const& response);
 			void emitProduct(QString const& response);
-			void emitPath(QString const& response);
+			void emitPage(QString const& response);
 	};
 
 }
