@@ -18,6 +18,10 @@ set(SRCS
 	member.cxx
 	admin.cxx
 	)
+if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+	include_directories(/usr/local/include)
+	link_directories(/usr/local/lib)
+endif()
 if (EMSCRIPTEN OR IOS)
 	add_library(${PROJECT_NAME} STATIC ${SRCS})
 else()
