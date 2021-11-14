@@ -1,11 +1,24 @@
+#include <icclient.h>
 #include <icclient/member.h>
 #include "qicclient/member.hxx"
 
 namespace QICClient {
 
+	static char *unCopy, *pwCopy;
+
 	void Member::logIn(QString const& username, QString const& password)
 	{
-		icclient_member_login(username.toLatin1().constData(), password.toLatin1().constData(), nullptr, nullptr);
+		auto unData = username.toLatin1().constData();
+		unCopy = (char*)malloc(strlen(unData) + 1);
+		strcpy(unCopy, unData);
+		auto pwData = password.toLatin1().constData();
+		pwCopy = (char*)malloc(strlen(pwData) + 1);
+		strcpy(pwCopy, pwData);
+		icclient_member_login(unCopy, pwCopy, [](icclient_response* response) {
+				free(unCopy);
+				free(pwCopy);
+				icclient_free_response(response);
+			}, nullptr);
 	}
 
 	void Member::setUserName(QString const& userName)
