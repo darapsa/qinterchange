@@ -1,7 +1,7 @@
 #include "interchange.hxx"
 #include "interchange/ord.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	static Interchange* interchange;
 

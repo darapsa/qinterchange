@@ -6,7 +6,7 @@
 
 struct interchange_member;
 
-namespace Interchange {
+namespace QInterchange {
 
 	class Member : public QObject
 	{

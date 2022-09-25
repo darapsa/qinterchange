@@ -2,7 +2,7 @@
 #include <memory>
 #include "interchange/ord.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	int Ord::rowCount(QModelIndex const& parent) const
 	{

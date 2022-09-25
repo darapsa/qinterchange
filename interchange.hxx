@@ -4,7 +4,7 @@
 #include <QObject>
 #include "interchange/catalog.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	class Ord;
 

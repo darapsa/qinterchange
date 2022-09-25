@@ -2,7 +2,7 @@
 #include <interchange/admin.h>
 #include "interchange/admin.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	static char *unCopy, *pwCopy;
 

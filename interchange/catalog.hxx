@@ -6,7 +6,7 @@
 
 struct interchange_catalog;
 
-namespace Interchange {
+namespace QInterchange {
 
 	class Catalog : public QAbstractListModel
 	{

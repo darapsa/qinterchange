@@ -2,7 +2,7 @@
 #include <interchange/member.h>
 #include "interchange/member.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	static char *unCopy, *pwCopy;
 

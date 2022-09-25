@@ -6,7 +6,7 @@
 
 struct interchange_admin;
 
-namespace Interchange {
+namespace QInterchange {
 
 	class Admin : public QObject
 	{

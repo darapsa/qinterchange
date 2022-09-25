@@ -6,7 +6,7 @@
 #include "member.hxx"
 #include "product.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	struct Item
 	{

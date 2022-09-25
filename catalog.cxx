@@ -1,7 +1,7 @@
 #include <cstddef>
 #include "interchange/catalog.hxx"
 
-namespace Interchange {
+namespace QInterchange {
 
 	Catalog::Catalog(struct interchange_catalog* catalog, QObject* parent) :
 		QAbstractListModel{parent},

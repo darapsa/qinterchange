@@ -3,7 +3,7 @@
 
 #include <interchange.h>
 
-namespace Interchange {
+namespace QInterchange {
 
 	struct Product
 	{
