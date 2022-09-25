@@ -1,20 +1,19 @@
-lib_LTLIBRARIES = libqicclient.la
-libqicclient_la_SOURCES = \
-			  client.cxx \
+lib_LTLIBRARIES = libqinterchange.la
+libqinterchange_la_SOURCES = \
+			  interchange.cxx \
 			  catalog.cxx \
 			  ord.cxx \
 			  member.cxx \
 			  admin.cxx \
-			  qicclient.hxx \
-			  qicclient/catalog.hxx \
-			  qicclient/ord.hxx \
-			  qicclient/member.hxx \
-			  qicclient/admin.hxx
-libqicclient_la_CPPFLAGS = $(QT_CFLAGS)
-libqicclient_la_LDFLAGS = $(QT_LIBS)
-include_HEADERS = qicclient.hxx
+			  interchange.hxx \
+			  interchange/catalog.hxx \
+			  interchange/ord.hxx \
+			  interchange/member.hxx \
+			  interchange/admin.hxx
+libqinterchange_la_CPPFLAGS = $(DEPS_CFLAGS)
+include_HEADERS = interchange.hxx
 pkginclude_HEADERS = \
-		     qicclient/catalog.hxx \
-		     qicclient/ord.hxx \
-		     qicclient/member.hxx \
-		     qicclient/admin.hxx
+		     interchange/catalog.hxx \
+		     interchange/ord.hxx \
+		     interchange/member.hxx \
+		     interchange/admin.hxx
