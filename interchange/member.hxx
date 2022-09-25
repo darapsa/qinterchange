@@ -1,12 +1,12 @@
-#ifndef QICCLIENT_MEMBER_HXX
-#define QICCLIENT_MEMBER_HXX
+#ifndef INTERCHANGE_MEMBER_HXX
+#define INTERCHANGE_MEMBER_HXX
 
 #include <QObject>
-#include <icclient/member.h>
+#include <interchange/member.h>
 
-struct icclient_member;
+struct interchange_member;
 
-namespace QICClient {
+namespace Interchange {
 
 	class Member : public QObject
 	{
@@ -76,7 +76,7 @@ namespace QICClient {
 			QString const& country() const { return m_country; }
 			QString const& phoneDay() const { return m_phoneDay; }
 			QString const& email() const { return m_email; }
-			icclient_member* data() { return m_data; }
+			interchange_member* data() { return m_data; }
 
 			void setUserName(QString const& userName);
 			void setUserNick(QString const& userNick);
@@ -150,8 +150,8 @@ namespace QICClient {
 			QString m_country;
 			QString m_phoneDay;
 			QString m_email;
-			icclient_member* m_data;
-			inline void setData(icclient_member* data);
+			interchange_member* m_data;
+			inline void setData(interchange_member* data);
 	};
 
 }

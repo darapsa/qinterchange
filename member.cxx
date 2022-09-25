@@ -1,8 +1,8 @@
-#include <icclient.h>
-#include <icclient/member.h>
-#include "qicclient/member.hxx"
+#include <interchange.h>
+#include <interchange/member.h>
+#include "interchange/member.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
 	static char *unCopy, *pwCopy;
 
@@ -14,10 +14,10 @@ namespace QICClient {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
-		icclient_member_login(unCopy, pwCopy, [](icclient_response* response) {
+		interchange_member_login(unCopy, pwCopy, [](interchange_response* response) {
 				free(unCopy);
 				free(pwCopy);
-				icclient_free_response(response);
+				interchange_free_response(response);
 			}, nullptr);
 	}
 
@@ -173,7 +173,7 @@ namespace QICClient {
 		}
 	}
 
-	void Member::setData(icclient_member* data)
+	void Member::setData(interchange_member* data)
 	{
 		if (data && data->username && m_userName != data->username) {
 			m_userName = QString{data->username};
@@ -278,7 +278,7 @@ namespace QICClient {
 			QString const& city, QString const& state, QString const& zip,
 			QString const& email, QString const& phoneDay)
 	{
-		icclient_member_account(firstName.toLatin1().constData(),
+		interchange_member_account(firstName.toLatin1().constData(),
 				lastName.toLatin1().constData(),
 				address1.toLatin1().constData(),
 				address2.toLatin1().constData(),
@@ -290,14 +290,14 @@ namespace QICClient {
 	void Member::changePassword(QString const& passwordOld, QString const& password,
 			QString const& verify)
 	{
-		icclient_member_changepassword(passwordOld.toLatin1().constData(),
+		interchange_member_changepassword(passwordOld.toLatin1().constData(),
 				password.toLatin1().constData(),
 				verify.toLatin1().constData());
 	}
 
 	void Member::logOut()
 	{
-		icclient_member_logout(m_data);
+		interchange_member_logout(m_data);
 		setData(nullptr);
 	}
 

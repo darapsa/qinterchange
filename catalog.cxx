@@ -1,9 +1,9 @@
 #include <cstddef>
-#include "qicclient/catalog.hxx"
+#include "interchange/catalog.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
-	Catalog::Catalog(struct icclient_catalog* catalog, QObject* parent) :
+	Catalog::Catalog(struct interchange_catalog* catalog, QObject* parent) :
 		QAbstractListModel{parent},
 		m_data{catalog}
 	{
@@ -12,7 +12,7 @@ namespace QICClient {
 
 	Catalog::~Catalog()
 	{
-		icclient_free_catalog(m_data);
+		interchange_free_catalog(m_data);
 	}
 
 	int Catalog::rowCount(QModelIndex const& parent) const

@@ -1,12 +1,12 @@
-# Qt Core wrapper for [libicclient](http://darapsa.org/libicclient)
+# Qt Core wrapper for [libinterchange](http://darapsa.org/libinterchange)
 
 # Building
 
 ## Getting
 
 ```sh
-$ git clone git://darapsa.org/qicclient.git
-$ cd qicclient
+$ git clone git://darapsa.org/qinterchange.git
+$ cd qinterchange
 $ mkdir build && cd build
 ```
 

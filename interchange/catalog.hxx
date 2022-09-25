@@ -1,12 +1,12 @@
-#ifndef QICCLIENT_CATALOG_HXX
-#define QICCLIENT_CATALOG_HXX
+#ifndef INTERCHANGE_CATALOG_HXX
+#define INTERCHANGE_CATALOG_HXX
 
 #include <QAbstractListModel>
 #include "product.hxx"
 
-struct icclient_catalog;
+struct interchange_catalog;
 
-namespace QICClient {
+namespace Interchange {
 
 	class Catalog : public QAbstractListModel
 	{
@@ -14,11 +14,11 @@ namespace QICClient {
 
 		public:
 			Catalog(QObject* parent = nullptr) : QAbstractListModel{parent} {}
-			Catalog(struct icclient_catalog* catalog, QObject* parent = nullptr);
+			Catalog(struct interchange_catalog* catalog, QObject* parent = nullptr);
 			~Catalog();
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-			struct icclient_catalog const* constData() const { return m_data; }
+			struct interchange_catalog const* constData() const { return m_data; }
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
@@ -26,7 +26,7 @@ namespace QICClient {
 		private:
 			void addProduct(Product const& product);
 			QList<Product> products;
-			struct icclient_catalog* m_data;
+			struct interchange_catalog* m_data;
 	};
 
 }

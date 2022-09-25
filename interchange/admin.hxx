@@ -1,12 +1,12 @@
-#ifndef QICCLIENT_ADMIN_HXX
-#define QICCLIENT_ADMIN_HXX
+#ifndef INTERCHANGE_ADMIN_HXX
+#define INTERCHANGE_ADMIN_HXX
 
 #include <QObject>
-#include <icclient/admin.h>
+#include <interchange/admin.h>
 
-struct icclient_admin;
+struct interchange_admin;
 
-namespace QICClient {
+namespace Interchange {
 
 	class Admin : public QObject
 	{
@@ -39,7 +39,7 @@ namespace QICClient {
 		public slots:
 			void logIn(QString const& username, QString const& password);
 			void newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
-					enum icclient_admin_group group);
+					enum interchange_admin_group group);
 			void newItem(QString const& description, QString const& comment, QString const& price,
 					QString const& imagePath);
 			void logOut();
@@ -55,8 +55,8 @@ namespace QICClient {
 			QString m_password;
 			QString m_name;
 			bool m_super;
-			icclient_admin* m_data;
-			inline void setData(icclient_admin* data);
+			interchange_admin* m_data;
+			inline void setData(interchange_admin* data);
 	};
 
 }

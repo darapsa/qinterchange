@@ -1,19 +1,19 @@
-#ifndef QICCLIENT_ORD_HXX
-#define QICCLIENT_ORD_HXX
+#ifndef INTERCHANGE_ORD_HXX
+#define INTERCHANGE_ORD_HXX
 
 #include <QAbstractListModel>
-#include <icclient/ord.h>
+#include <interchange/ord.h>
 #include "member.hxx"
 #include "product.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
 	struct Item
 	{
 		enum ItemRoles {
 			QuantityRole = Product::PriceRole + 1
 		};
-		Item(icclient_ord_item* item) :
+		Item(interchange_ord_item* item) :
 			product{item->product},
 			quantity{item->quantity} {}
 		Product product;
@@ -42,8 +42,8 @@ namespace QICClient {
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
-			struct icclient_ord_order* data() { return m_data; }
-			void setData(struct icclient_ord_order* order);
+			struct interchange_ord_order* data() { return m_data; }
+			void setData(struct interchange_ord_order* order);
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
@@ -60,7 +60,7 @@ namespace QICClient {
 		private:
 			void addItem(Item const& item);
 			QList<Item> items;
-			struct icclient_ord_order* m_data;
+			struct interchange_ord_order* m_data;
 			double m_subtotal;
 			double m_shipping;
 			double m_totalCost;

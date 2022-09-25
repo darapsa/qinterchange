@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <memory>
-#include "qicclient/ord.hxx"
+#include "interchange/ord.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
 	int Ord::rowCount(QModelIndex const& parent) const
 	{
@@ -60,7 +60,7 @@ namespace QICClient {
 		emit rowCountChanged();
 	}
 
-	void Ord::setData(struct icclient_ord_order* order)
+	void Ord::setData(struct interchange_ord_order* order)
 	{
 		if (!order) return;
 		this->m_data = order;
@@ -73,6 +73,6 @@ namespace QICClient {
 
 	void Ord::checkout(Member& member)
 	{
-		icclient_ord_checkout(m_data, member.data());
+		interchange_ord_checkout(m_data, member.data());
 	}
 }

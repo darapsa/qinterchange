@@ -1,8 +1,8 @@
-#include <icclient.h>
-#include <icclient/admin.h>
-#include "qicclient/admin.hxx"
+#include <interchange.h>
+#include <interchange/admin.h>
+#include "interchange/admin.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
 	static char *unCopy, *pwCopy;
 
@@ -14,10 +14,10 @@ namespace QICClient {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
-		icclient_admin_login(unCopy, pwCopy, [](icclient_response* response) {
+		interchange_admin_login(unCopy, pwCopy, [](interchange_response* response) {
 				free(unCopy);
 				free(pwCopy);
-				icclient_free_response(response);
+				interchange_free_response(response);
 			}, nullptr);
 	}
 
@@ -50,7 +50,7 @@ namespace QICClient {
 		}
 	}
 
-	void Admin::setData(icclient_admin* data)
+	void Admin::setData(interchange_admin* data)
 	{
 		if (data && data->username && m_userName != data->username) {
 			m_userName = QString{data->username};
@@ -74,22 +74,22 @@ namespace QICClient {
 	}
 
 	void Admin::newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
-			enum icclient_admin_group group)
+			enum interchange_admin_group group)
 	{
-		icclient_admin_new_admin(userName.toLatin1().constData(), password.toLatin1().constData(),
+		interchange_admin_new_admin(userName.toLatin1().constData(), password.toLatin1().constData(),
 				name.toLatin1().constData(), super, group, nullptr);
 	}
 
 	void Admin::newItem(QString const& description, QString const& comment,
 			QString const& price, QString const& imagePath)
 	{
-		icclient_admin_new_item(description.toLatin1().constData(), comment.toLatin1().constData(),
+		interchange_admin_new_item(description.toLatin1().constData(), comment.toLatin1().constData(),
 				price.toLatin1().constData(), imagePath.toLatin1().constData(), nullptr);
 	}
 
 	void Admin::logOut()
 	{
-		icclient_admin_logout(m_data, nullptr);
+		interchange_admin_logout(m_data, nullptr);
 		setData(nullptr);
 	}
 

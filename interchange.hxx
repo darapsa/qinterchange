@@ -1,14 +1,14 @@
-#ifndef QICCLIENT_HXX
-#define QICCLIENT_HXX
+#ifndef INTERCHANGE_HXX
+#define INTERCHANGE_HXX
 
 #include <QObject>
-#include "qicclient/catalog.hxx"
+#include "interchange/catalog.hxx"
 
-namespace QICClient {
+namespace Interchange {
 
 	class Ord;
 
-	class Client : public QObject
+	class Interchange : public QObject
 	{
 		Q_OBJECT
 
@@ -19,11 +19,11 @@ namespace QICClient {
 			 * \param image_Dir The value of the IMAGE_DIR setting in products/variable.txt.
 			 * \param certificate Path to the CA certificate file.
 			 */
-			Client(char const* sampleURL, char const* image_Dir, char const* certificate = nullptr);
+			Interchange(char const* sampleURL, char const* image_Dir, char const* certificate = nullptr);
 			/*!
 			 * \brief Destructor.
 			 */
-			~Client();
+			~Interchange();
 			/*!
 			 * \brief For putting an item to a cart.
 			 * \param sku The SKU of the item to order.

@@ -1,9 +1,9 @@
-#ifndef QICCLIENT_PRODUCT_HXX
-#define QICCLIENT_PRODUCT_HXX
+#ifndef INTERCHANGE_PRODUCT_HXX
+#define INTERCHANGE_PRODUCT_HXX
 
-#include <icclient.h>
+#include <interchange.h>
 
-namespace QICClient {
+namespace Interchange {
 
 	struct Product
 	{
@@ -21,7 +21,7 @@ namespace QICClient {
 		};
 
 		Product() {}
-		Product(struct icclient_product* product) :
+		Product(struct interchange_product* product) :
 			price{product->price},
 			weight{product->weight}
 		{
