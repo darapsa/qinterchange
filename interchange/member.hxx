@@ -99,6 +99,9 @@ namespace QInterchange {
 			void setEmail(QString const& email);
 
 		public slots:
+			void newAccount(QString const& username,
+					QString const& password,
+					QString const& confirm);
 			void logIn(QString const& username, QString const& password);
 			void account(QString const& firstName, QString const& lastName,
 					QString const& address1, QString const& address2,

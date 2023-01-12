@@ -4,7 +4,28 @@
 
 namespace QInterchange {
 
-	static char *unCopy, *pwCopy;
+	static char *unCopy, *pwCopy, *cfCopy;
+
+	void Member::newAccount(QString const& username,
+			QString const& password, QString const& confirm)
+	{
+		auto unData = username.toLatin1().constData();
+		unCopy = (char*)malloc(strlen(unData) + 1);
+		strcpy(unCopy, unData);
+		auto pwData = password.toLatin1().constData();
+		pwCopy = (char*)malloc(strlen(pwData) + 1);
+		strcpy(pwCopy, pwData);
+		auto cfData = confirm.toLatin1().constData();
+		cfCopy = (char*)malloc(strlen(cfData) + 1);
+		strcpy(cfCopy, cfData);
+		interchange_member_newaccount(unCopy, pwCopy, cfCopy,
+			[](interchange_response* response) {
+				free(unCopy);
+				free(pwCopy);
+				free(cfCopy);
+				interchange_free_response(response);
+			}, nullptr);
+	}
 
 	void Member::logIn(QString const& username, QString const& password)
 	{
