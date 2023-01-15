@@ -4,10 +4,11 @@
 
 namespace QInterchange {
 
-	static char *unCopy, *pwCopy, *cfCopy;
+	static char *unCopy, *pwCopy, *vCopy, *fpCopy;
 
 	void Member::newAccount(QString const& username,
-			QString const& password, QString const& confirm)
+			QString const& password, QString const& verify,
+			QString const& failPage)
 	{
 		auto unData = username.toLatin1().constData();
 		unCopy = (char*)malloc(strlen(unData) + 1);
@@ -15,19 +16,24 @@ namespace QInterchange {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
-		auto cfData = confirm.toLatin1().constData();
-		cfCopy = (char*)malloc(strlen(cfData) + 1);
-		strcpy(cfCopy, cfData);
-		interchange_member_newaccount(unCopy, pwCopy, cfCopy,
+		auto vData = verify.toLatin1().constData();
+		vCopy = (char*)malloc(strlen(vData) + 1);
+		strcpy(vCopy, vData);
+		auto fpData = failPage.toLatin1().constData();
+		fpCopy = (char*)malloc(strlen(fpData) + 1);
+		strcpy(fpCopy, fpData);
+		interchange_member_newaccount(unCopy, pwCopy, vCopy, fpCopy,
 			[](interchange_response* response) {
 				free(unCopy);
 				free(pwCopy);
-				free(cfCopy);
+				free(vCopy);
+				free(fpCopy);
 				interchange_free_response(response);
 			}, nullptr);
 	}
 
-	void Member::logIn(QString const& username, QString const& password)
+	void Member::logIn(QString const& username, QString const& password,
+			QString const& failPage)
 	{
 		auto unData = username.toLatin1().constData();
 		unCopy = (char*)malloc(strlen(unData) + 1);
@@ -35,9 +41,14 @@ namespace QInterchange {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
-		interchange_member_login(unCopy, pwCopy, [](interchange_response* response) {
+		auto fpData = failPage.toLatin1().constData();
+		fpCopy = (char*)malloc(strlen(fpData) + 1);
+		strcpy(fpCopy, fpData);
+		interchange_member_login(unCopy, pwCopy, fpCopy,
+			[](interchange_response* response) {
 				free(unCopy);
 				free(pwCopy);
+				free(fpCopy);
 				interchange_free_response(response);
 			}, nullptr);
 	}

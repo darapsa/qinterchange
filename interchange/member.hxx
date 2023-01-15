@@ -101,8 +101,11 @@ namespace QInterchange {
 		public slots:
 			void newAccount(QString const& username,
 					QString const& password,
-					QString const& confirm);
-			void logIn(QString const& username, QString const& password);
+					QString const& confirm,
+					QString const& failPage = nullptr);
+			void logIn(QString const& username,
+					QString const& password,
+					QString const& failPage = nullptr);
 			void account(QString const& firstName, QString const& lastName,
 					QString const& address1, QString const& address2,
 					QString const& city, QString const& state,

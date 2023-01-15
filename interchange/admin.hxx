@@ -37,7 +37,9 @@ namespace QInterchange {
 			void setSuper(bool super);
 
 		public slots:
-			void logIn(QString const& username, QString const& password);
+			void logIn(QString const& username,
+					QString const& password,
+					QString const& failPage = nullptr);
 			void newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
 					enum interchange_admin_group group);
 			void newItem(QString const& description, QString const& comment, QString const& price,
