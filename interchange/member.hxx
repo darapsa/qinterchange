@@ -32,29 +32,7 @@ namespace QInterchange {
 		Q_PROPERTY(QString email READ email WRITE setEmail NOTIFY emailChanged)
 
 		public:
-			explicit Member(QObject* parent = nullptr) :
-				QObject{parent},
-				m_userName{""},
-				m_userNick{""},
-				m_password{""},
-				m_expiration{""},
-				m_acl{""},
-				m_modTime{""},
-				m_sNickName{""},
-				m_company{""},
-				m_fName{""},
-				m_lName{""},
-				m_address1{""},
-				m_address2{""},
-				m_address3{""},
-				m_city{""},
-				m_state{""},
-				m_zip{""},
-				m_country{""},
-				m_phoneDay{""},
-				m_email{""},
-				m_data{nullptr}
-			{}
+			Member(QObject* parent = nullptr);
 			~Member() {}
 
 			QString const& userName() const { return m_userName; }
@@ -97,6 +75,7 @@ namespace QInterchange {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
+			void setData(interchange_member* data);
 
 		public slots:
 			void newAccount(QString const& username,
@@ -106,6 +85,7 @@ namespace QInterchange {
 			void logIn(QString const& username,
 					QString const& password,
 					QString const& failPage = nullptr);
+
 			void account(QString const& firstName, QString const& lastName,
 					QString const& address1, QString const& address2,
 					QString const& city, QString const& state,
@@ -116,6 +96,7 @@ namespace QInterchange {
 			void logOut();
 
 		signals:
+			void loggedIn(QString const& response);
 			void userNameChanged();
 			void userNickChanged();
 			void passwordChanged();
@@ -135,6 +116,9 @@ namespace QInterchange {
 			void countryChanged();
 			void phoneDayChanged();
 			void emailChanged();
+
+		protected:
+			void emitLogin(QString const& response);
 
 		private:
 			QString m_userName;
@@ -157,7 +141,6 @@ namespace QInterchange {
 			QString m_phoneDay;
 			QString m_email;
 			interchange_member* m_data;
-			inline void setData(interchange_member* data);
 	};
 
 }

@@ -4,7 +4,34 @@
 
 namespace QInterchange {
 
+	static Member* member;
 	static char *unCopy, *pwCopy, *vCopy, *fpCopy;
+
+	Member::Member(QObject* parent) :
+		QObject{parent},
+		m_userName{""},
+		m_userNick{""},
+		m_password{""},
+		m_expiration{""},
+		m_acl{""},
+		m_modTime{""},
+		m_sNickName{""},
+		m_company{""},
+		m_fName{""},
+		m_lName{""},
+		m_address1{""},
+		m_address2{""},
+		m_address3{""},
+		m_city{""},
+		m_state{""},
+		m_zip{""},
+		m_country{""},
+		m_phoneDay{""},
+		m_email{""},
+		m_data{nullptr}
+	{
+		member = this;
+	}
 
 	void Member::newAccount(QString const& username,
 			QString const& password, QString const& verify,
@@ -49,6 +76,7 @@ namespace QInterchange {
 				free(unCopy);
 				free(pwCopy);
 				free(fpCopy);
+				member->emitLogin(QString{response->data});
 				interchange_free_response(response);
 			}, nullptr);
 	}
@@ -331,6 +359,11 @@ namespace QInterchange {
 	{
 		interchange_member_logout(m_data);
 		setData(nullptr);
+	}
+
+	void Member::emitLogin(QString const& response)
+	{
+		emit loggedIn(response);
 	}
 
 }
