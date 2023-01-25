@@ -5,10 +5,11 @@ namespace QInterchange {
 
 	static Interchange* interchange;
 
-	Interchange::Interchange(char const* sampleURL, char const* image_Dir, char const* certificate)
+	Interchange::Interchange(char const* sampleURL, char const* image_Dir,
+			char const* cookie, char const* certificate)
 	{
 		interchange = this;
-		interchange_init(sampleURL, image_Dir, certificate);
+		interchange_init(sampleURL, image_Dir, cookie, certificate);
 	}
 
 	Interchange::~Interchange()
