@@ -17,7 +17,7 @@ namespace QInterchange {
 			 * \brief Constructor.
 			 * \param sampleURL The value of the SAMPLEURL setting in products/variable.txt.
 			 * \param image_Dir The value of the IMAGE_DIR setting in products/variable.txt.
-			 * \param certificate Path to the cookie file.
+			 * \param cookie Path to the cookie file.
 			 * \param certificate Path to the CA certificate file.
 			 */
 			Interchange(char const* sampleURL,
