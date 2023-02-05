@@ -71,6 +71,14 @@ namespace QInterchange {
 		emit totalCostChanged();
 	}
 
+	void Ord::setProfile(QString const& profile)
+	{
+		auto orderProfile = profile.toLatin1().data();
+		if (m_data->profile) free(m_data->profile);
+		m_data->profile = (char*)malloc(strlen(orderProfile) + 1);
+		strcpy(m_data->profile, orderProfile);
+	}
+
 	void Ord::checkout(Member& member)
 	{
 		interchange_ord_checkout(m_data, member.data());

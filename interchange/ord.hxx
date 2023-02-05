@@ -39,6 +39,10 @@ namespace QInterchange {
 				m_subtotal{.0},
 				m_shipping{.0},
 				m_totalCost{.0} {}
+			~Ord()
+			{
+				if (m_data->profile) free(m_data->profile);
+			}
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
@@ -47,6 +51,7 @@ namespace QInterchange {
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
+			void setProfile(QString const& profile);
 		public slots:
 //			void remove(unsigned int const& indices);
 			void checkout(Member& member);
