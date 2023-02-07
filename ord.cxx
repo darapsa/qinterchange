@@ -17,6 +17,11 @@ namespace QInterchange {
 		ord = this;
 	}
 
+	Ord::~Ord()
+	{
+		if (m_data) interchange_ord_free_order(m_data);
+	}
+
 	int Ord::rowCount(QModelIndex const& parent) const
 	{
 		Q_UNUSED(parent)

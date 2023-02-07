@@ -34,10 +34,7 @@ namespace QInterchange {
 
 		public:
 			explicit Ord(QObject* parent = nullptr);
-			~Ord()
-			{
-				if (m_data) interchange_ord_free(m_data);
-			}
+			~Ord();
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
