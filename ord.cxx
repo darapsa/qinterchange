@@ -1,8 +1,21 @@
 #include <algorithm>
 #include <memory>
+#include "interchange.hxx"
 #include "interchange/ord.hxx"
 
 namespace QInterchange {
+
+	static Ord* ord;
+
+	Ord::Ord(QObject* parent) :
+		QAbstractListModel{parent},
+		m_data{nullptr},
+		m_subtotal{.0},
+		m_shipping{.0},
+		m_totalCost{.0}
+	{
+		ord = this;
+	}
 
 	int Ord::rowCount(QModelIndex const& parent) const
 	{
@@ -81,6 +94,15 @@ namespace QInterchange {
 
 	void Ord::checkout(Member& member)
 	{
-		interchange_ord_checkout(m_data, member.data());
+		interchange_ord_checkout(m_data, member.data(),
+				[](interchange_response* response) {
+			ord->emitTransaction(QString{response->data});
+			interchange_free_response(response);
+		});
+	}
+
+	void Ord::emitTransaction(QString const& response)
+	{
+		emit gotTransaction(response);
 	}
 }

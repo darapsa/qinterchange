@@ -33,12 +33,7 @@ namespace QInterchange {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
-			explicit Ord(QObject* parent = nullptr) :
-				QAbstractListModel{parent},
-				m_data{nullptr},
-				m_subtotal{.0},
-				m_shipping{.0},
-				m_totalCost{.0} {}
+			explicit Ord(QObject* parent = nullptr);
 			~Ord()
 			{
 				if (m_data) interchange_ord_free(m_data);
@@ -60,8 +55,12 @@ namespace QInterchange {
 			void subtotalChanged();
 			void shippingChanged();
 			void totalCostChanged();
+			void gotTransaction(QString const& response);
+
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
+			void emitTransaction(QString const& response);
+
 		private:
 			void addItem(Item const& item);
 			QList<Item> items;
