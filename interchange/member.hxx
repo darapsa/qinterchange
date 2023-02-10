@@ -96,6 +96,7 @@ namespace QInterchange {
 			void logOut();
 
 		signals:
+			void created(QString const& response);
 			void loggedIn(QString const& response);
 			void userNameChanged();
 			void userNickChanged();
@@ -118,6 +119,7 @@ namespace QInterchange {
 			void emailChanged();
 
 		protected:
+			void emitCreation(QString const& response);
 			void emitLogin(QString const& response);
 
 		private:

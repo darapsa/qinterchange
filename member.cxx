@@ -55,6 +55,7 @@ namespace QInterchange {
 				free(pwCopy);
 				free(vCopy);
 				free(fpCopy);
+				member->emitCreation(QString{response->data});
 				interchange_free_response(response);
 			}, nullptr);
 	}
@@ -359,6 +360,11 @@ namespace QInterchange {
 	{
 		interchange_member_logout(m_data);
 		setData(nullptr);
+	}
+
+	void Member::emitCreation(QString const& response)
+	{
+		emit created(response);
 	}
 
 	void Member::emitLogin(QString const& response)
