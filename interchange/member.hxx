@@ -32,7 +32,8 @@ namespace QInterchange {
 		Q_PROPERTY(QString email READ email WRITE setEmail NOTIFY emailChanged)
 
 		public:
-			explicit Member(QObject* parent = nullptr);
+			explicit Member(interchange_member* data = nullptr,
+					QObject* parent = nullptr);
 			~Member() {}
 
 			QString const& userName() const { return m_userName; }
