@@ -86,10 +86,14 @@ namespace QInterchange {
 					QString const& password,
 					QString const& failPage = nullptr);
 
-			void account(QString const& firstName, QString const& lastName,
-					QString const& address1, QString const& address2,
-					QString const& city, QString const& state,
-					QString const& zip, QString const& email,
+			void setAccount(QString const& firstName,
+					QString const& lastName,
+					QString const& address1,
+					QString const& address2,
+					QString const& city,
+					QString const& state,
+					QString const& zip,
+					QString const& email,
 					QString const& phoneDay);
 			void changePassword(QString const& passwordOld,
 					QString const& password, QString const& verify);
