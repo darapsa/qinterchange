@@ -85,7 +85,7 @@ namespace QInterchange {
 			void logIn(QString const& username,
 					QString const& password,
 					QString const& failPage = nullptr);
-
+			void account();
 			void setAccount(QString const& firstName,
 					QString const& lastName,
 					QString const& address1,
@@ -102,6 +102,7 @@ namespace QInterchange {
 		signals:
 			void created(QString const& response);
 			void loggedIn(QString const& response);
+			void gotAccount(QString const& response);
 			void userNameChanged();
 			void userNickChanged();
 			void passwordChanged();
@@ -125,6 +126,7 @@ namespace QInterchange {
 		protected:
 			void emitCreation(QString const& response);
 			void emitLogin(QString const& response);
+			void emitAccount(QString const& response);
 
 		private:
 			QString m_userName;

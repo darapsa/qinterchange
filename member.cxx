@@ -334,6 +334,14 @@ namespace QInterchange {
 		if (m_data != data) m_data = data;
 	}
 
+	void Member::account()
+	{
+		interchange_member_account([](interchange_response* response) {
+			member->emitAccount(QString{response->data});
+			interchange_free_response(response);
+		});
+	}
+
 	void Member::setAccount(QString const& firstName,
 			QString const& lastName, QString const& address1,
 			QString const& address2, QString const& city,
@@ -375,4 +383,8 @@ namespace QInterchange {
 		emit loggedIn(response);
 	}
 
+	void Member::emitAccount(QString const& response)
+	{
+		emit gotAccount(response);
+	}
 }
