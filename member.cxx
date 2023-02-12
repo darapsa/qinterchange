@@ -7,7 +7,7 @@ namespace QInterchange {
 	static Member* member;
 	static char *unCopy, *pwCopy, *vCopy, *fpCopy;
 
-	Member::Member(interchange_member* data, QObject* parent) :
+	Member::Member(QObject* parent) :
 		QObject{parent},
 		m_userName{""},
 		m_userNick{""},
@@ -30,7 +30,6 @@ namespace QInterchange {
 		m_email{""},
 		m_data{nullptr}
 	{
-		if (data) setData(data);
 		member = this;
 	}
 
