@@ -9,6 +9,7 @@ namespace QInterchange {
 	{
 		enum ProductRoles {
 			SkuRole = Qt::UserRole + 1,
+			TitleRole,
 			DescriptionRole,
 			CommentRole,
 			ThumbRole,
@@ -27,6 +28,8 @@ namespace QInterchange {
 		{
 			if (product->sku)
 				sku = QString{product->sku};
+			if (product->title)
+				title = QString{product->title};
 			if (product->description)
 				description = QString{product->description};
 			if (product->comment)
@@ -47,6 +50,7 @@ namespace QInterchange {
 		}
 
 		QString sku;
+		QString title;
 		QString description;
 		QString comment;
 		QString thumb;

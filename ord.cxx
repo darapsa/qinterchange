@@ -36,6 +36,8 @@ namespace QInterchange {
 		switch (role) {
 			case Product::SkuRole:
 				return item.product.sku;
+			case Product::TitleRole:
+				return item.product.title;
 			case Product::DescriptionRole:
 				return item.product.description;
 			case Product::ImageRole:
@@ -53,6 +55,7 @@ namespace QInterchange {
 	{
 		return QHash<int, QByteArray>{
 			{ Product::SkuRole, "sku" },
+			{ Product::TitleRole, "title" },
 			{ Product::DescriptionRole, "description" },
 			{ Product::ImageRole, "image" },
 			{ Product::PriceRole, "price" },
