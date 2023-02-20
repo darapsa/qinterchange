@@ -29,10 +29,10 @@ namespace QInterchange {
 		switch (role) {
 			case Product::SkuRole:
 				return product.sku;
-			case Product::TitleRole:
-				return product.title;
 			case Product::DescriptionRole:
 				return product.description;
+			case Product::TitleRole:
+				return product.title;
 			case Product::CommentRole:
 				return product.comment;
 			case Product::ThumbRole:
@@ -43,6 +43,8 @@ namespace QInterchange {
 				return product.price;
 			case Product::ProdGroupRole:
 				return product.prodGroup;
+			case Product::CategoryRole:
+				return product.category;
 			case Product::WeightRole:
 				return product.weight;
 			case Product::AuthorRole:
@@ -58,13 +60,14 @@ namespace QInterchange {
 	{
 		return QHash<int, QByteArray>{
 			{ Product::SkuRole, "sku" },
-			{ Product::TitleRole, "title" },
 			{ Product::DescriptionRole, "description" },
+			{ Product::TitleRole, "title" },
 			{ Product::CommentRole, "comment" },
 			{ Product::ThumbRole, "thumb" },
 			{ Product::ImageRole, "image" },
 			{ Product::PriceRole, "price" },
 			{ Product::ProdGroupRole, "prodGroup" },
+			{ Product::CategoryRole, "category" },
 			{ Product::WeightRole, "weight" },
 			{ Product::AuthorRole, "author" },
 			{ Product::CrossSellRole, "crossSell" }

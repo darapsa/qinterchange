@@ -9,13 +9,14 @@ namespace QInterchange {
 	{
 		enum ProductRoles {
 			SkuRole = Qt::UserRole + 1,
-			TitleRole,
 			DescriptionRole,
+			TitleRole,
 			CommentRole,
 			ThumbRole,
 			ImageRole,
 			PriceRole,
 			ProdGroupRole,
+			CategoryRole,
 			WeightRole,
 			AuthorRole,
 			CrossSellRole
@@ -28,10 +29,10 @@ namespace QInterchange {
 		{
 			if (product->sku)
 				sku = QString{product->sku};
-			if (product->title)
-				title = QString{product->title};
 			if (product->description)
 				description = QString{product->description};
+			if (product->title)
+				title = QString{product->title};
 			if (product->comment)
 				comment = QString{product->comment};
 			if (product->thumb)
@@ -40,6 +41,8 @@ namespace QInterchange {
 				image = QString{product->image};
 			if (product->prod_group)
 				prodGroup = QString{product->prod_group};
+			if (product->category)
+				category = QString{product->category};
 			if (product->author)
 				author = QString{product->author};
 			if (product->crosssell) {
@@ -50,13 +53,14 @@ namespace QInterchange {
 		}
 
 		QString sku;
-		QString title;
 		QString description;
+		QString title;
 		QString comment;
 		QString thumb;
 		QString image;
 		double price;
 		QString prodGroup;
+		QString category;
 		double weight;
 		QString author;
 		QStringList crossSell;
