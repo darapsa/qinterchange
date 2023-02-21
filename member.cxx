@@ -348,24 +348,15 @@ namespace QInterchange {
 			QString const& state, QString const& zip,
 			QString const& email, QString const& phoneDay)
 	{
-		interchange_member_setaccount(firstName == ""
-				? nullptr : firstName.toLatin1().constData(),
-				lastName == ""
-				? nullptr : lastName.toLatin1().constData(),
-				address1 == ""
-				? nullptr : address1.toLatin1().constData(),
-				address2 == ""
-				? nullptr : address2.toLatin1(). constData(),
-				city == ""
-				? nullptr : city.toLatin1(). constData(),
-				state == ""
-				? nullptr : state.toLatin1(). constData(),
-				zip == ""
-				? nullptr : zip.toLatin1(). constData(),
-				email == ""
-				? nullptr : email.toLatin1(). constData(),
-				phoneDay == ""
-				? nullptr : phoneDay.toLatin1().constData());
+		interchange_member_setaccount(firstName.toLatin1().constData(),
+				lastName.toLatin1().constData(),
+				address1.toLatin1().constData(),
+				address2.toLatin1().constData(),
+				city.toLatin1().constData(),
+				state.toLatin1().constData(),
+				zip.toLatin1().constData(),
+				email.toLatin1().constData(),
+				phoneDay.toLatin1().constData());
 	}
 
 	void Member::changePassword(QString const& passwordOld, QString const& password,
