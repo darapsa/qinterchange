@@ -102,6 +102,7 @@ namespace QInterchange {
 		signals:
 			void created(QString const& response);
 			void loggedIn(QString const& response);
+			void setAccount(QString const& response);
 			void gotAccount(QString const& response);
 			void userNameChanged();
 			void userNickChanged();
@@ -126,6 +127,7 @@ namespace QInterchange {
 		protected:
 			void emitCreation(QString const& response);
 			void emitLogin(QString const& response);
+			void emitSetAccount(QString const& response);
 			void emitAccount(QString const& response);
 
 		private:

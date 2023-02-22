@@ -6,6 +6,7 @@ namespace QInterchange {
 
 	static Member* member;
 	static char *unCopy, *pwCopy, *vCopy, *fpCopy;
+	static interchange_member* mPtr;
 
 	Member::Member(QObject* parent) :
 		QObject{parent},
@@ -80,6 +81,67 @@ namespace QInterchange {
 				member->emitLogin(QString{response->data});
 				interchange_free_response(response);
 			}, nullptr);
+	}
+
+	void Member::setAccount(QString const& firstName,
+			QString const& lastName, QString const& address1,
+			QString const& address2, QString const& city,
+			QString const& state, QString const& zip,
+			QString const& email, QString const& phoneDay)
+	{
+		auto fnData = firstName.toLatin1().constData();
+		auto fnCopy = (char*)malloc(strlen(fnData) + 1);
+		strcpy(fnCopy, fnData);
+		auto lnData = lastName.toLatin1().constData();
+		auto lnCopy = (char*)malloc(strlen(lnData) + 1);
+		strcpy(lnCopy, lnData);
+		auto a1Data = address1.toLatin1().constData();
+		auto a1Copy = (char*)malloc(strlen(a1Data) + 1);
+		strcpy(a1Copy, a1Data);
+		auto a2Data = address2.toLatin1().constData();
+		auto a2Copy = (char*)malloc(strlen(a2Data) + 1);
+		strcpy(a2Copy, a2Data);
+		auto cData = city.toLatin1().constData();
+		auto cCopy = (char*)malloc(strlen(cData) + 1);
+		strcpy(cCopy, cData);
+		auto sData = state.toLatin1().constData();
+		auto sCopy = (char*)malloc(strlen(sData) + 1);
+		strcpy(sCopy, sData);
+		auto zData = zip.toLatin1().constData();
+		auto zCopy = (char*)malloc(strlen(zData) + 1);
+		strcpy(zCopy, zData);
+		auto emData = email.toLatin1().constData();
+		auto emCopy = (char*)malloc(strlen(emData) + 1);
+		strcpy(emCopy, emData);
+		auto pdData = phoneDay.toLatin1().constData();
+		auto pdCopy = (char*)malloc(strlen(pdData) + 1);
+		strcpy(pdCopy, pdData);
+		interchange_member m = {
+			.fname = fnCopy,
+			.lname = lnCopy,
+			.address1 = a1Copy,
+			.address2 = a2Copy,
+			.city = cCopy,
+			.state = sCopy,
+			.zip = zCopy,
+			.phone_day = pdCopy,
+			.email = emCopy
+		};
+		mPtr = &m;
+		interchange_member_setaccount(mPtr,
+				[](interchange_response* response) {
+			free(mPtr->fname);
+			free(mPtr->lname);
+			free(mPtr->address1);
+			free(mPtr->address2);
+			free(mPtr->city);
+			free(mPtr->state);
+			free(mPtr->zip);
+			free(mPtr->phone_day);
+			free(mPtr->email);
+			member->emitSetAccount(QString{response->data});
+			interchange_free_response(response);
+		});
 	}
 
 	void Member::setUserName(QString const& userName)
@@ -342,23 +404,6 @@ namespace QInterchange {
 		});
 	}
 
-	void Member::setAccount(QString const& firstName,
-			QString const& lastName, QString const& address1,
-			QString const& address2, QString const& city,
-			QString const& state, QString const& zip,
-			QString const& email, QString const& phoneDay)
-	{
-		interchange_member_setaccount(firstName.toLatin1().constData(),
-				lastName.toLatin1().constData(),
-				address1.toLatin1().constData(),
-				address2.toLatin1().constData(),
-				city.toLatin1().constData(),
-				state.toLatin1().constData(),
-				zip.toLatin1().constData(),
-				email.toLatin1().constData(),
-				phoneDay.toLatin1().constData());
-	}
-
 	void Member::changePassword(QString const& passwordOld, QString const& password,
 			QString const& verify)
 	{
@@ -381,6 +426,11 @@ namespace QInterchange {
 	void Member::emitLogin(QString const& response)
 	{
 		emit loggedIn(response);
+	}
+
+	void Member::emitSetAccount(QString const& response)
+	{
+		emit setAccount(response);
 	}
 
 	void Member::emitAccount(QString const& response)
