@@ -5,7 +5,7 @@
 namespace QInterchange {
 
 	static Member* member;
-	static char *unCopy, *pwCopy, *vCopy, *fpCopy;
+	static char *unCopy, *pwCopy, *vCopy, *npCopy, *fpCopy;
 	static interchange_member* mPtr;
 
 	Member::Member(QObject* parent) :
@@ -62,7 +62,7 @@ namespace QInterchange {
 	}
 
 	void Member::logIn(QString const& username, QString const& password,
-			QString const& failPage)
+			QString const& nextPage, QString const& failPage)
 	{
 		auto unData = username.toLatin1().constData();
 		unCopy = (char*)malloc(strlen(unData) + 1);
@@ -70,17 +70,21 @@ namespace QInterchange {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
+		auto npData = nextPage.toLatin1().constData();
+		npCopy = (char*)malloc(strlen(npData) + 1);
+		strcpy(npCopy, npData);
 		auto fpData = failPage.toLatin1().constData();
 		fpCopy = (char*)malloc(strlen(fpData) + 1);
 		strcpy(fpCopy, fpData);
-		interchange_member_login(unCopy, pwCopy, fpCopy,
-			[](interchange_response* response) {
-				free(unCopy);
-				free(pwCopy);
-				free(fpCopy);
-				member->emitLogin(QString{response->data});
-				interchange_free_response(response);
-			}, nullptr);
+		interchange_member_login(unCopy, pwCopy, npCopy, fpCopy,
+				[](interchange_response* response) {
+			free(unCopy);
+			free(pwCopy);
+			free(npCopy);
+			free(fpCopy);
+			member->emitLogin(QString{response->data});
+			interchange_free_response(response);
+		}, nullptr);
 	}
 
 	void Member::setAccount(QString const& firstName,

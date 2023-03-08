@@ -4,10 +4,10 @@
 
 namespace QInterchange {
 
-	static char *unCopy, *pwCopy, *fpCopy;
+	static char *unCopy, *pwCopy, *npCopy, *fpCopy;
 
 	void Admin::logIn(QString const& username, QString const& password,
-			QString const& failPage)
+			QString const& nextPage, QString const& failPage)
 	{
 		auto unData = username.toLatin1().constData();
 		unCopy = (char*)malloc(strlen(unData) + 1);
@@ -15,16 +15,20 @@ namespace QInterchange {
 		auto pwData = password.toLatin1().constData();
 		pwCopy = (char*)malloc(strlen(pwData) + 1);
 		strcpy(pwCopy, pwData);
+		auto npData = nextPage.toLatin1().constData();
+		npCopy = (char*)malloc(strlen(npData) + 1);
+		strcpy(npCopy, npData);
 		auto fpData = failPage.toLatin1().constData();
 		fpCopy = (char*)malloc(strlen(fpData) + 1);
 		strcpy(fpCopy, fpData);
-		interchange_admin_login(unCopy, pwCopy, fpCopy,
-			[](interchange_response* response) {
-				free(unCopy);
-				free(pwCopy);
-				free(fpCopy);
-				interchange_free_response(response);
-			}, nullptr);
+		interchange_admin_login(unCopy, pwCopy, npCopy, fpCopy,
+				[](interchange_response* response) {
+			free(unCopy);
+			free(pwCopy);
+			free(npCopy);
+			free(fpCopy);
+			interchange_free_response(response);
+		}, nullptr);
 	}
 
 	void Admin::setUserName(QString const& userName)

@@ -39,6 +39,7 @@ namespace QInterchange {
 		public slots:
 			void logIn(QString const& username,
 					QString const& password,
+					QString const& nextPage = nullptr,
 					QString const& failPage = nullptr);
 			void newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
 					enum interchange_admin_group group);
