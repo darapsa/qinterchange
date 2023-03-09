@@ -70,11 +70,13 @@ namespace QInterchange {
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
 			void gotPage(QString const& response);
+			void gotOrder(QString const& response);
 
 		protected:
 			void emitCatalog(QString const& response);
 			void emitProduct(QString const& response);
 			void emitPage(QString const& response);
+			void emitOrder(QString const& response);
 	};
 
 }

@@ -73,11 +73,21 @@ namespace QInterchange {
 		emit gotPage(response);
 	}
 
-	void Interchange::order(QString const& sku, Catalog const& catalog, Ord& order)
+	void Interchange::emitOrder(QString const& response)
 	{
-		auto c_order = order.data();
-		interchange_ord_order(sku.toLatin1().constData(), catalog.constData(), &c_order);
-		order.setData(c_order);
+		emit gotOrder(response);
 	}
 
+	void Interchange::order(QString const& sku, Catalog const& catalog,
+			Ord& order)
+	{
+		auto c_order = order.data();
+		interchange_ord_order(sku.toLatin1().constData(),
+				catalog.constData(), &c_order,
+				[](interchange_response* response) {
+			interchange->emitOrder(QString{response->data});
+			interchange_free_response(response);
+		});
+		order.setData(c_order);
+	}
 }
