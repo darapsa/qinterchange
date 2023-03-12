@@ -13,9 +13,9 @@ namespace QInterchange {
 		enum ItemRoles {
 			QuantityRole = Product::PriceRole + 1
 		};
-		Item(interchange_ord_item* item) :
-			product{item->product},
-			quantity{item->quantity} {}
+		Item(interchange_ord_item item) :
+			product{item.product},
+			quantity{item.quantity} {}
 		Product product;
 		unsigned int quantity;
 		bool operator==(Item const& item)
@@ -33,13 +33,12 @@ namespace QInterchange {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
-			explicit Ord(struct interchange_ord_order* order
-					= nullptr, QObject* parent = nullptr);
-			~Ord();
+			explicit Ord(struct interchange_ord_order order,
+					QObject* parent = nullptr);
+			~Ord() {}
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
-			struct interchange_ord_order* data() { return m_data; }
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }
@@ -61,7 +60,6 @@ namespace QInterchange {
 		private:
 			void addItem(Item const& item);
 			QList<Item> items;
-			struct interchange_ord_order* m_data;
 			QString profile;
 			double m_subtotal;
 			double m_shipping;

@@ -8,25 +8,15 @@ namespace QInterchange {
 	static Ord* ord;
 	static char* order_profile;
 
-	Ord::Ord(struct interchange_ord_order *order, QObject* parent) :
-		QAbstractListModel{parent},
-		m_data{nullptr},
-		m_subtotal{.0},
-		m_shipping{.0},
-		m_totalCost{.0}
+	Ord::Ord(struct interchange_ord_order order, QObject* parent) :
+		QAbstractListModel{parent}
 	{
 		ord = this;
-		if (!order) return;
-		for (size_t i = 0; i < order->nitems; i++)
-			addItem(Item{order->items[i]});
-		m_subtotal = order->subtotal;
-		m_totalCost = order->total_cost;
-		m_data = order;
-	}
-
-	Ord::~Ord()
-	{
-		if (m_data) interchange_ord_free_order(m_data);
+		for (size_t i = 0; i < order.nitems; i++)
+			addItem(Item{order.items[i]});
+		m_subtotal = order.subtotal;
+		m_shipping = order.shipping;
+		m_totalCost = order.total_cost;
 	}
 
 	int Ord::rowCount(QModelIndex const& parent) const
