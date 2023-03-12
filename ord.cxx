@@ -15,12 +15,12 @@ namespace QInterchange {
 		m_totalCost{.0}
 	{
 		ord = this;
-		if (order) return;
+		if (!order) return;
 		for (size_t i = 0; i < order->nitems; i++)
 			addItem(Item{order->items[i]});
 		m_subtotal = order->subtotal;
 		m_totalCost = order->total_cost;
-		this->m_data = order;
+		m_data = order;
 	}
 
 	Ord::~Ord()

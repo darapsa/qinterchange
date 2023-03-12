@@ -28,13 +28,6 @@ namespace QInterchange {
 			 * \brief Destructor.
 			 */
 			~Interchange();
-			/*!
-			 * \brief For putting an item to a cart.
-			 * \param sku The SKU of the item to order.
-			 * \param catalog The catalog from which the item is.
-			 * \param order The order.
-			 */
-			void order(QString const& sku, Catalog const& catalog, Ord& order);
 
 		public slots:
 			/*!
@@ -65,6 +58,11 @@ namespace QInterchange {
 			 * \brief For fetching data about all active products.
 			 */
 			void defaultAllProducts();
+			/*!
+			 * \brief For putting an item to a cart.
+			 * \param sku The SKU of the item to order.
+			 */
+			void order(QString const& sku);
 
 		signals:
 			void gotCatalog(QString const& response);
