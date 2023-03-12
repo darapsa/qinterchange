@@ -20,10 +20,10 @@ namespace QInterchange {
 			 * \param cookie Path to the cookie file.
 			 * \param certificate Path to the CA certificate file.
 			 */
-			Interchange(char const* sampleURL,
-					char const* image_Dir,
-					char const* cookie = nullptr,
-					char const* certificate = nullptr);
+			Interchange(const char* sampleURL,
+					const char* image_Dir,
+					const QString& cookie = "",
+					const QString& certificate = "");
 			/*!
 			 * \brief Destructor.
 			 */
