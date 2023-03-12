@@ -6,6 +6,7 @@
 namespace QInterchange {
 
 	static Ord* ord;
+	static char* order_profile;
 
 	Ord::Ord(struct interchange_ord_order *order, QObject* parent) :
 		QAbstractListModel{parent},
@@ -89,16 +90,16 @@ namespace QInterchange {
 
 	void Ord::setProfile(QString const& profile)
 	{
-		auto orderProfile = profile.toLatin1().data();
-		if (m_data->profile) free(m_data->profile);
-		m_data->profile = (char*)malloc(strlen(orderProfile) + 1);
-		strcpy(m_data->profile, orderProfile);
+		if (this->profile != profile) this->profile = profile;
 	}
 
 	void Ord::checkout(Member& member)
 	{
-		interchange_ord_checkout(m_data, member.data(),
+		order_profile = (char*)malloc(profile.size() + 1);
+		strcpy(order_profile, profile.toLatin1().constData());
+		interchange_ord_checkout(order_profile, member.data(),
 				[](interchange_response* response) {
+			free(order_profile);
 			ord->emitTransaction(QString{response->data});
 			interchange_free_response(response);
 		});

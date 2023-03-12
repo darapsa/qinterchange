@@ -62,6 +62,7 @@ namespace QInterchange {
 			void addItem(Item const& item);
 			QList<Item> items;
 			struct interchange_ord_order* m_data;
+			QString profile;
 			double m_subtotal;
 			double m_shipping;
 			double m_totalCost;
