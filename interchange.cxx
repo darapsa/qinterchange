@@ -85,13 +85,12 @@ namespace QInterchange {
 	void Interchange::order(QString const& sku, Catalog const& catalog,
 			Ord& order)
 	{
-		auto c_order = order.data();
+		auto data = order.data();
 		interchange_ord_order(sku.toLatin1().constData(),
-				catalog.constData(), &c_order,
+				catalog.constData(), &data,
 				[](interchange_response* response) {
 			interchange->emitOrder(QString{response->data});
 			interchange_free_response(response);
 		});
-		order.setData(c_order);
 	}
 }

@@ -33,13 +33,13 @@ namespace QInterchange {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
-			explicit Ord(QObject* parent = nullptr);
+			explicit Ord(struct interchange_ord_order* order
+					= nullptr, QObject* parent = nullptr);
 			~Ord();
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
 			struct interchange_ord_order* data() { return m_data; }
-			void setData(struct interchange_ord_order* order);
 			double subtotal() const { return m_subtotal; }
 			double shipping() const { return m_shipping; }
 			double totalCost() const { return m_totalCost; }

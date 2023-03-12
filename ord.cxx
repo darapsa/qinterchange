@@ -7,7 +7,7 @@ namespace QInterchange {
 
 	static Ord* ord;
 
-	Ord::Ord(QObject* parent) :
+	Ord::Ord(struct interchange_ord_order *order, QObject* parent) :
 		QAbstractListModel{parent},
 		m_data{nullptr},
 		m_subtotal{.0},
@@ -15,6 +15,12 @@ namespace QInterchange {
 		m_totalCost{.0}
 	{
 		ord = this;
+		if (order) return;
+		for (size_t i = 0; i < order->nitems; i++)
+			addItem(Item{order->items[i]});
+		m_subtotal = order->subtotal;
+		m_totalCost = order->total_cost;
+		this->m_data = order;
 	}
 
 	Ord::~Ord()
@@ -79,17 +85,6 @@ namespace QInterchange {
 		items << item;
 		endInsertRows();
 		emit rowCountChanged();
-	}
-
-	void Ord::setData(struct interchange_ord_order* order)
-	{
-		if (!order) return;
-		this->m_data = order;
-		for (size_t i = 0; i < order->nitems; i++) addItem(Item{order->items[i]});
-		m_subtotal = order->subtotal;
-		emit subtotalChanged();
-		m_totalCost = order->total_cost;
-		emit totalCostChanged();
 	}
 
 	void Ord::setProfile(QString const& profile)
