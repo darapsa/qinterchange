@@ -120,7 +120,7 @@ namespace QInterchange {
 		};
 		mPtr = &m;
 
-		interchange_ord_checkout(order_profile, mPtr,
+		interchange_ord_checkout(order_profile, m,
 				[](interchange_response* response) {
 			free(mPtr->fname);
 			free(mPtr->lname);
