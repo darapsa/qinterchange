@@ -8,6 +8,69 @@ namespace QInterchange {
 	static char *unCopy, *pwCopy, *vCopy, *npCopy, *fpCopy;
 	static interchange_member* mPtr;
 
+	Member::Member(interchange_member data, QObject* parent) :
+		QObject{parent}
+	{
+		member = this;
+
+		if (data.username) m_userName = QString{data.username};
+		else setUserName("");
+
+		if (data.usernick) m_userNick = QString{data.usernick};
+		else setUserNick("");
+
+		if (data.password) m_password = QString{data.password};
+		else setPassword("");
+
+		if (data.expiration) m_expiration = QString{data.expiration};
+		else setExpiration("");
+
+		if (data.acl) m_acl = QString{data.acl};
+		else setAcl("");
+
+		if (data.mod_time) m_modTime = QString{data.mod_time};
+		else setModTime("");
+
+		if (data.s_nickname) m_sNickName = QString{data.s_nickname};
+		else setSNickName("");
+
+		if (data.company) m_company = QString{data.company};
+		else setCompany("");
+
+		if (data.fname) m_fName = QString{data.fname};
+		else setFName("");
+
+		if (data.lname) m_lName = QString{data.lname};
+		else setLName("");
+
+		if (data.address1) m_address1 = QString{data.address1};
+		else setAddress1("");
+
+		if (data.address2) m_address2 = QString{data.address2};
+		else setAddress2("");
+
+		if (data.address3) m_address3 = QString{data.address3};
+		else setAddress3("");
+
+		if (data.city) m_city = QString{data.city};
+		else setCity("");
+
+		if (data.state) m_state = QString{data.state};
+		else setState("");
+
+		if (data.zip) m_zip = QString{data.zip};
+		else setZip("");
+
+		if (data.country) m_country = QString{data.country};
+		else setCountry("");
+
+		if (data.phone_day) m_phoneDay = QString{data.phone_day};
+		else setPhoneDay("");
+
+		if (data.email) m_email = QString{data.email};
+		else setEmail("");
+	}
+
 	Member::Member(QObject* parent) :
 		QObject{parent},
 		m_userName{""},
@@ -28,8 +91,7 @@ namespace QInterchange {
 		m_zip{""},
 		m_country{""},
 		m_phoneDay{""},
-		m_email{""},
-		m_data{nullptr}
+		m_email{""}
 	{
 		member = this;
 	}
@@ -300,106 +362,6 @@ namespace QInterchange {
 		}
 	}
 
-	void Member::setData(interchange_member* data)
-	{
-		if (data && data->username && m_userName != data->username) {
-			m_userName = QString{data->username};
-			emit userNameChanged();
-		} else setUserName("");
-
-		if (data && data->usernick && m_userNick != data->usernick) {
-			m_userNick = QString{data->usernick};
-			emit userNickChanged();
-		} else setUserNick("");
-
-		if (data && data->password && m_password != data->password) {
-			m_password = QString{data->password};
-			emit passwordChanged();
-		} else setPassword("");
-
-		if (data && data->expiration && m_expiration != data->expiration) {
-			m_expiration = QString{data->expiration};
-			emit expirationChanged();
-		} else setExpiration("");
-
-		if (data && data->acl && m_acl != data->acl) {
-			m_acl = QString{data->acl};
-			emit aclChanged();
-		} else setAcl("");
-
-		if (data && data->mod_time && m_modTime != data->mod_time) {
-			m_modTime = QString{data->mod_time};
-			emit modTimeChanged();
-		} else setModTime("");
-
-		if (data && data->s_nickname && m_sNickName != data->s_nickname) {
-			m_sNickName = QString{data->s_nickname};
-			emit sNickNameChanged();
-		} else setSNickName("");
-
-		if (data && data->company && m_company != data->company) {
-			m_company = QString{data->company};
-			emit companyChanged();
-		} else setCompany("");
-
-		if (data && data->fname && m_fName != data->fname) {
-			m_fName = QString{data->fname};
-			emit fNameChanged();
-		} else setFName("");
-
-		if (data && data->lname && m_lName != data->lname) {
-			m_lName = QString{data->lname};
-			emit lNameChanged();
-		} else setLName("");
-
-		if (data && data->address1 && m_address1 != data->address1) {
-			m_address1 = QString{data->address1};
-			emit address1Changed();
-		} else setAddress1("");
-
-		if (data && data->address2 && m_address2 != data->address2) {
-			m_address2 = QString{data->address2};
-			emit address2Changed();
-		} else setAddress2("");
-
-		if (data && data->address3 && m_address3 != data->address3) {
-			m_address3 = QString{data->address3};
-			emit address3Changed();
-		} else setAddress3("");
-
-		if (data && data->city && m_city != data->city) {
-			m_city = QString{data->city};
-			emit cityChanged();
-		} else setCity("");
-
-		if (data && data->state && m_state != data->state) {
-			m_state = QString{data->state};
-			emit stateChanged();
-		} else setState("");
-
-		if (data && data->zip && m_zip != data->zip) {
-			m_zip = QString{data->zip};
-			emit zipChanged();
-		} else setZip("");
-
-		if (data && data->country && m_country != data->country) {
-			m_country = QString{data->country};
-			emit countryChanged();
-		} else setCountry("");
-
-		if (data && data->phone_day && m_phoneDay != data->phone_day) {
-			m_phoneDay = QString{data->phone_day};
-			emit phoneDayChanged();
-		} else setPhoneDay("");
-
-		if (data && data->email && m_email != data->email) {
-			m_email = QString{data->email};
-			emit emailChanged();
-		} else setEmail("");
-
-		if (m_data != data) m_data = data;
-	}
-
 	void Member::account()
 	{
 		interchange_member_account([](interchange_response* response) {
@@ -418,8 +380,7 @@ namespace QInterchange {
 
 	void Member::logOut()
 	{
-		interchange_member_logout(m_data);
-		setData(nullptr);
+		interchange_member_logout();
 	}
 
 	void Member::emitCreation(QString const& response)

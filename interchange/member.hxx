@@ -33,6 +33,8 @@ namespace QInterchange {
 
 		public:
 			explicit Member(QObject* parent = nullptr);
+			explicit Member(struct interchange_member member,
+					QObject* parent = nullptr);
 			~Member() {}
 
 			QString const& userName() const { return m_userName; }
@@ -54,7 +56,6 @@ namespace QInterchange {
 			QString const& country() const { return m_country; }
 			QString const& phoneDay() const { return m_phoneDay; }
 			QString const& email() const { return m_email; }
-			interchange_member* data() { return m_data; }
 
 			void setUserName(QString const& userName);
 			void setUserNick(QString const& userNick);
@@ -75,7 +76,6 @@ namespace QInterchange {
 			void setCountry(QString const& country);
 			void setPhoneDay(QString const& phoneDay);
 			void setEmail(QString const& email);
-			void setData(interchange_member* data);
 
 		public slots:
 			void newAccount(QString const& username,
@@ -151,9 +151,7 @@ namespace QInterchange {
 			QString m_country;
 			QString m_phoneDay;
 			QString m_email;
-			interchange_member* m_data;
 	};
-
 }
 
 #endif

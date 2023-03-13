@@ -45,7 +45,7 @@ namespace QInterchange {
 			void setProfile(QString const& profile);
 		public slots:
 //			void remove(unsigned int const& indices);
-			void checkout(Member& member);
+			void checkout(const Member& member);
 		signals:
 			void rowCountChanged();
 			void subtotalChanged();

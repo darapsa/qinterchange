@@ -7,6 +7,7 @@ namespace QInterchange {
 
 	static Ord* ord;
 	static char* order_profile;
+	static interchange_member* mPtr;
 
 	Ord::Ord(struct interchange_ord_order order, QObject* parent) :
 		QAbstractListModel{parent}
@@ -83,12 +84,53 @@ namespace QInterchange {
 		if (this->profile != profile) this->profile = profile;
 	}
 
-	void Ord::checkout(Member& member)
+	void Ord::checkout(const Member& member)
 	{
 		order_profile = (char*)malloc(profile.size() + 1);
 		strcpy(order_profile, profile.toLatin1().constData());
-		interchange_ord_checkout(order_profile, member.data(),
+
+		auto fname = (char*)malloc(member.fName().size() + 1);
+		strcpy(fname, member.fName().toLatin1().constData());
+		auto lname = (char*)malloc(member.lName().size() + 1);
+		strcpy(lname, member.lName().toLatin1().constData());
+		auto address1 = (char*)malloc(member.address1().size() + 1);
+		strcpy(address1, member.address1().toLatin1().constData());
+		auto address2 = (char*)malloc(member.address2().size() + 1);
+		strcpy(address2, member.address1().toLatin1().constData());
+		auto city = (char*)malloc(member.city().size() + 1);
+		strcpy(city, member.city().toLatin1().constData());
+		auto state = (char*)malloc(member.state().size() + 1);
+		strcpy(state, member.state().toLatin1().constData());
+		auto zip = (char*)malloc(member.zip().size() + 1);
+		strcpy(zip, member.zip().toLatin1().constData());
+		auto phone_day = (char*)malloc(member.phoneDay().size() + 1);
+		strcpy(phone_day, member.phoneDay().toLatin1().constData());
+		auto email = (char*)malloc(member.email().size() + 1);
+		strcpy(email, member.email().toLatin1().constData());
+		interchange_member m {
+			.fname = fname,
+			.lname = lname,
+			.address1 = address1,
+			.address2 = address2,
+			.city = city,
+			.state = state,
+			.zip = zip,
+			.phone_day = phone_day,
+			.email = email
+		};
+		mPtr = &m;
+
+		interchange_ord_checkout(order_profile, mPtr,
 				[](interchange_response* response) {
+			free(mPtr->fname);
+			free(mPtr->lname);
+			free(mPtr->address1);
+			free(mPtr->address2);
+			free(mPtr->city);
+			free(mPtr->state);
+			free(mPtr->zip);
+			free(mPtr->phone_day);
+			free(mPtr->email);
 			free(order_profile);
 			ord->emitTransaction(QString{response->data});
 			interchange_free_response(response);
