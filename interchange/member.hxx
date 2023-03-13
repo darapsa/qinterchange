@@ -82,10 +82,10 @@ namespace QInterchange {
 					QString const& password,
 					QString const& confirm,
 					QString const& failPage = nullptr);
-			void logIn(QString const& username,
-					QString const& password,
-					QString const& nextPage = nullptr,
-					QString const& failPage = nullptr);
+			void logIn(QString const& userName,
+					QString const& passWord,
+					QString const& nextPage = "",
+					QString const& failPage = "");
 			void account();
 			void setAccount(QString const& firstName,
 					QString const& lastName,
