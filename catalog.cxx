@@ -3,16 +3,11 @@
 
 namespace QInterchange {
 
-	Catalog::Catalog(struct interchange_catalog* catalog, QObject* parent) :
-		QAbstractListModel{parent},
-		m_data{catalog}
+	Catalog::Catalog(struct interchange_catalog catalog, QObject* parent) :
+		QAbstractListModel{parent}
 	{
-		for (size_t i = 0; i < catalog->length; i++) addProduct(Product{catalog->products[i]});
-	}
-
-	Catalog::~Catalog()
-	{
-		interchange_free_catalog(m_data);
+		for (size_t i = 0; i < catalog.length; i++)
+			addProduct(Product{catalog.products[i]});
 	}
 
 	int Catalog::rowCount(QModelIndex const& parent) const
