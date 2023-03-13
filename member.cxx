@@ -98,29 +98,36 @@ namespace QInterchange {
 
 	void Member::newAccount(QString const& username,
 			QString const& password, QString const& verify,
-			QString const& failPage)
+			QString const& nextPage, QString const& failPage)
 	{
-		auto unData = username.toLatin1().constData();
-		unCopy = (char*)malloc(strlen(unData) + 1);
-		strcpy(unCopy, unData);
-		auto pwData = password.toLatin1().constData();
-		pwCopy = (char*)malloc(strlen(pwData) + 1);
-		strcpy(pwCopy, pwData);
-		auto vData = verify.toLatin1().constData();
-		vCopy = (char*)malloc(strlen(vData) + 1);
-		strcpy(vCopy, vData);
-		auto fpData = failPage.toLatin1().constData();
-		fpCopy = (char*)malloc(strlen(fpData) + 1);
-		strcpy(fpCopy, fpData);
-		interchange_member_newaccount(unCopy, pwCopy, vCopy, fpCopy,
-			[](interchange_response* response) {
-				free(unCopy);
-				free(pwCopy);
-				free(vCopy);
-				free(fpCopy);
-				member->emitCreation(QString{response->data});
-				interchange_free_response(response);
-			}, nullptr);
+		unCopy = (char*)malloc(username.size() + 1);
+		strcpy(unCopy, username.toLatin1().constData());
+		pwCopy = (char*)malloc(password.size() + 1);
+		strcpy(pwCopy, password.toLatin1().constData());
+		vCopy = (char*)malloc(verify.size() + 1);
+		strcpy(vCopy, verify.toLatin1().constData());
+		if (nextPage.isEmpty())
+			npCopy = nullptr;
+		else {
+			npCopy = (char*)malloc(nextPage.size() + 1);
+			strcpy(npCopy, nextPage.toLatin1().constData());
+		}
+		if (failPage.isEmpty())
+			fpCopy = nullptr;
+		else {
+			fpCopy = (char*)malloc(failPage.size() + 1);
+			strcpy(fpCopy, failPage.toLatin1().constData());
+		}
+		interchange_member_newaccount(unCopy, pwCopy, vCopy, npCopy,
+				fpCopy, [](interchange_response* response) {
+			free(unCopy);
+			free(pwCopy);
+			free(vCopy);
+			if (npCopy) free(npCopy);
+			if (fpCopy) free(fpCopy);
+			member->emitCreation(QString{response->data});
+			interchange_free_response(response);
+		}, nullptr);
 	}
 
 	void Member::logIn(QString const& username, QString const& password,
