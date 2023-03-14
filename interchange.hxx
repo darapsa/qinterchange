@@ -66,13 +66,15 @@ namespace QInterchange {
 			void order(QString const& sku);
 
 		signals:
-			void gotFlypage(QString const& response);
+			void gotFlypage(QString const& path,
+					QString const& response);
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
 			void gotOrder(QString const& response);
 
 		protected:
-			void emitFlypage(QString const& response);
+			void emitFlypage(QString const& path,
+					QString const& response);
 			void emitCatalog(QString const& response);
 			void emitProduct(QString const& response);
 			void emitOrder(QString const& response);

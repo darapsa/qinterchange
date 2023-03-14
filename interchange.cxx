@@ -4,6 +4,7 @@
 namespace QInterchange {
 
 	static Interchange* interchange;
+	static const QString* currentPath;
 
 	Interchange::Interchange(const char* sampleURL, const char* image_Dir,
 			const QString& cookie, const QString& certificate)
@@ -23,9 +24,11 @@ namespace QInterchange {
 
 	void Interchange::flypage(QString const& path)
 	{
+		currentPath = &path;
 		interchange_flypage(path.toLatin1().constData(),
 				[](interchange_response* response) {
-			interchange->emitFlypage(QString{response->data});
+			interchange->emitFlypage(*currentPath,
+					QString{response->data});
 			interchange_free_response(response);
 		});
 	}
@@ -63,9 +66,10 @@ namespace QInterchange {
 		defaultCatalog("All-Products");
 	}
 
-	void Interchange::emitFlypage(QString const& response)
+	void Interchange::emitFlypage(QString const& path,
+			QString const& response)
 	{
-		emit gotFlypage(response);
+		emit gotFlypage(path, response);
 	}
 
 	void Interchange::emitCatalog(QString const& response)
