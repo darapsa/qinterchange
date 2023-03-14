@@ -22,12 +22,12 @@ namespace QInterchange {
 		interchange_cleanup();
 	}
 
-	void Interchange::flypage(QString const& path)
+	void Interchange::page(QString const& path)
 	{
 		currentPath = &path;
-		interchange_flypage(path.toLatin1().constData(),
+		interchange_page(path.toLatin1().constData(),
 				[](interchange_response* response) {
-			interchange->emitFlypage(*currentPath,
+			interchange->emitPage(*currentPath,
 					QString{response->data});
 			interchange_free_response(response);
 		});
@@ -66,10 +66,9 @@ namespace QInterchange {
 		defaultCatalog("All-Products");
 	}
 
-	void Interchange::emitFlypage(QString const& path,
-			QString const& response)
+	void Interchange::emitPage(QString const& path, QString const& response)
 	{
-		emit gotFlypage(path, response);
+		emit gotPage(path, response);
 	}
 
 	void Interchange::emitCatalog(QString const& response)
