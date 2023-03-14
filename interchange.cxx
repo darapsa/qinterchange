@@ -4,7 +4,7 @@
 namespace QInterchange {
 
 	static Interchange* interchange;
-	static const QString* currentPath;
+	static QString currentPath;
 
 	Interchange::Interchange(const char* sampleURL, const char* image_Dir,
 			const QString& cookie, const QString& certificate)
@@ -24,10 +24,10 @@ namespace QInterchange {
 
 	void Interchange::page(QString const& path)
 	{
-		currentPath = &path;
+		currentPath = path;
 		interchange_page(path.toLatin1().constData(),
 				[](interchange_response* response) {
-			interchange->emitPage(*currentPath,
+			interchange->emitPage(currentPath,
 					QString{response->data});
 			interchange_free_response(response);
 		});
