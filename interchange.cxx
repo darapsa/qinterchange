@@ -21,6 +21,15 @@ namespace QInterchange {
 		interchange_cleanup();
 	}
 
+	void Interchange::flypage(QString const& path)
+	{
+		interchange_flypage(path.toLatin1().constData(),
+				[](interchange_response* response) {
+			interchange->emitFlypage(QString{response->data});
+			interchange_free_response(response);
+		});
+	}
+
 	void Interchange::catalog(QString const& prodGroup)
 	{
 		interchange_catalog(prodGroup.toLatin1().constData(), [](interchange_response* response) {
@@ -42,14 +51,6 @@ namespace QInterchange {
 		}, nullptr);
 	}
 
-	void Interchange::page(QString const& path)
-	{
-		interchange_page(path.toLatin1().constData(), [](interchange_response* response) {
-			interchange->emitPage(QString{response->data});
-			interchange_free_response(response);
-		});
-	}
-
 	void Interchange::defaultCatalog(QString const& prodGroup)
 	{
 		interchange_catalog(prodGroup.toLatin1().constData(), nullptr, [](struct interchange_catalog* catalog) {
@@ -62,6 +63,11 @@ namespace QInterchange {
 		defaultCatalog("All-Products");
 	}
 
+	void Interchange::emitFlypage(QString const& response)
+	{
+		emit gotFlypage(response);
+	}
+
 	void Interchange::emitCatalog(QString const& response)
 	{
 		emit gotCatalog(response);
@@ -70,11 +76,6 @@ namespace QInterchange {
 	void Interchange::emitProduct(QString const& response)
 	{
 		emit gotProduct(response);
-	}
-
-	void Interchange::emitPage(QString const& response)
-	{
-		emit gotPage(response);
 	}
 
 	void Interchange::emitOrder(QString const& response)

@@ -31,6 +31,12 @@ namespace QInterchange {
 
 		public slots:
 			/*!
+			 * \brief Generic function for fetching data using
+			 * a relative path.
+			 * \param path The path.
+			 */
+			void flypage(QString const& path);
+			/*!
 			 * \brief For fetching products that belong a specific group.
 			 * \param prodGroup The name of the product group.
 			 */
@@ -44,11 +50,6 @@ namespace QInterchange {
 			 * \param sku The SKU of the item to order.
 			 */
 			void product(QString const& sku);
-			/*!
-			 * \brief For fetching data from a specific path.
-			 * \param path The path.
-			 */
-			void page(QString const& path);
 			/*!
 			 * \brief For fetching products that belong a specific group.
 			 * \param prodGroup The name of the product group.
@@ -65,15 +66,15 @@ namespace QInterchange {
 			void order(QString const& sku);
 
 		signals:
+			void gotFlypage(QString const& response);
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
-			void gotPage(QString const& response);
 			void gotOrder(QString const& response);
 
 		protected:
+			void emitFlypage(QString const& response);
 			void emitCatalog(QString const& response);
 			void emitProduct(QString const& response);
-			void emitPage(QString const& response);
 			void emitOrder(QString const& response);
 	};
 
