@@ -5,7 +5,7 @@
 namespace QInterchange {
 
 	static Member* member;
-	static char *unCopy, *pwCopy, *vCopy, *npCopy, *fpCopy;
+	static char *unCopy, *pwCopy, *vCopy, *npCopy, *spCopy, *fpCopy;
 	static interchange_member* mPtr;
 
 	Member::Member(interchange_member data, QObject* parent) :
@@ -98,7 +98,8 @@ namespace QInterchange {
 
 	void Member::newAccount(QString const& username,
 			QString const& password, QString const& verify,
-			QString const& nextPage, QString const& failPage)
+			QString const& nextPage, QString const& successPage,
+			QString const& failPage)
 	{
 		unCopy = (char*)malloc(username.size() + 1);
 		strcpy(unCopy, username.toLatin1().constData());
@@ -112,6 +113,12 @@ namespace QInterchange {
 			npCopy = (char*)malloc(nextPage.size() + 1);
 			strcpy(npCopy, nextPage.toLatin1().constData());
 		}
+		if (successPage.isEmpty())
+			spCopy = nullptr;
+		else {
+			spCopy = (char*)malloc(successPage.size() + 1);
+			strcpy(spCopy, successPage.toLatin1().constData());
+		}
 		if (failPage.isEmpty())
 			fpCopy = nullptr;
 		else {
@@ -119,11 +126,13 @@ namespace QInterchange {
 			strcpy(fpCopy, failPage.toLatin1().constData());
 		}
 		interchange_member_newaccount(unCopy, pwCopy, vCopy, npCopy,
-				fpCopy, [](interchange_response* response) {
+				spCopy, fpCopy,
+				[](interchange_response* response) {
 			free(unCopy);
 			free(pwCopy);
 			free(vCopy);
 			if (npCopy) free(npCopy);
+			if (spCopy) free(spCopy);
 			if (fpCopy) free(fpCopy);
 			member->emitCreation(QString{response->data});
 			interchange_free_response(response);
@@ -131,7 +140,8 @@ namespace QInterchange {
 	}
 
 	void Member::logIn(QString const& username, QString const& password,
-			QString const& nextPage, QString const& failPage)
+			QString const& nextPage, QString const& successPage,
+			QString const& failPage)
 	{
 		unCopy = (char*)malloc(username.size() + 1);
 		strcpy(unCopy, username.toLatin1().constData());
@@ -143,17 +153,24 @@ namespace QInterchange {
 			npCopy = (char*)malloc(nextPage.size() + 1);
 			strcpy(npCopy, nextPage.toLatin1().constData());
 		}
+		if (successPage.isEmpty())
+			spCopy = nullptr;
+		else {
+			spCopy = (char*)malloc(successPage.size() + 1);
+			strcpy(spCopy, successPage.toLatin1().constData());
+		}
 		if (failPage.isEmpty())
 			fpCopy = nullptr;
 		else {
 			fpCopy = (char*)malloc(failPage.size() + 1);
 			strcpy(fpCopy, failPage.toLatin1().constData());
 		}
-		interchange_member_login(unCopy, pwCopy, npCopy, fpCopy,
+		interchange_member_login(unCopy, pwCopy, npCopy, spCopy, fpCopy,
 				[](interchange_response* response) {
 			free(unCopy);
 			free(pwCopy);
 			if (npCopy) free(npCopy);
+			if (spCopy) free(spCopy);
 			if (fpCopy) free(fpCopy);
 			member->emitLogin(QString{response->data});
 			interchange_free_response(response);
