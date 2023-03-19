@@ -4,14 +4,16 @@
 namespace QInterchange {
 
 	static Interchange* interchange;
-	static int sampleUrlLength;
+	static int sampleUrlLength = 0;
 
 	Interchange::Interchange(const char* sampleURL, const char* image_Dir,
 			const QString& cookie, const QString& certificate)
 	{
 		interchange = this;
+#ifndef __EMSCRIPTEN__
 		auto length = strlen(sampleURL);
-		sampleUrlLength = length + (sampleURL[length - 1] == '/');
+		sampleUrlLength = length + (sampleURL[length - 1] != '/');
+#endif
 		interchange_init(sampleURL, image_Dir,
 				cookie.isEmpty() ? nullptr
 				: cookie.toLatin1().constData(),
@@ -29,7 +31,7 @@ namespace QInterchange {
 		interchange_page(path.toLatin1().constData(),
 				[](interchange_response* response) {
 			interchange->emitPage(QString{response->url}
-					.remove(0, sampleUrlLength + 1),
+					.remove(0, sampleUrlLength),
 					QString{response->data});
 			interchange_free_response(response);
 		});
