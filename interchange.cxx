@@ -29,8 +29,10 @@ namespace QInterchange {
 		interchange_page(path.toLatin1().constData(),
 				[](interchange_response* response) {
 			interchange->emitPage(QString{response->url}
-					.remove(0, sampleUrlLength + 1),
-					QString{response->data});
+#ifndef __EMSCRIPTEN__
+					.remove(0, sampleUrlLength + 1)
+#endif
+					, QString{response->data});
 			interchange_free_response(response);
 		});
 	}
