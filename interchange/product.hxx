@@ -19,7 +19,8 @@ namespace QInterchange {
 			CategoryRole,
 			WeightRole,
 			AuthorRole,
-			CrossSellRole
+			CrossSellRole,
+			ImageLargeRole
 		};
 
 		Product() {}
@@ -50,6 +51,8 @@ namespace QInterchange {
 				for (size_t i = 0; i < crosssell->length; i++)
 					crossSell << QString{crosssell->skus[i]};
 			}
+			if (product.image_large)
+				imageLarge = QString{product.image_large};
 		}
 
 		QString sku;
@@ -64,6 +67,7 @@ namespace QInterchange {
 		double weight;
 		QString author;
 		QStringList crossSell;
+		QString imageLarge;
 	};
 
 }

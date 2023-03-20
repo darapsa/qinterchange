@@ -46,6 +46,8 @@ namespace QInterchange {
 				return product.author;
 			case Product::CrossSellRole:
 				return product.crossSell;
+			case Product::ImageLargeRole:
+				return product.imageLarge;
 			default:
 				return QVariant();
 		}
@@ -65,7 +67,8 @@ namespace QInterchange {
 			{ Product::CategoryRole, "category" },
 			{ Product::WeightRole, "weight" },
 			{ Product::AuthorRole, "author" },
-			{ Product::CrossSellRole, "crossSell" }
+			{ Product::CrossSellRole, "crossSell" },
+			{ Product::ImageLargeRole, "imageLarge" }
 		};
 	}
 
