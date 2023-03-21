@@ -134,7 +134,7 @@ namespace QInterchange {
 			if (npCopy) free(npCopy);
 			if (spCopy) free(spCopy);
 			if (fpCopy) free(fpCopy);
-			member->emitCreation(QString{response->data});
+			member->emitNewAccount(QString{response->data});
 			interchange_free_response(response);
 		}, nullptr);
 	}
@@ -411,9 +411,9 @@ namespace QInterchange {
 		interchange_member_logout();
 	}
 
-	void Member::emitCreation(QString const& response)
+	void Member::emitNewAccount(QString const& response)
 	{
-		emit created(response);
+		emit setupNewAccount(response);
 	}
 
 	void Member::emitLogin(QString const& response)

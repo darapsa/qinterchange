@@ -104,7 +104,7 @@ namespace QInterchange {
 			void logOut();
 
 		signals:
-			void created(QString const& response);
+			void setupNewAccount(QString const& response);
 			void loggedIn(QString const& response);
 			void setAccount(QString const& response);
 			void gotAccount(QString const& response);
@@ -129,7 +129,7 @@ namespace QInterchange {
 			void emailChanged();
 
 		protected:
-			void emitCreation(QString const& response);
+			void emitNewAccount(QString const& response);
 			void emitLogin(QString const& response);
 			void emitSetAccount(QString const& response);
 			void emitAccount(QString const& response);
