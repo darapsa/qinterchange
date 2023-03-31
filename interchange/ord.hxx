@@ -11,13 +11,16 @@ namespace QInterchange {
 	struct Item
 	{
 		enum ItemRoles {
-			QuantityRole = Product::PriceRole + 1
+			QuantityRole = Product::PriceRole + 1,
+			NameRole
 		};
 		Item(interchange_ord_item item) :
 			product{item.product},
-			quantity{item.quantity} {}
+			quantity{item.quantity},
+			name{item.name} {}
 		Product product;
 		unsigned int quantity;
+		QString name;
 		bool operator==(Item const& item)
 		{
 			return product.sku == item.product.sku;
