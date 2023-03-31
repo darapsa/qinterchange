@@ -48,7 +48,8 @@ namespace QInterchange {
 			void setProfile(QString const& profile);
 		public slots:
 			void remove(const QString &name,
-					const QString &nextPage);
+					const QString &orderPage = "",
+					const QString &nextPage = "");
 			void checkout(const Member& member);
 		signals:
 			void rowCountChanged();
