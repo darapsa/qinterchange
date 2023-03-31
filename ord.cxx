@@ -6,6 +6,7 @@
 namespace QInterchange {
 
 	static Ord* ord;
+	static char *item_name, *next_page;
 	static char* order_profile;
 	static char *fname, *lname, *address1, *address2, *city, *state, *zip,
 		    *phone_day, *email;
@@ -88,6 +89,25 @@ namespace QInterchange {
 		if (this->profile != profile) this->profile = profile;
 	}
 
+	void Ord::remove(const QString &name, const QString &nextPage)
+	{
+		item_name = (char *)malloc(name.size() + 1);
+		strcpy(item_name, name.toLatin1().constData());
+		if (nextPage.isEmpty())
+			next_page = nullptr;
+		else {
+			next_page = (char *)malloc(nextPage.size() + 1);
+			strcpy(next_page, nextPage.toLatin1().constData());
+		}
+		interchange_ord_remove(item_name, next_page,
+				[](interchange_response *response) {
+			free(item_name);
+			if (next_page) free(next_page);
+			ord->emitRemoval(QString{response->data});
+			interchange_free_response(response);
+		});
+	}
+
 	void Ord::checkout(const Member& member)
 	{
 		order_profile = (char*)malloc(profile.size() + 1);
@@ -138,6 +158,11 @@ namespace QInterchange {
 			ord->emitTransaction(QString{response->data});
 			interchange_free_response(response);
 		});
+	}
+
+	void Ord::emitRemoval(const QString &response)
+	{
+		emit removed(response);
 	}
 
 	void Ord::emitTransaction(QString const& response)

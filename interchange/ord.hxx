@@ -47,17 +47,20 @@ namespace QInterchange {
 			double totalCost() const { return m_totalCost; }
 			void setProfile(QString const& profile);
 		public slots:
-//			void remove(unsigned int const& indices);
+			void remove(const QString &name,
+					const QString &nextPage);
 			void checkout(const Member& member);
 		signals:
 			void rowCountChanged();
 			void subtotalChanged();
 			void shippingChanged();
 			void totalCostChanged();
+			void removed(const QString &response);
 			void gotTransaction(QString const& response);
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
+			void emitRemoval(const QString &response);
 			void emitTransaction(QString const& response);
 
 		private:
