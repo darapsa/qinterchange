@@ -10,8 +10,6 @@ namespace QInterchange {
 	static char *fname, *lname, *address1, *address2, *city, *state, *zip,
 		    *phone_day, *email;
 
-	static interchange_member* mPtr;
-
 	Ord::Ord(struct interchange_ord_order order, QObject* parent) :
 		QAbstractListModel{parent}
 	{
