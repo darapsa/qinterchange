@@ -17,15 +17,11 @@ namespace QInterchange {
 		Q_PROPERTY(bool super READ super WRITE setSuper NOTIFY superChanged)
 
 		public:
-			explicit Admin(QObject* parent = nullptr) :
-				QObject{parent},
-				m_userName{""},
-				m_password{""},
-				m_name{""},
-				m_super{false},
-				m_data{nullptr}
-			{}
+			explicit Admin(QObject *parent = nullptr);
+			explicit Admin(struct interchange_admin admin,
+					QObject *parent = nullptr);
 			~Admin() {}
+
 			QString const& userName() const { return m_userName; }
 			QString const& password() const { return m_password; }
 			QString const& name() const { return m_name; }
@@ -49,18 +45,20 @@ namespace QInterchange {
 			void logOut();
 
 		signals:
+			void loggedIn(const QString &response);
 			void userNameChanged();
 			void passwordChanged();
 			void nameChanged();
 			void superChanged();
+
+		protected:
+			void emitLogin(const QString &response);
 
 		private:
 			QString m_userName;
 			QString m_password;
 			QString m_name;
 			bool m_super;
-			interchange_admin* m_data;
-			inline void setData(interchange_admin* data);
 	};
 
 }

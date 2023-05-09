@@ -4,34 +4,70 @@
 
 namespace QInterchange {
 
+	static Admin *admin;
 	static char *unCopy, *pwCopy, *npCopy, *spCopy, *fpCopy;
+
+	Admin::Admin(QObject *parent) :
+		QObject{parent},
+		m_userName{""},
+		m_password{""},
+		m_name{""},
+		m_super{false}
+	{
+		admin = this;
+	}
+
+	Admin::Admin(interchange_admin data, QObject *parent) :
+		QObject{parent}
+	{
+		admin = this;
+
+		if (data.username) m_userName = QString{data.username};
+		else setUserName("");
+
+		if (data.password) m_password = QString{data.password};
+		else setPassword("");
+
+		if (data.name) m_name = QString{data.name};
+		else setName("");
+
+		setSuper(data.super);
+	}
 
 	void Admin::logIn(QString const& username, QString const& password,
 			QString const& nextPage, QString const& successPage,
 			QString const& failPage)
 	{
-		auto unData = username.toLatin1().constData();
-		unCopy = (char*)malloc(strlen(unData) + 1);
-		strcpy(unCopy, unData);
-		auto pwData = password.toLatin1().constData();
-		pwCopy = (char*)malloc(strlen(pwData) + 1);
-		strcpy(pwCopy, pwData);
-		auto npData = nextPage.toLatin1().constData();
-		npCopy = (char*)malloc(strlen(npData) + 1);
-		strcpy(npCopy, npData);
-		auto spData = successPage.toLatin1().constData();
-		spCopy = (char*)malloc(strlen(spData) + 1);
-		strcpy(spCopy, spData);
-		auto fpData = failPage.toLatin1().constData();
-		fpCopy = (char*)malloc(strlen(fpData) + 1);
-		strcpy(fpCopy, fpData);
+		unCopy = (char *)malloc(username.size() + 1);
+		strcpy(unCopy, username.toLatin1().constData());
+		pwCopy = (char *)malloc(password.size() + 1);
+		strcpy(pwCopy, password.toLatin1().constData());
+		if (nextPage.isEmpty())
+			npCopy = nullptr;
+		else {
+			npCopy = (char *)malloc(nextPage.size() + 1);
+			strcpy(npCopy, nextPage.toLatin1().constData());
+		}
+		if (successPage.isEmpty())
+			spCopy = nullptr;
+		else {
+			spCopy = (char *)malloc(successPage.size() + 1);
+			strcpy(spCopy, successPage.toLatin1().constData());
+		}
+		if (failPage.isEmpty())
+			fpCopy = nullptr;
+		else {
+			fpCopy = (char *)malloc(failPage.size() + 1);
+			strcpy(fpCopy, failPage.toLatin1().constData());
+		}
 		interchange_admin_login(unCopy, pwCopy, npCopy, spCopy, fpCopy,
 				[](interchange_response* response) {
 			free(unCopy);
 			free(pwCopy);
-			free(npCopy);
-			free(spCopy);
-			free(fpCopy);
+			if (npCopy) free(npCopy);
+			if (spCopy) free(spCopy);
+			if (fpCopy) free(fpCopy);
+			admin->emitLogin(QString{response->data});
 			interchange_free_response(response);
 		}, nullptr);
 	}
@@ -65,29 +101,6 @@ namespace QInterchange {
 		}
 	}
 
-	void Admin::setData(interchange_admin* data)
-	{
-		if (data && data->username && m_userName != data->username) {
-			m_userName = QString{data->username};
-			emit userNameChanged();
-		} else setUserName("");
-
-		if (data && data->password && m_password != data->password) {
-			m_password = QString{data->password};
-			emit passwordChanged();
-		} else setPassword("");
-
-		if (data && data->name && m_name != data->name) {
-			m_name = QString{data->name};
-			emit nameChanged();
-		} else setName("");
-
-		if (data) setSuper(data->super);
-		else setSuper("");
-
-		if (m_data != data) m_data = data;
-	}
-
 	void Admin::newAdmin(QString const& userName, QString const& password, QString const& name, bool super,
 			enum interchange_admin_group group)
 	{
@@ -104,8 +117,11 @@ namespace QInterchange {
 
 	void Admin::logOut()
 	{
-		interchange_admin_logout(m_data, nullptr);
-		setData(nullptr);
+		interchange_admin_logout();
 	}
 
+	void Admin::emitLogin(const QString &response)
+	{
+		emit loggedIn(response);
+	}
 }
