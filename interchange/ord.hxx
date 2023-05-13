@@ -47,6 +47,10 @@ namespace QInterchange {
 			double totalCost() const { return m_totalCost; }
 			void setProfile(QString const& profile);
 		public slots:
+			void update(const QString &name,
+					const int quantity = 0,
+					const QString &orderPage = "",
+					const QString &nextPage = "");
 			void remove(const QString &name,
 					const QString &orderPage = "",
 					const QString &nextPage = "");
@@ -56,12 +60,12 @@ namespace QInterchange {
 			void subtotalChanged();
 			void shippingChanged();
 			void totalCostChanged();
-			void removed(const QString &response);
+			void updated(const QString &response);
 			void gotTransaction(QString const& response);
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
-			void emitRemoval(const QString &response);
+			void emitUpdate(const QString &response);
 			void emitTransaction(QString const& response);
 
 		private:

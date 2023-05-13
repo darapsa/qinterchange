@@ -89,8 +89,8 @@ namespace QInterchange {
 		if (this->profile != profile) this->profile = profile;
 	}
 
-	void Ord::remove(const QString &name, const QString &orderPage,
-			const QString &nextPage)
+	void Ord::update(const QString &name, const int quantity,
+			const QString &orderPage, const QString &nextPage)
 	{
 		item_name = (char *)malloc(name.size() + 1);
 		strcpy(item_name, name.toLatin1().constData());
@@ -106,14 +106,20 @@ namespace QInterchange {
 			next_page = (char *)malloc(nextPage.size() + 1);
 			strcpy(next_page, nextPage.toLatin1().constData());
 		}
-		interchange_ord_remove(item_name, order_page, next_page,
-				[](interchange_response *response) {
+		interchange_ord_update(item_name, quantity, order_page,
+				next_page, [](interchange_response *response) {
 			free(item_name);
 			if (order_page) free(order_page);
 			if (next_page) free(next_page);
-			ord->emitRemoval(QString{response->data});
+			ord->emitUpdate(QString{response->data});
 			interchange_free_response(response);
 		});
+	}
+
+	void Ord::remove(const QString &name, const QString &orderPage,
+			const QString &nextPage)
+	{
+		update(name, 0, orderPage, nextPage);
 	}
 
 	void Ord::checkout(const Member& member)
@@ -168,9 +174,9 @@ namespace QInterchange {
 		});
 	}
 
-	void Ord::emitRemoval(const QString &response)
+	void Ord::emitUpdate(const QString &response)
 	{
-		emit removed(response);
+		emit updated(response);
 	}
 
 	void Ord::emitTransaction(QString const& response)
