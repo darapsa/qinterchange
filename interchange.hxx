@@ -61,23 +61,27 @@ namespace QInterchange {
 			void defaultAllProducts();
 			/*!
 			 * \brief For putting an item to a cart.
-			 * \param sku The SKU of the item to order.
+			 * \param sku The product or variant SKU of the item.
+			 * \param item The product SKU of the item to order.
+			 * \param quantity The quantity of the item to order.
 			 */
-			void order(QString const& sku);
+			void order(const QString &sku,
+					const QString &item = "",
+					const int quantity = 1);
 
 		signals:
 			void gotPage(QString const& path,
 					QString const& response);
 			void gotCatalog(QString const& response);
 			void gotProduct(QString const& response);
-			void gotOrder(QString const& response);
+			void gotOrder(const QString &response);
 
 		protected:
 			void emitPage(QString const& path,
 					QString const& response);
 			void emitCatalog(QString const& response);
 			void emitProduct(QString const& response);
-			void emitOrder(QString const& response);
+			void emitOrder(const QString &response);
 	};
 
 }
