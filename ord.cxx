@@ -44,6 +44,8 @@ namespace QInterchange {
 				return item.product.image;
 			case Product::PriceRole:
 				return item.product.price;
+			case Product::OptionTypeRole:
+				return item.product.optionType;
 			case Item::QuantityRole:
 				return item.quantity;
 			case Item::NameRole:
@@ -61,6 +63,7 @@ namespace QInterchange {
 			{ Product::DescriptionRole, "description" },
 			{ Product::ImageRole, "image" },
 			{ Product::PriceRole, "price" },
+			{ Product::OptionTypeRole, "optionType" },
 			{ Item::QuantityRole, "quantity" },
 			{ Item::NameRole, "name" }
 		};
