@@ -42,6 +42,8 @@ namespace QInterchange {
 				return product.category;
 			case Product::WeightRole:
 				return product.weight;
+			case Product::OptionTypeRole:
+				return product.optionType;
 			case Product::AuthorRole:
 				return product.author;
 			case Product::CrossSellRole:
@@ -66,6 +68,7 @@ namespace QInterchange {
 			{ Product::ProdGroupRole, "prodGroup" },
 			{ Product::CategoryRole, "category" },
 			{ Product::WeightRole, "weight" },
+			{ Product::OptionTypeRole, "optionType" },
 			{ Product::AuthorRole, "author" },
 			{ Product::CrossSellRole, "crossSell" },
 			{ Product::ImageLargeRole, "imageLarge" }

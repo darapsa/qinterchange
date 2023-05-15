@@ -18,6 +18,7 @@ namespace QInterchange {
 			ProdGroupRole,
 			CategoryRole,
 			WeightRole,
+			OptionTypeRole,
 			AuthorRole,
 			CrossSellRole,
 			ImageLargeRole
@@ -44,6 +45,8 @@ namespace QInterchange {
 				prodGroup = QString{product.prod_group};
 			if (product.category)
 				category = QString{product.category};
+			if (product.option_type)
+				optionType = QString{product.option_type};
 			if (product.author)
 				author = QString{product.author};
 			if (product.crosssell) {
@@ -65,6 +68,7 @@ namespace QInterchange {
 		QString prodGroup;
 		QString category;
 		double weight;
+		QString optionType;
 		QString author;
 		QStringList crossSell;
 		QString imageLarge;
