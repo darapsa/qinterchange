@@ -64,10 +64,12 @@ namespace QInterchange {
 			 * \param sku The product or variant SKU of the item.
 			 * \param item The product SKU of the item to order.
 			 * \param quantity The quantity of the item to order.
+			 * \param opts Any additional pairs of custom options.
 			 */
 			void order(const QString &sku,
 					const QString &item = "",
-					const int quantity = 1);
+					const int quantity = 1,
+					const QVariant &options = {});
 
 		signals:
 			void gotPage(QString const& path,

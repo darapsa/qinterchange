@@ -4,8 +4,8 @@
 namespace QInterchange {
 
 	static Interchange* interchange;
-	static char *mv_sku = nullptr, *mv_order_item = nullptr;
 	static int sampleUrlLength = 0;
+	static char *mv_sku = nullptr, *mv_order_item = nullptr;
 
 	Interchange::Interchange(const char* sampleURL, const char* image_Dir,
 			const QString& cookie, const QString& certificate)
@@ -72,7 +72,7 @@ namespace QInterchange {
 	}
 
 	void Interchange::order(const QString &sku, const QString &item,
-			const int quantity)
+			const int quantity, const QVariant &options)
 	{
 		mv_sku = (char *)malloc(sku.size() + 1);
 		strcpy(mv_sku, sku.toLatin1().constData());
@@ -83,8 +83,19 @@ namespace QInterchange {
 			mv_order_item = (char *)malloc(item.size() + 1);
 			strcpy(mv_order_item, item.toLatin1().constData());
 		}
+		auto opts = options.toList();
+		auto size = opts.size();
+		const char *mv_order_s[size + 1][2];
+		for (int i = 0; i < size; i++) {
+			auto pair = opts.at(i).toList();
+			mv_order_s[i][0] = pair.at(0)
+				.toByteArray().constData();
+			mv_order_s[i][1] = pair.at(1)
+				.toByteArray().constData();
+		}
+		mv_order_s[size][0] = nullptr;
 		interchange_ord_order(mv_sku, mv_order_item, quantity,
-				[](interchange_response *response) {
+				mv_order_s, [](interchange_response *response) {
 			free(mv_sku);
 			mv_sku = nullptr;
 			free(mv_order_item);
