@@ -6,6 +6,7 @@ namespace QInterchange {
 	static Interchange* interchange;
 	static int sampleUrlLength = 0;
 	static char *mv_sku = nullptr, *mv_order_item = nullptr;
+	static QVector<const char *> pointers;
 
 	Interchange::Interchange(const char* sampleURL, const char* image_Dir,
 			const QString& cookie, const QString& certificate)
@@ -88,10 +89,16 @@ namespace QInterchange {
 		const char *mv_order_s[size + 1][2];
 		for (int i = 0; i < size; i++) {
 			auto pair = opts.at(i).toList();
-			mv_order_s[i][0] = pair.at(0)
-				.toByteArray().constData();
-			mv_order_s[i][1] = pair.at(1)
-				.toByteArray().constData();
+			auto key = pair.at(0).toByteArray();
+			mv_order_s[i][0] = (const char *)malloc(key.size() + 1);
+			strcpy(const_cast<char *>(mv_order_s[i][0]),
+					key.constData());
+			pointers.append(mv_order_s[i][0]);
+			auto val = pair.at(1).toByteArray();
+			mv_order_s[i][1] = (const char *)malloc(val.size() + 1);
+			strcpy(const_cast<char *>(mv_order_s[i][1]),
+					val.constData());
+			pointers.append(mv_order_s[i][1]);
 		}
 		mv_order_s[size][0] = nullptr;
 		interchange_ord_order(mv_sku, mv_order_item, quantity,
@@ -100,6 +107,7 @@ namespace QInterchange {
 			mv_sku = nullptr;
 			free(mv_order_item);
 			mv_order_item = nullptr;
+			for (auto pointer : pointers) free((void *)pointer);
 			interchange->emitOrder(QString{response->data});
 			interchange_free_response(response);
 		});
