@@ -108,6 +108,7 @@ namespace QInterchange {
 			free(mv_order_item);
 			mv_order_item = nullptr;
 			for (auto pointer : pointers) free((void *)pointer);
+			pointers.clear();
 			interchange->emitOrder(QString{response->data});
 			interchange_free_response(response);
 		});
