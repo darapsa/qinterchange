@@ -36,7 +36,7 @@ namespace QInterchange {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
-			explicit Ord(struct interchange_ord_order order,
+			explicit Ord(struct interchange_ord_order *order,
 					QObject* parent = nullptr);
 			~Ord() {}
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
