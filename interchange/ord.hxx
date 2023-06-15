@@ -15,7 +15,7 @@ namespace QInterchange {
 			NameRole
 		};
 		Item(interchange_ord_item item) :
-			product{item.product},
+			product{&item.product},
 			quantity{item.quantity},
 			name{item.name} {}
 		Product product;

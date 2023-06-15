@@ -7,7 +7,7 @@ namespace QInterchange {
 		QAbstractListModel{parent}
 	{
 		for (size_t i = 0; i < catalog.length; i++)
-			addProduct(Product{catalog.products[i]});
+			addProduct(Product{&catalog.products[i]});
 	}
 
 	int Catalog::rowCount(QModelIndex const& parent) const
