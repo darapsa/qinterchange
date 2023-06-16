@@ -16,7 +16,7 @@ namespace QInterchange {
 	{
 		ord = this;
 		for (size_t i = 0; i < order->nitems; i++)
-			addItem(Item{order->items[i]});
+			addItem(Item{&order->items[i]});
 		m_subtotal = order->subtotal;
 		m_shipping = order->shipping;
 		m_totalCost = order->total_cost;
@@ -35,17 +35,17 @@ namespace QInterchange {
 		auto item = items[row];
 		switch (role) {
 			case Product::SkuRole:
-				return item.product.sku;
+				return item.sku;
 			case Product::TitleRole:
-				return item.product.title;
+				return item.title;
 			case Product::DescriptionRole:
-				return item.product.description;
+				return item.description;
 			case Product::ImageRole:
-				return item.product.image;
+				return item.image;
 			case Product::PriceRole:
-				return item.product.price;
+				return item.price;
 			case Product::OptionTypeRole:
-				return item.product.optionType;
+				return item.optionType;
 			case Item::QuantityRole:
 				return item.quantity;
 			case Item::NameRole:
@@ -71,9 +71,10 @@ namespace QInterchange {
 
 	void Ord::addItem(Item const& item)
 	{
-		auto product = item.product;
-		auto iterator = std::find_if(items.begin(), items.end(), [&product](Item const& item) {
-			return product.sku == item.product.sku;
+		auto sku = item.sku;
+		auto iterator = std::find_if(items.begin(), items.end(),
+				[&sku](Item const& item) {
+			return sku == item.sku;
 		});
 		if (iterator != items.end()) {
 			auto index = items.indexOf(*iterator);

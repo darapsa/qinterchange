@@ -8,22 +8,23 @@
 
 namespace QInterchange {
 
-	struct Item
+	struct Item : public Product
 	{
 		enum ItemRoles {
 			QuantityRole = Product::PriceRole + 1,
 			NameRole
 		};
-		Item(interchange_ord_item item) :
-			product{&item.product},
-			quantity{item.quantity},
-			name{item.name} {}
-		Product product;
+		Item(interchange_ord_item *item) :
+			quantity{item->quantity},
+			name{item->name}
+		{
+			init((struct interchange_product *)item);
+		}
 		unsigned int quantity;
 		QString name;
 		bool operator==(Item const& item)
 		{
-			return product.sku == item.product.sku;
+			return sku == item.sku;
 		}
 	};
 

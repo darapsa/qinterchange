@@ -25,9 +25,12 @@ namespace QInterchange {
 		};
 
 		Product() {}
-		Product(struct interchange_product *product) :
-			price{product->price},
-			weight{product->weight}
+		Product(struct interchange_product *product)
+		{
+			init(product);
+		}
+
+		void init(struct interchange_product *product)
 		{
 			if (product->sku)
 				sku = QString{product->sku};
@@ -41,10 +44,12 @@ namespace QInterchange {
 				thumb = QString{product->thumb};
 			if (product->image)
 				image = QString{product->image};
+			price = product->price;
 			if (product->prod_group)
 				prodGroup = QString{product->prod_group};
 			if (product->category)
 				category = QString{product->category};
+			weight = product->weight;
 			if (product->option_type)
 				optionType = QString{product->option_type};
 			if (product->author)
