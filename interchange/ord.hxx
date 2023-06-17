@@ -11,7 +11,7 @@ namespace QInterchange {
 	struct Item : public Product
 	{
 		enum ItemRoles {
-			QuantityRole = Product::PriceRole + 1,
+			QuantityRole = Product::OptionTypeRole + 1,
 			NameRole
 		};
 		Item(interchange_ord_item *item) :
