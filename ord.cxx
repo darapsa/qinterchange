@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <memory>
 #include "interchange.hxx"
 #include "interchange/ord.hxx"
 
