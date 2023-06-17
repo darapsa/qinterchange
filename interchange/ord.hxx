@@ -14,12 +14,20 @@ namespace QInterchange {
 			QuantityRole = Product::OptionTypeRole + 1,
 			NameRole
 		};
-		Item(interchange_ord_item *item) :
-			quantity{item->quantity},
-			name{item->name}
+
+		Item() {}
+		Item(interchange_ord_item *item)
 		{
-			init((struct interchange_product *)item);
+			init(item);
 		}
+
+		void init(interchange_ord_item *item)
+		{
+			Product::init((struct interchange_product *)item);
+			quantity = item->quantity;
+			name = QString{item->name};
+		}
+
 		unsigned int quantity;
 		QString name;
 		bool operator==(Item const& item)
@@ -37,6 +45,7 @@ namespace QInterchange {
 		Q_PROPERTY(double totalCost READ totalCost NOTIFY totalCostChanged)
 
 		public:
+			Ord() {}
 			explicit Ord(struct interchange_ord_order *order,
 					QObject* parent = nullptr);
 			~Ord() {}
@@ -66,11 +75,13 @@ namespace QInterchange {
 
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
+			void init(struct interchange_ord_order *order);
+			void addItem(Item const &item);
+			const Item &itemAt(int row) const { return items[row]; }
 			void emitUpdate(const QString &response);
 			void emitTransaction(QString const& response);
 
 		private:
-			void addItem(Item const& item);
 			QList<Item> items;
 			QString profile;
 			double m_subtotal;
