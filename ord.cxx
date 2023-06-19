@@ -14,7 +14,7 @@ namespace QInterchange {
 	{
 		init(order);
 		for (size_t i = 0; i < order->nitems; i++)
-			addItem(new Item{&order->items[i]});
+			addItem(new Item{order->items[i]});
 	}
 
 	void Ord::init(struct interchange_ord_order *order)
