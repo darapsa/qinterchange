@@ -14,7 +14,7 @@ namespace QInterchange {
 	{
 		init(order);
 		for (size_t i = 0; i < order->nitems; i++)
-			addItem(Item{&order->items[i]});
+			addItem(new Item{&order->items[i]});
 	}
 
 	void Ord::init(struct interchange_ord_order *order)
@@ -35,24 +35,24 @@ namespace QInterchange {
 	{
 		auto row = index.row();
 		if (row < 0 || row >= items.count()) return QVariant();
-		auto item = items[row];
+		auto item = items.at(row);
 		switch (role) {
 			case Product::SkuRole:
-				return item.sku;
+				return item->sku;
 			case Product::TitleRole:
-				return item.title;
+				return item->title;
 			case Product::DescriptionRole:
-				return item.description;
+				return item->description;
 			case Product::ImageRole:
-				return item.image;
+				return item->image;
 			case Product::PriceRole:
-				return item.price;
+				return item->price;
 			case Product::OptionTypeRole:
-				return item.optionType;
+				return item->optionType;
 			case Item::QuantityRole:
-				return item.quantity;
+				return item->quantity;
 			case Item::NameRole:
-				return item.name;
+				return item->name;
 			default:
 				return QVariant();
 		}
@@ -72,18 +72,19 @@ namespace QInterchange {
 		};
 	}
 
-	void Ord::addItem(Item const& item)
+	void Ord::addItem(Item *item)
 	{
-		auto sku = item.sku;
+		auto sku = item->sku;
 		auto iterator = std::find_if(items.begin(), items.end(),
-				[&sku](Item const& item) {
-			return sku == item.sku;
+				[&sku](Item *item) {
+			return sku == item->sku;
 		});
 		if (iterator != items.end()) {
 			auto index = items.indexOf(*iterator);
 			beginRemoveRows(QModelIndex(), index, index);
 			items.removeAt(index);
 			endRemoveRows();
+			delete *iterator;
 		}
 		beginInsertRows(QModelIndex(), rowCount(), rowCount());
 		items << item;

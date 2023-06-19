@@ -48,7 +48,7 @@ namespace QInterchange {
 			Ord() {}
 			explicit Ord(struct interchange_ord_order *order,
 					QObject* parent = nullptr);
-			~Ord() {}
+			virtual ~Ord() { for (auto item : items) delete item; }
 			int rowCount(QModelIndex const& parent = QModelIndex()) const Q_DECL_OVERRIDE;
 			QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
 				Q_DECL_OVERRIDE;
@@ -76,13 +76,16 @@ namespace QInterchange {
 		protected:
 			QHash<int, QByteArray> roleNames() const Q_DECL_OVERRIDE;
 			void init(struct interchange_ord_order *order);
-			void addItem(Item const &item);
-			const Item &itemAt(int row) const { return items[row]; }
+			void addItem(Item *item);
+			const Item *itemAt(int row) const
+			{
+				return items.at(row);
+			}
 			void emitUpdate(const QString &response);
 			void emitTransaction(QString const& response);
 
 		private:
-			QList<Item> items;
+			QList<Item *> items;
 			QString profile;
 			double m_subtotal;
 			double m_shipping;
