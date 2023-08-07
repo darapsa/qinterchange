@@ -29,7 +29,7 @@ else()
 	add_library(q${PROJECT_NAME} SHARED ${SRCS})
 endif()
 target_link_libraries(q${PROJECT_NAME}
-	Qt5::Core
+	${Qt5Core_LIBRARIES}
 	interchange
 	)
 include(GNUInstallDirs)
